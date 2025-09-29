@@ -30,5 +30,6 @@ jobs:
       - name: Download official .deb
         run: |
           apt-get download signal-desktop=${{ env.VERSION }}
-          sudo find / -name *.deb 2>/dev/null
+          ls -lsah /
+          sudo find / -type f -name "*.deb" 2>/dev/null
           sha256sum /signal-desktop_${{ env.VERSION }}_amd64.deb
