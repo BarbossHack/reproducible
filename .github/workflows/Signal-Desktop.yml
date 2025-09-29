@@ -16,9 +16,6 @@ jobs:
           ./build.sh public
           ls -lsah ../release/
           sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Signal-Desktop/release/signal-desktop_${{ env.VERSION }}_amd64.deb
 
   check:
     runs-on: ubuntu-latest
