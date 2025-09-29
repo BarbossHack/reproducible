@@ -2,15 +2,35 @@ name: Signal-Desktop
 
 on: [push]
 
+env:
+  VERSION: 7.72.1
+
 jobs:
-  dockerfile:
+  build:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          git clone https://github.com/signalapp/Signal-Desktop -b v7.72.1 --depth 1
+          git clone https://github.com/signalapp/Signal-Desktop -b v${{ env.VERSION }} --depth 1
           cd Signal-Desktop/reproducible-builds
           chmod +x build.sh
           ./build.sh public
           ls -lsah ../release/
-      - run: |
-          apt download signal-desktop=5.11.0
+          sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Signal-Desktop/release/signal-desktop_${{ env.VERSION }}_amd64.deb
+
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Signal repos
+        run: |
+          wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg;
+          cat signal-desktop-keyring.gpg | tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+          wget -O signal-desktop.sources https://updates.signal.org/static/desktop/apt/signal-desktop.sources;
+          cat signal-desktop.sources | tee /etc/apt/sources.list.d/signal-desktop.sources > /dev/null
+          apt-get update
+      - name: Download official .deb
+        run: |
+          apt-get download signal-desktop=${{ env.VERSION }}
+          sha256sum /signal-desktop_${{ env.VERSION }}_amd64.deb
