@@ -14,8 +14,8 @@ jobs:
           git clone https://github.com/signalapp/Signal-Desktop -b v${{ env.VERSION }} --depth 1
           cd Signal-Desktop/reproducible-builds
           chmod +x build.sh
-          ./build.sh public    
-          echo "BUILD_HASH=$(sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_ENV
+          ./build.sh public
+          echo "BUILD_HASH=$(sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
 
   official:
     runs-on: ubuntu-latest
@@ -30,7 +30,7 @@ jobs:
       - name: Download official .deb
         run: |
           apt-get download signal-desktop=${{ env.VERSION }}
-          echo "OFFICIAL_HASH=$(sha256sum signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_ENV
+          echo "OFFICIAL_HASH=$(sha256sum signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
 
   check:
     runs-on: ubuntu-latest
@@ -38,9 +38,15 @@ jobs:
     steps:
       - name: Check hashes
         run: |
-          echo "Build hash: ${{ env.BUILD_HASH }}"
-          echo "Official hash: ${{ env.OFFICIAL_HASH }}"
-          if [ "${{ env.BUILD_HASH }}" = "${{ env.OFFICIAL_HASH }}" ]; then
+          BUILD_HASH=${{ needs.build.outputs.BUILD_HASH }}
+          OFFICIAL_HASH=${{ needs.official.outputs.OFFICIAL_HASH }}
+          echo "Build hash: $BUILD_HASH"
+          echo "Official hash: $OFFICIAL_HASH"
+          if [ -z "$BUILD_HASH" ] || [ -z "$OFFICIAL_HASH" ]; then
+            echo "One of the hashes is empty!"
+            exit 1
+          fi
+          if [ "$BUILD_HASH" = "$OFFICIAL_HASH" ]; then
             echo "Hashes match!"
           else
             echo "Hashes do not match!"
