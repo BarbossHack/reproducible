@@ -38,9 +38,9 @@ jobs:
     steps:
       - name: Check hashes
         run: |
-          echo "Build hash: $BUILD_HASH"
-          echo "Official hash: $OFFICIAL_HASH"
-          if [ "$BUILD_HASH" = "$OFFICIAL_HASH" ]; then
+          echo "Build hash: ${{ env.BUILD_HASH }}"
+          echo "Official hash: ${{ env.OFFICIAL_HASH }}"
+          if [ "${{ env.BUILD_HASH }}" = "${{ env.OFFICIAL_HASH }}" ]; then
             echo "Hashes match!"
           else
             echo "Hashes do not match!"
