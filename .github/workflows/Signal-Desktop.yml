@@ -6,21 +6,22 @@ env:
   VERSION: 7.72.1
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Build
-  #       run: |
-  #         git clone https://github.com/signalapp/Signal-Desktop -b v${{ env.VERSION }} --depth 1
-  #         cd Signal-Desktop/reproducible-builds
-  #         chmod +x build.sh
-  #         ./build.sh public
-  #         echo "BUILD_HASH=$(sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        id: hash
+        run: |
+          git clone https://github.com/signalapp/Signal-Desktop -b v${{ env.VERSION }} --depth 1
+          cd Signal-Desktop/reproducible-builds
+          chmod +x build.sh
+          ./build.sh public
+          echo "HASH=$(sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
+    outputs:
+      HASH: ${{ steps.hash.outputs.HASH }}
 
   official:
     runs-on: ubuntu-latest
-    outputs:
-      HASH: ${{ steps.hash.outputs.HASH }}
     steps:
       - name: Install Signal repos
         run: |
@@ -34,15 +35,16 @@ jobs:
         run: |
           apt-get download signal-desktop=${{ env.VERSION }}
           echo "HASH=$(sha256sum signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
+    outputs:
+      HASH: ${{ steps.hash.outputs.HASH }}
 
   check:
     runs-on: ubuntu-latest
-    needs: [official]
+    needs: [build, official]
     steps:
       - name: Check hashes
         run: |
-          echo ${{ needs.official.outputs.HASH }}
-          BUILD_HASH=${{ needs.build.outputs.BUILD_HASH }}
+          BUILD_HASH=${{ needs.build.outputs.HASH }}
           OFFICIAL_HASH=${{ needs.official.outputs.HASH }}
           echo "Build hash: $BUILD_HASH"
           echo "Official hash: $OFFICIAL_HASH"
