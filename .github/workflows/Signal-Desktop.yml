@@ -30,11 +30,4 @@ jobs:
       - name: Download official .deb
         run: |
           apt-get download signal-desktop=${{ env.VERSION }}
-          id
-          echo ------------------------------------------------------
-          ls -lsah /
-          echo ------------------------------------------------------
-          echo ------------------------------------------------------
-          ls -lsah
-          echo ------------------------------------------------------
-          ls -lsah /home
+          sha256sum signal-desktop_${{ env.VERSION }}_amd64.deb
