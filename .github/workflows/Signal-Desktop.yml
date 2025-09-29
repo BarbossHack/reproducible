@@ -6,16 +6,16 @@ env:
   VERSION: 7.72.1
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          git clone https://github.com/signalapp/Signal-Desktop -b v${{ env.VERSION }} --depth 1
-          cd Signal-Desktop/reproducible-builds
-          chmod +x build.sh
-          ./build.sh public
-          ls -lsah ../release/
-          sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: |
+  #         git clone https://github.com/signalapp/Signal-Desktop -b v${{ env.VERSION }} --depth 1
+  #         cd Signal-Desktop/reproducible-builds
+  #         chmod +x build.sh
+  #         ./build.sh public
+  #         ls -lsah ../release/
+  #         sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb
 
   check:
     runs-on: ubuntu-latest
@@ -23,10 +23,10 @@ jobs:
       - name: Install Signal repos
         run: |
           wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg;
-          cat signal-desktop-keyring.gpg | tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+          cat signal-desktop-keyring.gpg | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
           wget -O signal-desktop.sources https://updates.signal.org/static/desktop/apt/signal-desktop.sources;
-          cat signal-desktop.sources | tee /etc/apt/sources.list.d/signal-desktop.sources > /dev/null
-          apt-get update
+          cat signal-desktop.sources | sudo tee /etc/apt/sources.list.d/signal-desktop.sources > /dev/null
+          sudo apt-get update
       - name: Download official .deb
         run: |
           apt-get download signal-desktop=${{ env.VERSION }}
