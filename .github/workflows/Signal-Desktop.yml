@@ -19,6 +19,8 @@ jobs:
 
   official:
     runs-on: ubuntu-latest
+    outputs:
+      HASH: ${{ steps.hash.outputs.HASH }}
     steps:
       - name: Install Signal repos
         run: |
@@ -28,10 +30,10 @@ jobs:
           cat signal-desktop.sources | sudo tee /etc/apt/sources.list.d/signal-desktop.sources > /dev/null
           sudo apt-get update
       - name: Download official .deb
+        id: hash
         run: |
           apt-get download signal-desktop=${{ env.VERSION }}
-          echo "yoyo=okok" >> $GITHUB_OUTPUT
-          echo "OFFICIAL_HASH=$(sha256sum signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
+          echo "HASH=$(sha256sum signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
 
   check:
     runs-on: ubuntu-latest
@@ -39,11 +41,9 @@ jobs:
     steps:
       - name: Check hashes
         run: |
-          echo ${{ needs.official.outputs }}
-          echo ${{ needs.official.outputs.yoyo }}
-          echo ${{ needs.official.outputs.OFFICIAL_HASH }}
+          echo ${{ needs.official.outputs.HASH }}
           BUILD_HASH=${{ needs.build.outputs.BUILD_HASH }}
-          OFFICIAL_HASH=${{ needs.official.outputs.OFFICIAL_HASH }}
+          OFFICIAL_HASH=${{ needs.official.outputs.HASH }}
           echo "Build hash: $BUILD_HASH"
           echo "Official hash: $OFFICIAL_HASH"
           if [ -z "$BUILD_HASH" ] || [ -z "$OFFICIAL_HASH" ]; then
