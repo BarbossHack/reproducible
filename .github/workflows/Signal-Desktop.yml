@@ -1,0 +1,16 @@
+name: Signal-Desktop
+
+on: [push]
+
+jobs:
+  dockerfile:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          git clone https://github.com/signalapp/Signal-Desktop -b v7.72.1 --depth 1
+          cd Signal-Desktop/reproducible-builds
+          chmod +x build.sh
+          ./build.sh public
+          ls -lsah ../release/
+      - run: |
+          apt download signal-desktop=5.11.0
