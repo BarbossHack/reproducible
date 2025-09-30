@@ -3,7 +3,7 @@ name: Signal-Desktop
 on: [push]
 
 env:
-  VERSION: 7.60.0
+  VERSION: 7.61.0
 
 jobs:
   build:
