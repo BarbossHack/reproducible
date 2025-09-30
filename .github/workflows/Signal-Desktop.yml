@@ -3,11 +3,11 @@ name: Signal-Desktop
 on: [push]
 
 env:
-  VERSION: 7.65.0
+  VERSION: 7.72.1
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: debian-latest
     steps:
       - name: Build
         id: hash
@@ -21,7 +21,7 @@ jobs:
       HASH: ${{ steps.hash.outputs.HASH }}
 
   official:
-    runs-on: ubuntu-latest
+    runs-on: debian-latest
     steps:
       - name: Install Signal repos
         run: |
@@ -39,7 +39,7 @@ jobs:
       HASH: ${{ steps.hash.outputs.HASH }}
 
   check:
-    runs-on: ubuntu-latest
+    runs-on: debian-latest
     needs: [build, official]
     steps:
       - name: Check hashes
