@@ -7,7 +7,7 @@ env:
 
 jobs:
   build:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Build
         id: hash
@@ -21,7 +21,7 @@ jobs:
       HASH: ${{ steps.hash.outputs.HASH }}
 
   official:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Install Signal repos
         run: |
@@ -39,7 +39,7 @@ jobs:
       HASH: ${{ steps.hash.outputs.HASH }}
 
   check:
-    runs-on: debian-latest
+    runs-on: ubuntu-latest
     needs: [build, official]
     steps:
       - name: Check hashes
