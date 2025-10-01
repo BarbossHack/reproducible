@@ -3,8 +3,8 @@
 | Version | Release Date | Reproducible? | Notes |
 |---------|--------------|---------------|-------|
 | v7.72.1 | 2025-09-25   | ❌ No         | Differences in `stylesheets/tailwind.css` (located in `opt/Signal/resources/app.asar` in the .deb package) |
-| v7.72.0 | 2025-09-25   | ❌ No         | ? |
-| v7.71.0 | 2025-09-18   | ❌ No         | ? |
+| v7.72.0 | 2025-09-25   | ❌ No         | Differences in `stylesheets/tailwind.css` (located in `opt/Signal/resources/app.asar` in the .deb package) |
+| v7.71.0 | 2025-09-18   | ❌ No         | Differences in `stylesheets/tailwind.css` (located in `opt/Signal/resources/app.asar` in the .deb package) |
 | v7.70.0 | 2025-09-11   | ❌ No         | ? |
 | v7.69.0 | 2025-09-04   | ❌ No         | ? |
 | v7.68.0 | 2025-08-27   | ❌ No         | ? |
