@@ -20,7 +20,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: deb
+          name: signal-desktop_${{ env.VERSION }}_build
           path: ../release/signal-desktop_${{ env.VERSION }}_amd64.deb
     outputs:
       HASH: ${{ steps.hash.outputs.HASH }}
@@ -43,7 +43,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: deb
+          name: signal-desktop_${{ env.VERSION }}_official
           path: signal-desktop_${{ env.VERSION }}_amd64.deb
     outputs:
       HASH: ${{ steps.hash.outputs.HASH }}
@@ -52,8 +52,17 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, official]
     steps:
+      - name: Download official artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: signal-desktop_${{ env.VERSION }}_official
+      - name: Download build artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: signal-desktop_${{ env.VERSION }}_build
       - name: Check hashes
         run: |
+          ls -lsah
           BUILD_HASH=${{ needs.build.outputs.HASH }}
           OFFICIAL_HASH=${{ needs.official.outputs.HASH }}
           echo "Build hash: $BUILD_HASH"
