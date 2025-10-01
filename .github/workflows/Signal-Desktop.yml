@@ -56,13 +56,16 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: signal-desktop_${{ env.VERSION }}_official
+          path: official
       - name: Download build artifact
         uses: actions/download-artifact@v5
         with:
           name: signal-desktop_${{ env.VERSION }}_build
+          path: build
       - name: Check hashes
         run: |
           ls -lsah
+          ls -lsah official build
           BUILD_HASH=${{ needs.build.outputs.HASH }}
           OFFICIAL_HASH=${{ needs.official.outputs.HASH }}
           echo "Build hash: $BUILD_HASH"
