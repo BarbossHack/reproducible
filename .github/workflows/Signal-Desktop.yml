@@ -52,20 +52,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, official]
     steps:
-      - name: Download official artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: signal-desktop_${{ env.VERSION }}_official
-          path: official
-      - name: Download build artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: signal-desktop_${{ env.VERSION }}_build
-          path: build
       - name: Check hashes
         run: |
-          ls -lsah
-          ls -lsah official build
           BUILD_HASH=${{ needs.build.outputs.HASH }}
           OFFICIAL_HASH=${{ needs.official.outputs.HASH }}
           echo "Build hash: $BUILD_HASH"
@@ -80,3 +68,46 @@ jobs:
             echo "Hashes do not match!"
             exit 1
           fi
+
+  diff:
+    needs: check
+    if: ${{ needs.check.result == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download official artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: signal-desktop_${{ env.VERSION }}_official
+          path: official
+      - name: Download build artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: signal-desktop_${{ env.VERSION }}_build
+          path: build
+      - name: Prepare for diff
+        run: |
+          sudo npm install -g asar
+
+          dpkg-deb -x official/signal-desktop_${{ env.VERSION }}_amd64.deb official_deb
+          dpkg-deb -x build/signal-desktop_${{ env.VERSION }}_amd64.deb build_deb
+
+          dpkg-deb --contents official/signal-desktop_${{ env.VERSION }}_amd64.deb > official_deb_contents.txt
+          dpkg-deb --contents build/signal-desktop_${{ env.VERSION }}_amd64.deb > build_deb_contents.txt
+
+          asar extract official_deb/opt/Signal/resources/app.asar offical_asar
+          asar extract build_deb/opt/Signal/resources/app.asar build_asar
+      - name: Diff recursive deb files
+        run: |
+          diff -rq official_deb build_deb || true
+      - name: Diff recursive deb files content
+        run: |
+          diff -r -y --suppress-common-lines --color=always official_deb build_deb || true
+      - name: Diff dpkg-content files listing
+        run: |
+          diff -rq official_deb_contents.txt build_deb_contents.txt || true
+      - name: Diff recursive asar files
+        run: |
+          diff -rq offical_asar build_asar || true
+      - name: Diff recursive asar files content
+        run: |
+          diff -r -y --suppress-common-lines --color=always offical_asar build_asar || true
