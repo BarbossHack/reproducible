@@ -71,7 +71,7 @@ jobs:
 
   diff:
     needs: check
-    if: ${{ needs.check.result == 'failure' }}
+    if: ${{ always() && needs.check.result == 'failure' }}
     runs-on: ubuntu-latest
     steps:
       - name: Download official artifact
