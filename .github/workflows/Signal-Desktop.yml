@@ -3,7 +3,7 @@ name: Signal-Desktop
 on: [push]
 
 env:
-  VERSION: 7.72.1
+  VERSION: 7.72.0
 
 jobs:
   build:
@@ -104,7 +104,7 @@ jobs:
           diff -r -y --suppress-common-lines --color=always official_deb build_deb || true
       - name: Diff dpkg-content files listing
         run: |
-          diff -rq official_deb_contents.txt build_deb_contents.txt || true
+          diff official_deb_contents.txt build_deb_contents.txt || true
       - name: Diff recursive asar files
         run: |
           diff -rq offical_asar build_asar || true
