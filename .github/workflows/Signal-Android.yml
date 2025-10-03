@@ -3,7 +3,7 @@ name: Signal-Android
 on:
   push:
     paths:
-      - ".github/workflows/Signal-Desktop.yml"
+      - ".github/workflows/Signal-Android.yml"
 
 env:
   VERSION: 7.57.2
