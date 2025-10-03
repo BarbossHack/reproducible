@@ -1,6 +1,9 @@
 name: Signal-Desktop
 
-on: [push]
+on:
+  push:
+    paths:
+      - ".github/workflows/Signal-Desktop.yml"
 
 env:
   VERSION: 7.73.0
