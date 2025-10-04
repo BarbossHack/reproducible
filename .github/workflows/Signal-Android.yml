@@ -18,9 +18,6 @@ jobs:
           cd Signal-Android/reproducible-builds
           docker build -t signal-android .
           cd ..
-          docker run --rm -v "$(pwd)":/project -w /project signal-android ./gradlew --version
-          echo okok
-          exit 1
           docker run --memory=6g --rm -v "$(pwd)":/project -w /project --user "$(id -u):$(id -g)" signal-android ./gradlew --no-daemon --max-workers=2 --stacktrace -Dorg.gradle.jvmargs="-Xmx3g" assembleWebsiteProdRelease
       - name: Official
         run: |
