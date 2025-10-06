@@ -2,7 +2,7 @@
 
 | Version | Release Date | Reproducible? | Notes |
 |---------|--------------|---------------|-------|
-| v7.73.0 | 2025-10-02   | ✅ Yes        | - |
+| v7.73.0 | 2025-10-02   | ✅ Yes        | Fixed in [#7508](https://github.com/signalapp/Signal-Desktop/issues/7508) |
 | v7.72.1 | 2025-09-25   | ❌ No         | Differences in `stylesheets/tailwind.css` v4.1.7 (located in `opt/Signal/resources/app.asar` in the .deb package) |
 | v7.72.0 | 2025-09-25   | ❌ No         | Differences in `stylesheets/tailwind.css` v4.1.7 (located in `opt/Signal/resources/app.asar` in the .deb package) |
 | v7.71.0 | 2025-09-18   | ❌ No         | Differences in `stylesheets/tailwind.css` v4.1.7 (located in `opt/Signal/resources/app.asar` in the .deb package) |
