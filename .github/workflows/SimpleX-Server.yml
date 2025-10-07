@@ -17,3 +17,12 @@ jobs:
           curl -LO 'https://raw.githubusercontent.com/simplex-chat/simplexmq/refs/heads/master/scripts/simplexmq-reproduce-builds.sh'
           chmod +x simplexmq-reproduce-builds.sh
           ./simplexmq-reproduce-builds.sh "v${{ env.VERSION }}"
+          ls -Rlsah
+      - name: Check
+        run: |
+          if [ -f "v${{ env.VERSION }}-simplexmq/_sha256sums" ]; then
+            exit 0
+          else
+            echo "Not reproducible"
+            exit 1
+          fi
