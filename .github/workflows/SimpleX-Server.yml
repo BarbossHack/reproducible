@@ -1,0 +1,19 @@
+name: SimpleX-Server
+
+on:
+  push:
+    paths:
+      - ".github/workflows/SimpleX-Server.yml"
+
+env:
+  VERSION: 6.4.5
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: |
+          curl -LO 'https://raw.githubusercontent.com/simplex-chat/simplexmq/refs/heads/master/scripts/simplexmq-reproduce-builds.sh'
+          chmod +x simplexmq-reproduce-builds.sh
+          ./simplexmq-reproduce-builds.sh "v${{ env.VERSION }}"
