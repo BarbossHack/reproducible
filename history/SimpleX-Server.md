@@ -1,5 +1,7 @@
 # SimpleX Server - Build History
 
+Reproducible build instructions: <https://github.com/simplex-chat/simplex-chat/blob/stable/docs/SERVER.md#reproduce-builds>
+
 | Version | Release Date | Reproducible? | Notes |
 |---------|--------------|---------------|-------|
 | v6.4.5  | 2025-10-03   | ❌ No         | ntf, smp, and xftp differ |

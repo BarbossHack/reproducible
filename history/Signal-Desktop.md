@@ -1,5 +1,7 @@
 # Signal Desktop - Build History
 
+Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/blob/main/reproducible-builds/README.md>
+
 | Version | Release Date | Reproducible? | Notes |
 |---------|--------------|---------------|-------|
 | v7.75.1 | 2025-10-16   | ✅ Yes        | - |
@@ -27,6 +29,6 @@
 | v7.56.0 | 2025-05-28   | ✅ Yes        | - |
 | v7.55.0 | 2025-05-21   | ✅ Yes        | - |
 | v7.54.0 | 2025-05-13   | ✅ Yes        | - |
-| v7.53.0 | 2025-04-30   | ❌ No         | Package no longer available in Signal's official repositories (2025-10-02) |
+| v7.53.0 | 2025-04-30   | ❌ No         | Package no longer available in Signal's official repositories (as of 2025-10-02) |
 | v7.52.0 | 2025-04-23   | ✅ Yes        | - |
 | v7.51.0 | 2025-04-17   | ✅ Yes        | - |
