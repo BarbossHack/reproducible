@@ -2,6 +2,7 @@
 
 | Version | Release Date | Reproducible? | Notes |
 |---------|--------------|---------------|-------|
+| v7.75.1 | 2025-10-16   | ✅ Yes        | - |
 | v7.75.0 | 2025-10-15   | ✅ Yes        | - |
 | v7.74.0 | 2025-10-09   | ✅ Yes        | - |
 | v7.73.0 | 2025-10-02   | ✅ Yes        | Fixed in [#7508](https://github.com/signalapp/Signal-Desktop/issues/7508) |
