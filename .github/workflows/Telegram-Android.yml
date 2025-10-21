@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Download
         run: |
-          curl "${{ env.OFFICIAL_APK }}" -o Telegram.apk
+          curl -L "${{ env.OFFICIAL_APK }}" -o Telegram.apk
           echo "$OFFICIAL_SHA256  Telegram.apk" | sha256sum -c -
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
