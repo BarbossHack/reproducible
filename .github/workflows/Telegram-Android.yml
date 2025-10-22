@@ -40,7 +40,7 @@ jobs:
       - name: Build
         run: |
           cd Telegram
-          docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build
+          docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle :TMessagesProj_AppStandalone:assembleAfatStandalone
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -61,6 +61,10 @@ jobs:
         with:
           name: Telegram-${{ env.COMMIT }}.apk
           path: Telegram-${{ env.COMMIT }}.apk
-      - name: ls
+      - name: apkdiff
         run: |
-          ls -Rlsah .
+          ls -Rlsah
+          git clone https://github.com/DrKLO/Telegram
+          cd Telegram
+          git checkout ${{ env.COMMIT }}
+          python apkdiff.py ../Telegram.apk../Telegram-${{ env.COMMIT }}.apk
