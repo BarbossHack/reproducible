@@ -64,4 +64,6 @@ jobs:
       - name: apkdiff
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
-          python apkdiff.py ./official/Telegram.apk ./build/app.apk
+          output=$(python apkdiff.py ./official/Telegram.apk ./build/app.apk)
+          echo "$output"
+          echo "$output" | grep -F "APKs are the same"
