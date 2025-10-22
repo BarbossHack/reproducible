@@ -55,16 +55,13 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: Telegram.apk
-          path: Telegram.apk
+          path: official
       - name: Download artifact
         uses: actions/download-artifact@v5
         with:
           name: Telegram-${{ env.COMMIT }}.apk
-          path: Telegram-${{ env.COMMIT }}.apk
+          path: build
       - name: apkdiff
         run: |
-          ls -Rlsah
-          git clone https://github.com/DrKLO/Telegram
-          cd Telegram
-          git checkout ${{ env.COMMIT }}
-          python apkdiff.py ../Telegram.apk../Telegram-${{ env.COMMIT }}.apk
+          curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
+          python apkdiff.py ./official/Telegram.apk ./build/app.apk
