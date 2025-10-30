@@ -26,6 +26,8 @@ jobs:
           build_sa || build_sa
       - name: Apkdiff
         run: |
+          pip install uv
+          uv self update
           pushd Signal-Android/reproducible-builds/apkdiff
           uv sync
           popd
