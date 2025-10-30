@@ -27,7 +27,6 @@ jobs:
       - name: Apkdiff
         run: |
           pip install uv
-          pushd Signal-Android/reproducible-builds/apkdiff
+          cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          popd
-          uv run Signal-Android/reproducible-builds/apkdiff/apkdiff.py Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk
+          uv run apkdiff.py ../../Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk ../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk
