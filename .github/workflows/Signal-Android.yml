@@ -26,5 +26,7 @@ jobs:
           build_sa || build_sa
       - name: Apkdiff
         run: |
-          chmod +x Signal-Android/reproducible-builds/apkdiff/apkdiff.py
-          Signal-Android/reproducible-builds/apkdiff/apkdiff.py Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk
+          pushd Signal-Android/reproducible-builds/apkdiff
+          uv sync
+          popd
+          uv run Signal-Android/reproducible-builds/apkdiff/apkdiff.py Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk
