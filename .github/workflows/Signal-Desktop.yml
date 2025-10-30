@@ -6,7 +6,7 @@ on:
       - ".github/workflows/Signal-Desktop.yml"
 
 env:
-  VERSION: 7.77.0
+  VERSION: 7.77.1
 
 jobs:
   official:
