@@ -4,6 +4,7 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/bl
 
 | Version | Release Date | Reproducible? | Notes |
 |---------|--------------|---------------|-------|
+| v7.77.1 | 2025-10-30   | ✅ Yes        | - |
 | v7.77.0 | 2025-10-30   | ✅ Yes        | - |
 | v7.76.0 | 2025-10-23   | ✅ Yes        | - |
 | v7.75.1 | 2025-10-16   | ✅ Yes        | - |
