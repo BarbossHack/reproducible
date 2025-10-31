@@ -18,8 +18,8 @@ jobs:
       - name: Build
         run: |
           git clone https://github.com/mollyim/mollyim-android.git -b v${{ env.VERSION }} --depth 1
-          cd Smollyim-android/reproducible-builds
+          cd mollyim-android/reproducible-builds
           docker compose up --build
       - name: Apkdiff
         run: |
-          python Smollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ env.VERSION }}.apk outputs/apk/prodGmsWebsite/release/Molly-unsigned-v${{ env.VERSION }}.apk
+          python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ env.VERSION }}.apk outputs/apk/prodGmsWebsite/release/Molly-unsigned-v${{ env.VERSION }}.apk
