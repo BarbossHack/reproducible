@@ -1,0 +1,25 @@
+name: Molly-Android
+
+on:
+  push:
+    paths:
+      - ".github/workflows/Molly-Android.yml"
+
+env:
+  VERSION: 7.61.3-1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Official
+        run: |
+          wget https://github.com/mollyim/mollyim-android/releases/download/v${{ env.VERSION }}/Molly-v${{ env.VERSION }}.apk
+      - name: Build
+        run: |
+          git clone https://github.com/mollyim/mollyim-android.git -b v${{ env.VERSION }} --depth 1
+          cd Smollyim-android/reproducible-builds
+          docker compose up --build
+      - name: Apkdiff
+        run: |
+          python Smollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ env.VERSION }}.apk outputs/apk/prodGmsWebsite/release/Molly-unsigned-v${{ env.VERSION }}.apk
