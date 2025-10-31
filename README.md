@@ -5,7 +5,12 @@ Each dedicated page contains the full version history and verification results.
 
 | Software        | Latest tested version | Reproducible?  | History |
 |-----------------|-----------------------|----------------|---------|
-| Molly (Signal)  | 7.61.3-1              | 🟡 In progress | [See details](history/Molly-Android.md) |
+| Briar Android   | v1.5.14               | 🟡 In progress | - |
+| Briar Desktop   | v0.6.4                | ⚫ N/A         | - |
+| ElementX Android| v25.10.1              | ⚫ N/A         | - |
+| Molly (Signal)  | v7.61.3-1             | 🟡 In progress | [See details](history/Molly-Android.md) |
+| Olvid Android   | v4.0.1                | ⚫ N/A         | - |
+| Olvid Desktop   | v2.6.1                | ⚫ N/A         | - |
 | Session Android | v1.28.2               | ⚫ N/A         | - |
 | Session Desktop | v1.17.1               | ⚫ N/A         | - |
 | Signal Android  | v7.62.3               | ✅ Yes         | [See details](history/Signal-Android.md) |
@@ -15,6 +20,11 @@ Each dedicated page contains the full version history and verification results.
 | SimpleX Server  | v6.4.5                | ❌ No          | [See details](history/SimpleX-Server.md) |
 | Telegram Android| v12.1.1               | ✅ Yes         | [See details](history/Telegram-Android.md) |
 | Telegram Desktop| v6.2.5                | ⚫ N/A         | - |
+| Threema Android | v6.2.0-1095           | 🟡 In progress | - |
+| Threema Desktop | v2.0-beta57           | ⚫ N/A         | - |
+| WhatsApp Android| v2.23.12.75           | ⚫ N/A         | - |
+| Wire Android    | v4.16.1               | ⚫ N/A         | - |
+| Wire Desktop    | v3.40.3718            | ⚫ N/A         | - |
 
 ---
 
