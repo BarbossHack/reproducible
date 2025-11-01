@@ -23,4 +23,4 @@ jobs:
           docker run --rm -v ./certs:/molly/app/certs:ro -v ./outputs:/molly/app/build/outputs reproducible-molly:latest :app:assembleProdGmsRelease --no-daemon
       - name: Apkdiff
         run: |
-          python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ env.VERSION }}.apk outputs/apk/prodGmsWebsite/release/Molly-unsigned-v${{ env.VERSION }}.apk
+          python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ env.VERSION }}.apk mollyim-android/reproducible-builds/outputs/apk/prodGmsWebsite/release/Molly-unsigned-v${{ env.VERSION }}.apk
