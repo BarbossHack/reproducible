@@ -8,7 +8,7 @@ Each dedicated page contains the full version history and verification results.
 | Briar Android   | v1.5.14               | 🟡 In progress | - |
 | Briar Desktop   | v0.6.4                | ⚫ N/A         | - |
 | ElementX Android| v25.10.1              | ⚫ N/A         | - |
-| Molly (Signal)  | v7.61.3-1             | 🟡 In progress | [See details](history/Molly-Android.md) |
+| Molly (Signal)  | v7.61.3-1             | ✅ Yes         | [See details](history/Molly-Android.md) |
 | Olvid Android   | v4.0.1                | ⚫ N/A         | - |
 | Olvid Desktop   | v2.6.1                | ⚫ N/A         | - |
 | Session Android | v1.28.2               | ⚫ N/A         | - |
