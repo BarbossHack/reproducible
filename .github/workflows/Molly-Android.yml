@@ -6,7 +6,7 @@ on:
       - ".github/workflows/Molly-Android.yml"
 
 env:
-  VERSION: 7.44.2-1
+  VERSION: 7.49.1-1
 
 jobs:
   build:
