@@ -20,7 +20,7 @@ jobs:
           git clone https://github.com/mollyim/mollyim-android.git -b v${{ env.VERSION }} --depth 1
           cd mollyim-android/reproducible-builds
           docker build -t reproducible-molly -f ../Dockerfile ..
-          docker run -it -v ./certs:/molly/app/certs:ro -v ./outputs:/molly/app/build/outputs reproducible-molly:latest :app:assembleProdGmsRelease --no-daemon
+          docker run --rm -v ./certs:/molly/app/certs:ro -v ./outputs:/molly/app/build/outputs reproducible-molly:latest :app:assembleProdGmsRelease --no-daemon
       - name: Apkdiff
         run: |
           python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ env.VERSION }}.apk outputs/apk/prodGmsWebsite/release/Molly-unsigned-v${{ env.VERSION }}.apk
