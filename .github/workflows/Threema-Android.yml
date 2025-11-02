@@ -1,0 +1,39 @@
+name: Threema-Android
+
+on:
+  push:
+    paths:
+      - ".github/workflows/Threema-Android.yml"
+
+env:
+  COMMIT: 20c4f65f99d8532b1b8d07827e1553362bd9f2f8
+  # https://shop.threema.ch/fr/download
+  OFFICIAL_APK: https://filebin.net/4eias90nrh0l510b/Threema-6.1.3-1087.apk.filebin
+  OFFICIAL_SHA256: 83db3ecb6115cbd5652e39b75f8426f9375465752e0d4c0fde73579bd5886c7a
+  RUST_VERSION: 1.85
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Official
+        run: |
+          curl -L "${{ env.OFFICIAL_APK }}" -o Threema.apk
+          echo "$OFFICIAL_SHA256  Threema.apk" | sha256sum -c -
+      - name: Dockerfile
+        run: |
+          git clone https://github.com/threema-ch/threema-android
+          cd threema-android
+          git checkout ${{ env.COMMIT }}
+          export CODE=$(grep "val defaultVersionCode = " "./app/build.gradle.kts" | cut -d= -f2 | xargs)
+          cd scripts
+          docker build --build-arg RUST_VERSION=${{ env.RUST_VERSION }} -t docker.io/threema/android-compile:$CODE .
+      - name: Build
+        run: |
+          ./threema-android/scripts/build-release.sh -v googleplay_private --no-image-export --i-accept-the-android-sdk-license
+          ls -Rlsah threema-android/release
+      - name: Apkdiff
+        run: |
+          export CODE=$(grep "val defaultVersionCode = " "threema-android/app/build.gradle.kts" | cut -d= -f2 | xargs)
+          export VERSION=$(grep "val appVersion = " "threema-android/app/build.gradle.kts" | cut -d= -f2 | xargs)
+          ./threema-android/scripts/verify-build.sh -n "$VERSION-$CODE" -v googleplay_private -p Threema.apk

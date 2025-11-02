@@ -7,6 +7,7 @@ on:
 
 env:
   COMMIT: 9cbf03332a5a68fce3e616852d7dc929022c8441
+  # https://t.me/s/TAndroidAPK
   OFFICIAL_APK: https://filebin.net/5z8stlzqi7inuxcb/Telegram.apk.filebin
   OFFICIAL_SHA256: 156f956531d732b452b2d7b087d119250cbe19dc19d6fad9ba265543baa9b780
 
