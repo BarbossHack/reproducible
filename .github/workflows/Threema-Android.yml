@@ -26,14 +26,24 @@ jobs:
           cd threema-android
           git checkout ${{ env.COMMIT }}
           export CODE=$(grep "val defaultVersionCode = " "./app/build.gradle.kts" | cut -d= -f2 | xargs)
+          export VERSION=$(grep "val appVersion = " "threema-android/app/build.gradle.kts" | cut -d= -f2 | xargs)
+          echo "CODE=$CODE" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
           cd scripts
-          docker build --build-arg RUST_VERSION=${{ env.RUST_VERSION }} -t docker.io/threema/android-compile:$CODE .
+          docker build --build-arg RUST_VERSION=${{ env.RUST_VERSION }} -t docker.io/threema/android-compile:${{ env.CODE }} .
       - name: Build
         run: |
           ./threema-android/scripts/build-release.sh -v threemashop_private --no-image-export --i-accept-the-android-sdk-license
           ls -Rlsah threema-android/release
       - name: Apkdiff
         run: |
-          export CODE=$(grep "val defaultVersionCode = " "threema-android/app/build.gradle.kts" | cut -d= -f2 | xargs)
-          export VERSION=$(grep "val appVersion = " "threema-android/app/build.gradle.kts" | cut -d= -f2 | xargs)
-          ./threema-android/scripts/verify-build.sh -n "$VERSION-$CODE" -v threemashop_private -p Threema.apk
+          ./threema-android/scripts/verify-build.sh -n "${{ env.VERSION }}-${{ env.CODE }}" -v threemashop_private -p Threema.apk
+      - name: Signal Apkdiff
+        run: |
+          pip install uv
+          git clone https://github.com/signalapp/Signal-Android --depth 1
+          cd Signal-Android/reproducible-builds/apkdiff
+          uv sync
+          zip -d ../../../Threema.apk "META-INF/*"
+          zip -d ../../../threema-android/release/Threema-release-unsigned-${{ env.VERSION }}-${{ env.CODE }}.apk "META-INF/*"
+          uv run apkdiff.py ../../../Threema.apk ../../../threema-android/release/Threema-release-unsigned-${{ env.VERSION }}-${{ env.CODE }}.apk

@@ -20,7 +20,7 @@ Each dedicated page contains the full version history and verification results.
 | SimpleX Server  | v6.4.5                | ❌ No          | [See details](history/SimpleX-Server.md) |
 | Telegram Android| v12.1.1               | ✅ Yes         | [See details](history/Telegram-Android.md) |
 | Telegram Desktop| v6.2.5                | ⚫ N/A         | - |
-| Threema Android | v6.2.0-1095           | 🟡 In progress | - |
+| Threema Android | v6.2.0-1095           | ✅ Yes         | [See details](history/Threema-Android.md) |
 | Threema Desktop | v2.0-beta57           | ⚫ N/A         | - |
 | WhatsApp Android| v2.23.12.75           | ⚫ N/A         | - |
 | Wire Android    | v4.16.1               | ⚫ N/A         | - |
