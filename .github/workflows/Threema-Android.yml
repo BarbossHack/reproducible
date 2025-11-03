@@ -26,7 +26,7 @@ jobs:
           cd threema-android
           git checkout ${{ env.COMMIT }}
           export CODE=$(grep "val defaultVersionCode = " "./app/build.gradle.kts" | cut -d= -f2 | xargs)
-          export VERSION=$(grep "val appVersion = " "threema-android/app/build.gradle.kts" | cut -d= -f2 | xargs)
+          export VERSION=$(grep "val appVersion = " "./app/build.gradle.kts" | cut -d= -f2 | xargs)
           echo "CODE=$CODE" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           cd scripts
