@@ -5,7 +5,7 @@ Each dedicated page contains the full version history and verification results.
 
 | Software        | Latest tested version | Reproducible?  | History |
 |-----------------|-----------------------|----------------|---------|
-| Briar Android   | v1.5.14               | 🟡 In progress | - |
+| Briar Android   | v1.5.14               | 🟡 In progress | [See details](history/Briar-Android.md) |
 | Briar Desktop   | v0.6.4                | ⚫ N/A         | - |
 | ElementX Android| v25.10.1              | ⚫ N/A         | - |
 | Molly (Signal)  | v7.61.3-1             | ✅ Yes         | [See details](history/Molly-Android.md) |
