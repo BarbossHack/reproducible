@@ -45,5 +45,5 @@ jobs:
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
           zip -d ../../../Threema.apk "META-INF/*"
-          zip -d ../../../threema-android/release/Threema-release-unsigned-$VERSION-$CODE.apk "META-INF/*"
-          uv run apkdiff.py ../../../Threema.apk ../../../threema-android/release/Threema-release-unsigned-$VERSION-$CODE.apk
+          zip -d ../../../threema-android/release/$VERSION-$CODE/threemashop_private/app-store_threema-universal-release-unsigned.apk "META-INF/*"
+          uv run apkdiff.py ../../../Threema.apk ../../../threema-android/release/$VERSION-$CODE/threemashop_private/app-store_threema-universal-release-unsigned.apk
