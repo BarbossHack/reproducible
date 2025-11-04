@@ -19,7 +19,6 @@ jobs:
       - name: Dockerfile
         run: |
           git clone https://code.briarproject.org/briar/briar-reproducer.git --depth 1
-          cd briar-reproducer
           docker build -t briar/reproducer briar-reproducer
       - name: Build
         run: |
