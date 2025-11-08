@@ -123,4 +123,4 @@ jobs:
       - name: Diffoscope
         continue-on-error: true
         run: |
-          docker run --rm -it -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope build/signal-desktop_${{ env.VERSION }}_amd64.deb official/signal-desktop_${{ env.VERSION }}_amd64.deb
+          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope build/signal-desktop_${{ env.VERSION }}_amd64.deb official/signal-desktop_${{ env.VERSION }}_amd64.deb
