@@ -6,7 +6,7 @@ on:
       - ".github/workflows/Signal-Desktop.yml"
 
 env:
-  VERSION: 7.78.0
+  VERSION: 7.79.0-beta.1
 
 jobs:
   official:
@@ -22,7 +22,13 @@ jobs:
       - name: Download official .deb
         id: hash
         run: |
-          apt-get download signal-desktop=${{ env.VERSION }}
+          PARSED_VERSION=$(echo "${{ env.VERSION }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+.*' | tr '-' '~')
+          if [[ "$PARSED_VERSION" == *"beta"* ]]; then
+            apt-get download signal-desktop-beta=$PARSED_VERSION
+            mv signal-desktop_${PARSED_VERSION}_amd64.deb signal-desktop_${{ env.VERSION }}_amd64.deb 
+          else
+            apt-get download signal-desktop=${{ env.VERSION }}
+          fi
           echo "HASH=$(sha256sum signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
