@@ -25,7 +25,7 @@ jobs:
           PARSED_VERSION=$(echo "${{ env.VERSION }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+.*' | tr '-' '~')
           if [[ "$PARSED_VERSION" == *"beta"* ]]; then
             apt-get download signal-desktop-beta=$PARSED_VERSION
-            mv signal-desktop_${PARSED_VERSION}_amd64.deb signal-desktop_${{ env.VERSION }}_amd64.deb 
+            mv signal-desktop-beta_${PARSED_VERSION}_amd64.deb signal-desktop_${{ env.VERSION }}_amd64.deb 
           else
             apt-get download signal-desktop=${{ env.VERSION }}
           fi
