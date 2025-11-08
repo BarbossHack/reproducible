@@ -13,7 +13,7 @@ Each dedicated page contains the full version history and verification results.
 | Olvid Desktop   | v2.6.1                | ⚫ N/A         | - |
 | Session Android | v1.28.2               | ⚫ N/A         | - |
 | Session Desktop | v1.17.1               | ⚫ N/A         | - |
-| Signal Android  | v7.62.3               | ✅ Yes         | [See details](history/Signal-Android.md) |
+| Signal Android  | v7.63.3               | ✅ Yes         | [See details](history/Signal-Android.md) |
 | Signal Desktop  | v7.77.1               | ✅ Yes         | [See details](history/Signal-Desktop.md) |
 | SimpleX Android | v6.4.6                | ⚫ N/A         | - |
 | SimpleX Desktop | v6.4.5                | ⚫ N/A         | - |
