@@ -77,7 +77,6 @@ jobs:
     needs: check
     if: ${{ always() && needs.check.result == 'failure' }}
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - name: Download official artifact
         uses: actions/download-artifact@v5
@@ -102,20 +101,26 @@ jobs:
           asar extract official_deb/opt/Signal/resources/app.asar offical_asar
           asar extract build_deb/opt/Signal/resources/app.asar build_asar
       - name: Diff recursive deb files
+        continue-on-error: true
         run: |
           diff -rq official_deb build_deb
       - name: Diff recursive deb files content
+        continue-on-error: true
         run: |
           diff -r -y --suppress-common-lines --color=always official_deb build_deb
       - name: Diff dpkg-content files listing
+        continue-on-error: true
         run: |
           diff official_deb_contents.txt build_deb_contents.txt
       - name: Diff recursive asar files
+        continue-on-error: true
         run: |
           diff -rq offical_asar build_asar
       - name: Diff recursive asar files content
+        continue-on-error: true
         run: |
           diff -r -y --suppress-common-lines --color=always offical_asar build_asar
       - name: Diffoscope
+        continue-on-error: true
         run: |
           docker run --rm -it -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope build/signal-desktop_${{ env.VERSION }}_amd64.deb official/signal-desktop_${{ env.VERSION }}_amd64.deb
