@@ -93,8 +93,8 @@ jobs:
         run: |
           sudo npm install -g asar
 
-          dpkg-deb -x official/signal-desktop_${{ env.VERSION }}_amd64.deb official_deb
-          dpkg-deb -x build/signal-desktop_${{ env.VERSION }}_amd64.deb build_deb
+          dpkg-deb -R official/signal-desktop_${{ env.VERSION }}_amd64.deb official_deb
+          dpkg-deb -R build/signal-desktop_${{ env.VERSION }}_amd64.deb build_deb
 
           dpkg-deb --contents official/signal-desktop_${{ env.VERSION }}_amd64.deb > official_deb_contents.txt
           dpkg-deb --contents build/signal-desktop_${{ env.VERSION }}_amd64.deb > build_deb_contents.txt
