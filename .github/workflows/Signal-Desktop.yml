@@ -102,6 +102,9 @@ jobs:
           dpkg-deb -R official/signal-desktop_${{ env.VERSION }}_amd64.deb official_deb
           dpkg-deb -R build/signal-desktop_${{ env.VERSION }}_amd64.deb build_deb
 
+          ls -Rlsah official_deb
+          ls -Rlsah build_deb
+
           dpkg-deb --contents official/signal-desktop_${{ env.VERSION }}_amd64.deb > official_deb_contents.txt
           dpkg-deb --contents build/signal-desktop_${{ env.VERSION }}_amd64.deb > build_deb_contents.txt
 
