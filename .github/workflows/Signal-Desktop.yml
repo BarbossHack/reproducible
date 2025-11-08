@@ -102,14 +102,11 @@ jobs:
           dpkg-deb -R official/signal-desktop_${{ env.VERSION }}_amd64.deb official_deb
           dpkg-deb -R build/signal-desktop_${{ env.VERSION }}_amd64.deb build_deb
 
-          ls -Rlsah official_deb
-          ls -Rlsah build_deb
-
           dpkg-deb --contents official/signal-desktop_${{ env.VERSION }}_amd64.deb > official_deb_contents.txt
           dpkg-deb --contents build/signal-desktop_${{ env.VERSION }}_amd64.deb > build_deb_contents.txt
 
-          asar extract official_deb/opt/Signal/resources/app.asar offical_asar
-          asar extract build_deb/opt/Signal/resources/app.asar build_asar
+          find official_deb -name *.asar -exec asar extract {} official_asar \;
+          find build_deb -name *.asar -exec asar extract {} build_asar \;
       - name: Diff recursive deb files
         continue-on-error: true
         run: |
@@ -125,11 +122,11 @@ jobs:
       - name: Diff recursive asar files
         continue-on-error: true
         run: |
-          diff -rq offical_asar build_asar
+          diff -rq official_asar build_asar
       - name: Diff recursive asar files content
         continue-on-error: true
         run: |
-          diff -r -y --suppress-common-lines --color=always offical_asar build_asar
+          diff -r -y --suppress-common-lines --color=always official_asar build_asar
       - name: Diffoscope
         continue-on-error: true
         run: |
