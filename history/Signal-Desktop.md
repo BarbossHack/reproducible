@@ -4,6 +4,7 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/bl
 
 | Version | Release Date | Reproducible? | Notes |
 |---------|--------------|---------------|-------|
+| v7.78.0 | 2025-11-05   | ❌ No         | The postinst and postrm files of the Debian package differ. The official build is missing some actions in both postinst and postrm (see [#7590](https://github.com/signalapp/Signal-Desktop/issues/7590)) |
 | v7.77.1 | 2025-10-30   | ✅ Yes        | - |
 | v7.77.0 | 2025-10-30   | ✅ Yes        | - |
 | v7.76.0 | 2025-10-23   | ✅ Yes        | - |
