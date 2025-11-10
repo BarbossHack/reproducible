@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Build
         run: |
-          curl -LO 'https://raw.githubusercontent.com/simplex-chat/simplexmq/refs/heads/master/scripts/simplexmq-reproduce-builds.sh'
+          curl -LO 'https://raw.githubusercontent.com/simplex-chat/simplexmq/refs/tags/v${{ env.VERSION }}/scripts/simplexmq-reproduce-builds.sh'
           chmod +x simplexmq-reproduce-builds.sh
           ./simplexmq-reproduce-builds.sh "v${{ env.VERSION }}"
       - name: Upload artifacts
