@@ -16,7 +16,7 @@ Each dedicated page contains the full version history and verification results.
 | Signal Android  | v7.63.3               | ✅ Yes         | [See details](history/Signal-Android.md) |
 | Signal Desktop  | v7.78.0               | ❌ No          | [See details](history/Signal-Desktop.md) |
 | SimpleX Android | v6.4.6                | ⚫ N/A         | - |
-| SimpleX Desktop | v6.4.5                | ⚫ N/A         | - |
+| SimpleX Desktop | v6.4.5                | 🟡 In progress | - |
 | SimpleX Server  | v6.4.5                | ❌ No          | [See details](history/SimpleX-Server.md) |
 | Telegram Android| v12.1.1               | ✅ Yes         | [See details](history/Telegram-Android.md) |
 | Telegram Desktop| v6.2.5                | ⚫ N/A         | - |
