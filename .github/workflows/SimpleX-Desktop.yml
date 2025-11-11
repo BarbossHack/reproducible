@@ -16,6 +16,8 @@ jobs:
       - name: Build
         continue-on-error: true
         run: |
+          df -h
+          lsblk
           chmod 755 .github/simplex-chat-reproduce-builds.sh
           .github/simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}" || true
       # curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
