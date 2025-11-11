@@ -85,7 +85,7 @@ for os in '22.04' '24.04'; do
 	# Desktop: deb
 	docker exec \
 		-t "${container_name}" \
-		sh -c './scripts/desktop/make-deb-linux.sh' || (rm -rf /tmp/logs && docker cp "${container_name}":/project/apps/multiplatform/desktop/build/compose/logs/ /tmp/logs && exit 6)
+		sh -c './scripts/desktop/make-deb-linux.sh' || (df -h && rm -rf /tmp/logs && docker cp "${container_name}":/project/apps/multiplatform/desktop/build/compose/logs/ /tmp/logs && exit 6)
 
 	# Copy deb
 	docker cp \
