@@ -18,9 +18,14 @@ jobs:
           sudo docker image prune -a -f
           sudo docker builder prune -a -f
           sudo docker system prune -a -f
-      - run: sudo du -sh /home/* || true
-      - run: sudo du -sh /opt/* || true
-      - run: sudo du -sh /usr/* || true
+      - run: sudo du -sh /opt/hostedtoolcache/* || true
+      - run: sudo du -sh /opt/microsoft/* || true
+      - run: sudo du -sh /opt/pipx/* || true
+      - run: sudo du -sh /usr/bin/* || true
+      - run: sudo du -sh /usr/lib/* || true
+      - run: sudo du -sh /usr/local/* || true
+      - run: sudo du -sh /usr/share/* || true
+      - run: sudo du -sh /usr/share/* || true
       # - name: Maximize build disk space
       #   uses: easimon/maximize-build-space@v10
       #   with:
