@@ -22,12 +22,12 @@ jobs:
           sudo mount /dev/sda1 /tmp
           df -h
           lsblk
-          sudo ls -RlsahZ /tmp || true
-          ls -RlsahZ .
+          sudo ls -lsahZ /tmp || true
+          ls -lsahZ .
           sudo cat /tmp/DATALOSS_WARNING_README.txt || true
           echo ##############################################
           sudo chown -R $USER:$USER /tmp
-          sudo ls -RlsahZ /tmp || true
+          sudo ls -lsahZ /tmp || true
           echo ##############################################
           chmod 755 .github/simplex-chat-reproduce-builds.sh
           .github/simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}" || true
