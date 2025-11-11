@@ -6,23 +6,29 @@ on:
       - ".github/workflows/SimpleX-Desktop.yml"
 
 env:
-  VERSION: 6.4.5
+  VERSION: 6.4.6
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Build
+        continue-on-error: true
         run: |
           curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
           chmod +x simplex-chat-reproduce-builds.sh
           ./simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}"
           ls -Rlsah
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: v${{ env.VERSION }}-simplex-chat
+      #     path: ./v${{ env.VERSION }}-simplex-chat/
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: v${{ env.VERSION }}-simplex-chat
-          path: ./v${{ env.VERSION }}-simplex-chat/
+          name: logs
+          path: /project/apps/multiplatform/desktop/build/compose/logs/
 
   check:
     runs-on: ubuntu-latest
