@@ -15,8 +15,9 @@ jobs:
       - run: df -h
       - run: |
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
-          sudo docker image prune --all --force
-          sudo docker builder prune -a
+          sudo docker image prune -a -f
+          sudo docker builder prune -a -f
+          sudo du -sh / || true
       # - name: Maximize build disk space
       #   uses: easimon/maximize-build-space@v10
       #   with:
