@@ -15,10 +15,12 @@ jobs:
       - name: Build
         continue-on-error: true
         run: |
-          curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
-          chmod +x simplex-chat-reproduce-builds.sh
-          ./simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}"
-          ls -Rlsah
+          chmod 755 .github/simplex-chat-reproduce-builds.sh
+          .github/simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}" || true
+      # curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
+      # chmod +x simplex-chat-reproduce-builds.sh
+      # ./simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}" || true
+      # find /tmp -type d -wholename "*/multiplatform/desktop" -exec mv "{}" artifacts \;
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@v4
       #   with:
@@ -28,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: logs
-          path: /project/apps/multiplatform/desktop/build/compose/logs/
+          path: /tmp/logs
 
   check:
     runs-on: ubuntu-latest
