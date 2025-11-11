@@ -17,7 +17,10 @@ jobs:
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
           sudo docker image prune -a -f
           sudo docker builder prune -a -f
-          sudo du -sh /* || true
+          sudo docker system prune -a -f
+      - run: sudo du -sh /home/* || true
+      - run: sudo du -sh /opt/* || true
+      - run: sudo du -sh /usr/* || true
       # - name: Maximize build disk space
       #   uses: easimon/maximize-build-space@v10
       #   with:
