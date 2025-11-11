@@ -14,18 +14,15 @@ jobs:
     steps:
       - run: df -h
       - run: |
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache /opt/microsoft /opt/pipx
           sudo docker image prune -a -f
           sudo docker builder prune -a -f
           sudo docker system prune -a -f
-      - run: sudo du -sh /opt/hostedtoolcache/* || true
-      - run: sudo du -sh /opt/microsoft/* || true
-      - run: sudo du -sh /opt/pipx/* || true
-      - run: sudo du -sh /usr/bin/* || true
-      - run: sudo du -sh /usr/lib/* || true
-      - run: sudo du -sh /usr/local/* || true
-      - run: sudo du -sh /usr/share/* || true
-      - run: sudo du -sh /usr/share/* || true
+      - run: sudo du -sh /usr/bin/* | sort -h || true
+      - run: sudo du -sh /usr/lib/* | sort -h || true
+      - run: sudo du -sh /usr/local/* | sort -h || true
+      - run: sudo du -sh /usr/share/* | sort -h || true
+      - run: sudo du -sh /usr/share/* | sort -h || true
       # - name: Maximize build disk space
       #   uses: easimon/maximize-build-space@v10
       #   with:
