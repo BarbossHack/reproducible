@@ -16,19 +16,10 @@ jobs:
       - name: Build
         continue-on-error: true
         run: |
-          df -h
-          lsblk
-          echo ##############################################
           sudo mount /dev/sda1 /tmp
-          df -h
-          lsblk
-          sudo ls -lsahZ /tmp || true
-          ls -lsahZ .
-          sudo cat /tmp/DATALOSS_WARNING_README.txt || true
-          echo ##############################################
           sudo chown -R $USER:$USER /tmp
-          sudo ls -lsahZ /tmp || true
-          echo ##############################################
+          docker info
+          exit 9
           chmod 755 .github/simplex-chat-reproduce-builds.sh
           .github/simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}" || true
       # curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
