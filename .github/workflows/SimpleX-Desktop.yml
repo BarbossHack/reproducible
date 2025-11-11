@@ -18,7 +18,11 @@ jobs:
         run: |
           sudo mount /dev/sda1 /tmp
           sudo chown -R $USER:$USER /tmp
-          docker info
+          ls -Rlsah /var/lib/docker
+          echo OKOK
+          docker pull docker.io/nginx:latest
+          ls -Rlsah /var/lib/docker
+          du -sh /*
           exit 9
           chmod 755 .github/simplex-chat-reproduce-builds.sh
           .github/simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}" || true
