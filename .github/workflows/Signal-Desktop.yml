@@ -6,7 +6,7 @@ on:
       - ".github/workflows/Signal-Desktop.yml"
 
 env:
-  VERSION: 7.79.0-beta.1
+  VERSION: 7.79.0
 
 jobs:
   official:
@@ -35,6 +35,7 @@ jobs:
         with:
           name: signal-desktop_${{ env.VERSION }}_official
           path: signal-desktop_${{ env.VERSION }}_amd64.deb
+          retention-days: 3
     outputs:
       HASH: ${{ steps.hash.outputs.HASH }}
 
@@ -56,6 +57,7 @@ jobs:
         with:
           name: signal-desktop_${{ env.VERSION }}_build
           path: Signal-Desktop/release/signal-desktop_${{ env.VERSION }}_amd64.deb
+          retention-days: 3
     outputs:
       HASH: ${{ steps.hash.outputs.HASH }}
 
@@ -130,4 +132,4 @@ jobs:
       - name: Diffoscope
         continue-on-error: true
         run: |
-          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope build/signal-desktop_${{ env.VERSION }}_amd64.deb official/signal-desktop_${{ env.VERSION }}_amd64.deb
+          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd build/signal-desktop_${{ env.VERSION }}_amd64.deb official/signal-desktop_${{ env.VERSION }}_amd64.deb
