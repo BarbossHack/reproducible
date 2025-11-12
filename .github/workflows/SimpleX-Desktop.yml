@@ -6,7 +6,7 @@ on:
       - ".github/workflows/SimpleX-Desktop.yml"
 
 env:
-  VERSION: 6.4.6
+  VERSION: 6.4.7
 
 jobs:
   build:
@@ -28,6 +28,7 @@ jobs:
         with:
           name: v${{ env.VERSION }}-simplex-chat
           path: ./v${{ env.VERSION }}-simplex-chat/
+          retention-days: 3
 
   check:
     runs-on: ubuntu-latest
