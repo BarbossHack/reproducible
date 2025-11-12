@@ -20,22 +20,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build
         run: |
-          chmod 755 .github/simplex-chat-reproduce-builds.sh
-          .github/simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}" || true
-      # curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
-      # chmod +x simplex-chat-reproduce-builds.sh
-      # ./simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}" || true
-      # find /tmp -type d -wholename "*/multiplatform/desktop" -exec mv "{}" artifacts \;
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: v${{ env.VERSION }}-simplex-chat
-      #     path: ./v${{ env.VERSION }}-simplex-chat/
+          curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
+          chmod +x simplex-chat-reproduce-builds.sh
+          ./simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}"
+          ls -Rlsah
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: logs
-          path: /tmp/logs
+          name: v${{ env.VERSION }}-simplex-chat
+          path: ./v${{ env.VERSION }}-simplex-chat/
 
   check:
     runs-on: ubuntu-latest
@@ -56,32 +49,3 @@ jobs:
             echo "Not reproducible"
             exit 1
           fi
-
-  diff:
-    needs: check
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v5
-        with:
-          name: v${{ env.VERSION }}-simplex-chat
-          path: v${{ env.VERSION }}-simplex-chat
-      - name: Install dependencies
-        run: sudo apt-get install -y binutils
-      - name: Print hashes
-        run: |
-          echo "sha256 from-source"
-          sha256sum ./v${{ env.VERSION }}-simplex-chat/from-source/*
-          echo "sha256 prebuilt"
-          sha256sum ./v${{ env.VERSION }}-simplex-chat/prebuilt/*
-      - name: .comment section diff
-        run: |
-          readelf --wide --decompress --string-dump=.comment ./v${{ env.VERSION }}-simplex-chat/from-source/smp-server-ubuntu-24_04-x86-64 > comment_source || true
-          readelf --wide --decompress --string-dump=.comment ./v${{ env.VERSION }}-simplex-chat/prebuilt/smp-server-ubuntu-24_04-x86-64 > comment_prebuilt || true
-          diff -u comment_source comment_prebuilt || true
-      - name: full readelf diff
-        run: |
-          readelf -a ./v${{ env.VERSION }}-simplex-chat/from-source/smp-server-ubuntu-24_04-x86-64 > readelf_source || true
-          readelf -a ./v${{ env.VERSION }}-simplexmq/prebuilt/smp-server-ubuntu-24_04-x86-64 > readelf_prebuilt || true
-          diff -u readelf_source readelf_prebuilt || true
