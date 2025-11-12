@@ -23,7 +23,6 @@ jobs:
           curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
           chmod +x simplex-chat-reproduce-builds.sh
           ./simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}"
-          ls -Rlsah
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -39,8 +38,7 @@ jobs:
         with:
           name: v${{ env.VERSION }}-simplex-chat
           path: v${{ env.VERSION }}-simplex-chat
-
-      - name: Check hashes
+      - name: Check sha256sums
         run: |
           if [ -f "v${{ env.VERSION }}-simplex-chat/_sha256sums" ]; then
             echo "Reproducible"
@@ -49,3 +47,26 @@ jobs:
             echo "Not reproducible"
             exit 1
           fi
+
+  diff:
+    needs: check
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: v${{ env.VERSION }}-simplex-chat
+          path: v${{ env.VERSION }}-simplex-chat
+      - name: Print hashes
+        run: |
+          echo "sha256 from-source"
+          sha256sum ./v${{ env.VERSION }}-simplex-chat/from-source/*
+          echo "sha256 prebuilt"
+          sha256sum ./v${{ env.VERSION }}-simplex-chat/prebuilt/*
+      - name: Diffoscope
+        run: |
+          for file in ./v${{ env.VERSION }}-simplex-chat/prebuilt/*; do
+            filename=$(basename "$file")
+            docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope "v${{ env.VERSION }}-simplex-chat/from-source/$filename" "v${{ env.VERSION }}-simplex-chat/prebuilt/$filename" || true
+          done
