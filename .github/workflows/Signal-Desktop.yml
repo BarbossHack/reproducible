@@ -6,7 +6,7 @@ on:
       - ".github/workflows/Signal-Desktop.yml"
 
 env:
-  VERSION: 7.80.0-beta.1
+  VERSION: 7.79.0
 
 jobs:
   official:
@@ -50,7 +50,7 @@ jobs:
           cd Signal-Desktop/reproducible-builds
           chmod +x build.sh
           ./build.sh public
-          mv ../release/signal-desktop*_${{ env.VERSION }}_amd64.deb ../release/signal-desktop_${{ env.VERSION }}_amd64.deb
+          mv ../release/signal-desktop*_${{ env.VERSION }}_amd64.deb ../release/signal-desktop_${{ env.VERSION }}_amd64.deb || true
           echo "HASH=$(sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
