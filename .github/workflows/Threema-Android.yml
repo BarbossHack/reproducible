@@ -10,7 +10,6 @@ env:
   # https://shop.threema.ch/fr/download
   OFFICIAL_APK: https://filebin.net/pkcxfa2ud6fmieul/Threema-6.2.1-1098.apk.filebin
   OFFICIAL_SHA256: 86fde1cbb54cf140eda9f73f4ec804fbc1d65b3d59bee7b87b381243483d5abf
-  RUST_VERSION: 1.85
 
 jobs:
   build:
@@ -27,10 +26,11 @@ jobs:
           git checkout ${{ env.COMMIT }}
           export CODE=$(grep "val defaultVersionCode = " "./app/build.gradle.kts" | cut -d= -f2 | xargs)
           export VERSION=$(grep "val appVersion = " "./app/build.gradle.kts" | cut -d= -f2 | xargs)
+          export RUST_VERSION=$(grep "channel = " "./domain/libthreema/rust-toolchain.toml" | cut -d= -f2 | xargs)
           echo "CODE=$CODE" >> $GITHUB_ENV
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           cd scripts
-          docker build --build-arg RUST_VERSION=${{ env.RUST_VERSION }} -t docker.io/threema/android-compile:$CODE .
+          docker build --build-arg RUST_VERSION=$RUST_VERSION -t docker.io/threema/android-compile:$CODE .
       - name: Build
         run: |
           ./threema-android/scripts/build-release.sh -v threemashop_private --no-image-export --i-accept-the-android-sdk-license
