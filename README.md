@@ -17,7 +17,7 @@ Each dedicated page contains the full version history and verification results.
 | [Signal Android](https://github.com/signalapp/Signal-Android)         | v7.64.2               | ✅ Yes         | [See details](history/Signal-Android.md) |
 | [Signal Desktop](https://github.com/signalapp/Signal-Desktop)         | v7.79.0               | ✅ Yes         | [See details](history/Signal-Desktop.md) |
 | SimpleX Android                                                       | v6.4.6                | ⚫ N/A         | - |
-| [SimpleX Desktop](https://github.com/simplex-chat/simplex-chat)       | v6.4.6                | ❌ No          | [See details](history/SimpleX-Desktop.md) |
+| [SimpleX Desktop](https://github.com/simplex-chat/simplex-chat)       | v6.4.7                | ✅ Yes         | [See details](history/SimpleX-Desktop.md) |
 | [SimpleX Server](https://github.com/simplex-chat/simplexmq)           | v6.4.5                | ✅ Yes         | [See details](history/SimpleX-Server.md) |
 | [Telegram Android](https://github.com/DrKLO/Telegram)                 | v12.1.1               | ✅ Yes         | [See details](history/Telegram-Android.md) |
 | Telegram Desktop                                                      | v6.2.5                | ⚫ N/A         | - |
