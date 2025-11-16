@@ -23,7 +23,6 @@ Each dedicated page contains the full version history and verification results.
 | Telegram Desktop                                                      | v6.2.5                | ⚫ N/A         | - |
 | [Threema Android](https://github.com/threema-ch/threema-android)      | v6.2.1                | ✅ Yes         | [See details](history/Threema-Android.md) |
 | Threema Desktop                                                       | v2.0-beta57           | ⚫ N/A         | - |
-| WhatsApp Android                                                      | v2.23.12.75           | ⚫ N/A         | - |
 | Wire Android                                                          | v4.16.1               | ⚫ N/A         | - |
 | Wire Desktop                                                          | v3.40.3718            | ⚫ N/A         | - |
 
