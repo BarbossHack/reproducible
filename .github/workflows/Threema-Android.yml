@@ -6,10 +6,10 @@ on:
       - ".github/workflows/Threema-Android.yml"
 
 env:
-  COMMIT: 20c4f65f99d8532b1b8d07827e1553362bd9f2f8
+  COMMIT: 9bb7408fe35e0729e837eadd0d16f9ff6645d160
   # https://shop.threema.ch/fr/download
-  OFFICIAL_APK: https://filebin.net/4eias90nrh0l510b/Threema-6.1.3-1087.apk.filebin
-  OFFICIAL_SHA256: 83db3ecb6115cbd5652e39b75f8426f9375465752e0d4c0fde73579bd5886c7a
+  OFFICIAL_APK: https://filebin.net/pkcxfa2ud6fmieul/Threema-6.2.1-1098.apk.filebin
+  OFFICIAL_SHA256: 86fde1cbb54cf140eda9f73f4ec804fbc1d65b3d59bee7b87b381243483d5abf
   RUST_VERSION: 1.85
 
 jobs:
