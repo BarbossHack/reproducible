@@ -31,7 +31,7 @@ jobs:
     needs: [official]
     steps:
       - name: Free up disk space
-        uses: ./.github/actions/free-up-github-action
+        uses: BarbossHack/reproducible/actions/free-up-github-action@master
       - name: Clone
         run: |
           git clone https://github.com/DrKLO/Telegram
