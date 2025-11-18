@@ -49,8 +49,9 @@ jobs:
       - name: Build
         run: |
           git clone https://github.com/signalapp/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
-          cd libsignal/java
+          pushd libsignal/java
           make || make
+          popd
       - name: Diffoscope
         run: |
-          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd ./java/android/build/outputs/aar/libsignal-android-release.aar ./libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
+          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd ./libsignal/java/android/build/outputs/aar/libsignal-android-release.aar ./libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
