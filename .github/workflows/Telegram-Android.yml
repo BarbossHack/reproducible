@@ -30,6 +30,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [official]
     steps:
+      - name: Free up disk space
+        uses: ./.github/actions/free-up-github-action
       - name: Clone
         run: |
           git clone https://github.com/DrKLO/Telegram

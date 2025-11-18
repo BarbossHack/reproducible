@@ -1,0 +1,11 @@
+name: "Free up disk space"
+description: "Free up disk space on GitHub Actions runners by removing unnecessary pre-installed software."
+runs:
+  using: "composite"
+  steps:
+    - name: Free up disk space
+      shell: bash
+      run: |
+        df -h
+        sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache /opt/microsoft /opt/pipx /usr/local/julia* /usr/lib/jvm /usr/lib/google-cloud-sdk /usr/lib/llvm* /usr/lib/firefox /usr/share/swift /usr/share/miniconda /usr/share/az* /usr/share/gradle* /usr/lib/python* /usr/local/share/powershell /usr/local/share/chromium /usr/local/share/vcpkg
+        df -h
