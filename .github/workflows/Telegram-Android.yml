@@ -6,10 +6,10 @@ on:
       - ".github/workflows/Telegram-Android.yml"
 
 env:
-  COMMIT: 9cbf03332a5a68fce3e616852d7dc929022c8441
+  COMMIT: fecf18e27d159fe6e8a917fb634bc9086d18f57a
   # https://t.me/s/TAndroidAPK
-  OFFICIAL_APK: https://filebin.net/5z8stlzqi7inuxcb/Telegram.apk.filebin
-  OFFICIAL_SHA256: 156f956531d732b452b2d7b087d119250cbe19dc19d6fad9ba265543baa9b780
+  OFFICIAL_APK: https://filebin.net/qydbaih4vbdykv8q/Telegram.apk.filebin
+  OFFICIAL_SHA256: 51fe1664b8fa465ce1f753dded887cdeae6ba01a174e538653b57c37df91bc96
 
 jobs:
   official:
@@ -24,6 +24,7 @@ jobs:
         with:
           name: Telegram.apk
           path: Telegram.apk
+          retention-days: 3
 
   build:
     runs-on: ubuntu-latest
@@ -47,6 +48,7 @@ jobs:
         with:
           name: Telegram-${{ env.COMMIT }}.apk
           path: ./Telegram/TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk
+          retention-days: 3
 
   diff:
     runs-on: ubuntu-latest
