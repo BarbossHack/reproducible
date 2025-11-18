@@ -42,7 +42,7 @@ jobs:
       - name: Get libsignal version
         run: |
           LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/signalapp/Signal-Android/refs/tags/v${{ env.VERSION }}/gradle/libs.versions.toml" | grep "libsignal-client = \"[0-9\.]*\"" | cut -d= -f2 | xargs)
-          echo $LIBSIGNAL_VERSION >> $GITHUB_ENV
+          echo "LIBSIGNAL_VERSION=$LIBSIGNAL_VERSION" >> $GITHUB_ENV
       - name: Official
         run: |
           wget https://repo1.maven.org/maven2/org/signal/libsignal-android/${{ env.LIBSIGNAL_VERSION }}/libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
