@@ -15,8 +15,6 @@ jobs:
       - name: Official
         run: |
           wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk
-      - name: Free up disk space
-        uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
       - name: Build
         run: |
           git clone https://github.com/signalapp/Signal-Android -b v${{ env.VERSION }} --depth 1
