@@ -6,39 +6,35 @@ on:
       - ".github/workflows/Signal-Android.yml"
 
 env:
-  VERSION: 7.64.2
+  VERSION: 7.65.3
 
 jobs:
   android:
     runs-on: ubuntu-latest
     steps:
-       - name: Official
-         run: |
-           wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk
-       - name: Build
-         run: |
-           set -x
-           git clone https://github.com/signalapp/Signal-Android -b v${{ env.VERSION }} --depth 1
-           cd Signal-Android/reproducible-builds
-           docker build -t signal-android .
-           cd ..
-           function build_sa() { docker run --memory=6g --rm -v "$(pwd)":/project -w /project --user "$(id -u):$(id -g)" signal-android ./gradlew --warning-mode=all --no-daemon --max-workers=1 --stacktrace -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.daemon.jvmargs="-Xmx256m -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process assembleWebsiteProdRelease; }
-           build_sa || build_sa
-       - name: Apkdiff
-         run: |
-           pip install uv
-           cd Signal-Android/reproducible-builds/apkdiff
-           uv sync
-           uv run apkdiff.py ../../../Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk ../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk
+      - name: Official
+        run: |
+          wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk
+      - name: Free up disk space
+        uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
+      - name: Build
+        run: |
+          git clone https://github.com/signalapp/Signal-Android -b v${{ env.VERSION }} --depth 1
+          cd Signal-Android/reproducible-builds
+          docker build -t signal-android .
+          cd ..
+          function build_sa() { docker run --memory=6g --rm -v "$(pwd)":/project -w /project --user "$(id -u):$(id -g)" signal-android ./gradlew --warning-mode=all --no-daemon --max-workers=1 --stacktrace -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.daemon.jvmargs="-Xmx256m -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process assembleWebsiteProdRelease; }
+          build_sa || build_sa
+      - name: Apkdiff
+        run: |
+          pip install uv
+          cd Signal-Android/reproducible-builds/apkdiff
+          uv sync
+          uv run apkdiff.py ../../../Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk ../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk
 
   libsignal:
     runs-on: ubuntu-latest
     steps:
-      - name: Free up disk space
-        run: |
-          df -h
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache /opt/microsoft /opt/pipx /usr/local/julia* /usr/lib/jvm /usr/lib/google-cloud-sdk /usr/lib/llvm* /usr/lib/firefox /usr/share/swift /usr/share/miniconda /usr/share/az* /usr/share/gradle* /usr/lib/python* /usr/local/share/powershell /usr/local/share/chromium /usr/local/share/vcpkg
-          df -h
       - name: Get libsignal version
         run: |
           LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/signalapp/Signal-Android/refs/tags/v${{ env.VERSION }}/gradle/libs.versions.toml" | grep "libsignal-client = \"[0-9\.]*\"" | cut -d= -f2 | xargs)
@@ -47,6 +43,8 @@ jobs:
         run: |
           wget https://repo1.maven.org/maven2/org/signal/libsignal-android/${{ env.LIBSIGNAL_VERSION }}/libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
           wget https://repo1.maven.org/maven2/org/signal/libsignal-client/${{ env.LIBSIGNAL_VERSION }}/libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar
+      - name: Free up disk space
+        uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
       - name: Build
         run: |
           git clone https://github.com/signalapp/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
