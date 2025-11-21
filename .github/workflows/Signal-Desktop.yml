@@ -152,3 +152,4 @@ jobs:
           pushd libsignal
           bash node/docker-prebuildify.sh
           ls -lsah
+          find . -type d -name prebuilds -exec tree -h {} \;
