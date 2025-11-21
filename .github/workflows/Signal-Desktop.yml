@@ -149,6 +149,6 @@ jobs:
       - name: Build
         run: |
           git clone https://github.com/signalapp/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
-          pushd libsignal/java
+          pushd libsignal
           bash node/docker-prebuildify.sh
           ls -lsah
