@@ -144,6 +144,7 @@ jobs:
       - name: Official
         run: |
           npm pack @signalapp/libsignal-client@${{ env.LIBSIGNAL_VERSION }}
+          mkdir official
           tar xvzf signalapp-libsignal-client-${{ env.LIBSIGNAL_VERSION }}.tgz -C official
       - name: Build
         run: |
@@ -161,6 +162,8 @@ jobs:
           EOF
           bash node/docker-prebuildify.sh
           popd
+          mkdir build
+          tar xvzf libsignal/node/signalapp-libsignal-client-${{ env.LIBSIGNAL_VERSION }}.tgz -C build
       - name: Hashes
         run: |
           sha256sum "./libsignal/node/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./libsignal/node/prebuilds/linux-x64/@signalapp+libsignal-client.node"
