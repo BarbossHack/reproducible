@@ -153,3 +153,8 @@ jobs:
           bash node/docker-prebuildify.sh
           ls -lsah
           find . -type d -name prebuilds -exec tree -h {} \;
+          popd
+      - name: Hashes
+        run: |
+          sha256sum "./libsignal/node/prebuilts/linux-arm64/@signalapp+libsignal-client.node" "./libsignal/node/prebuilts/linux-x64/@signalapp+libsignal-client.node"
+          sha256sum "./package/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./package/prebuilds/linux-x64/@signalapp+libsignal-client.node"
