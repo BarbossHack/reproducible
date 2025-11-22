@@ -150,11 +150,27 @@ jobs:
         run: |
           git clone https://github.com/signalapp/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
           pushd libsignal
+          cat >>node/docker-prebuildify.sh <<EOF
+          docker run ${IS_TTY:+ -it} --init --rm -v "${PWD}":/home/libsignal/src ${DOCKER_IMAGE} sh -c '
+              cd ~/src/node &&
+              npm ci &&
+              npm run tsc &&
+              npm run lint &&
+              npm run format -c &&
+              npm pack
+          '
+          EOF
           bash node/docker-prebuildify.sh
-          ls -lsah
-          find . -type d -name prebuilds -exec tree -h {} \;
+          echo here---------------------------------------------------------
+          ls -lsah .
+          echo node----------------------------------------------------------
+          ls -lsah node/
           popd
       - name: Hashes
         run: |
           sha256sum "./libsignal/node/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./libsignal/node/prebuilds/linux-x64/@signalapp+libsignal-client.node"
           sha256sum "./package/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./package/prebuilds/linux-x64/@signalapp+libsignal-client.node"
+      - name: Diff
+        run: |
+          diff "./libsignal/node/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./package/prebuilds/linux-arm64/@signalapp+libsignal-client.node"
+          diff "./libsignal/node/prebuilds/linux-x64/@signalapp+libsignal-client.node" "./package/prebuilds/linux-x64/@signalapp+libsignal-client.node"
