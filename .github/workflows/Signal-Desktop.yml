@@ -144,6 +144,7 @@ jobs:
       - name: Official
         run: |
           npm pack @signalapp/libsignal-client@${{ env.LIBSIGNAL_VERSION }}
+          tar xvzf signalapp-libsignal-client-${{ env.LIBSIGNAL_VERSION }}.tgz -C official
       - name: Build
         run: |
           git clone https://github.com/signalapp/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
@@ -163,11 +164,11 @@ jobs:
       - name: Hashes
         run: |
           sha256sum "./libsignal/node/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./libsignal/node/prebuilds/linux-x64/@signalapp+libsignal-client.node"
-          sha256sum "./package/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./package/prebuilds/linux-x64/@signalapp+libsignal-client.node"
+          sha256sum "./official/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./official/prebuilds/linux-x64/@signalapp+libsignal-client.node"
       - name: Diff
         run: |
-          diff "./libsignal/node/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./package/prebuilds/linux-arm64/@signalapp+libsignal-client.node"
-          diff "./libsignal/node/prebuilds/linux-x64/@signalapp+libsignal-client.node" "./package/prebuilds/linux-x64/@signalapp+libsignal-client.node"
+          diff "./libsignal/node/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./official/prebuilds/linux-arm64/@signalapp+libsignal-client.node"
+          diff "./libsignal/node/prebuilds/linux-x64/@signalapp+libsignal-client.node" "./official/prebuilds/linux-x64/@signalapp+libsignal-client.node"
       - name: Diffoscope
         run: |
           docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "./libsignal/node/signalapp-libsignal-client-${{ env.LIBSIGNAL_VERSION }}.tgz" "./signalapp-libsignal-client-${{ env.LIBSIGNAL_VERSION }}.tgz"
