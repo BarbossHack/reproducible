@@ -174,4 +174,6 @@ jobs:
           diff "./libsignal/node/prebuilds/linux-x64/@signalapp+libsignal-client.node" "./official/package/prebuilds/linux-x64/@signalapp+libsignal-client.node"
       - name: Diffoscope
         run: |
-          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "./libsignal/node/signalapp-libsignal-client-${{ env.LIBSIGNAL_VERSION }}.tgz" "./signalapp-libsignal-client-${{ env.LIBSIGNAL_VERSION }}.tgz"
+          rm -f ./official/package/prebuilds/{darwin-arm64,darwin-x64,win32-arm64,win32-x64}/@signalapp+libsignal-client.node
+
+          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "./build/" "./official/"
