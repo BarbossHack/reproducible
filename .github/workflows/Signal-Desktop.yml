@@ -150,7 +150,7 @@ jobs:
         run: |
           git clone https://github.com/signalapp/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
           pushd libsignal
-          cat >>node/docker-prebuildify.sh <<EOF
+          cat >>node/docker-prebuildify.sh <<'EOF'
           docker run ${IS_TTY:+ -it} --init --rm -v "${PWD}":/home/libsignal/src ${DOCKER_IMAGE} sh -c '
               cd ~/src/node &&
               npm ci &&
