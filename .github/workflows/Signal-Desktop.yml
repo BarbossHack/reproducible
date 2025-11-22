@@ -160,6 +160,7 @@ jobs:
               npm pack
           '
           EOF
+          cat node/docker-prebuildify.sh
           bash node/docker-prebuildify.sh
           echo here---------------------------------------------------------
           ls -lsah .
