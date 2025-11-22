@@ -144,8 +144,6 @@ jobs:
       - name: Official
         run: |
           npm pack @signalapp/libsignal-client@${{ env.LIBSIGNAL_VERSION }}
-          tar xvzf signalapp-libsignal-client-${{ env.LIBSIGNAL_VERSION }}.tgz
-          tree -h
       - name: Build
         run: |
           git clone https://github.com/signalapp/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
@@ -160,12 +158,7 @@ jobs:
               npm pack
           '
           EOF
-          cat node/docker-prebuildify.sh
           bash node/docker-prebuildify.sh
-          echo here---------------------------------------------------------
-          ls -lsah .
-          echo node----------------------------------------------------------
-          ls -lsah node/
           popd
       - name: Hashes
         run: |
@@ -175,3 +168,6 @@ jobs:
         run: |
           diff "./libsignal/node/prebuilds/linux-arm64/@signalapp+libsignal-client.node" "./package/prebuilds/linux-arm64/@signalapp+libsignal-client.node"
           diff "./libsignal/node/prebuilds/linux-x64/@signalapp+libsignal-client.node" "./package/prebuilds/linux-x64/@signalapp+libsignal-client.node"
+      - name: Diffoscope
+        run: |
+          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "./libsignal/node/signalapp-libsignal-client-${{ env.LIBSIGNAL_VERSION }}.tgz" "./signalapp-libsignal-client-${{ env.LIBSIGNAL_VERSION }}.tgz"
