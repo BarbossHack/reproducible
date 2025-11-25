@@ -6,7 +6,7 @@ on:
       - ".github/workflows/Signal-Desktop.yml"
 
 env:
-  VERSION: 7.80.0
+  VERSION: 7.80.1
 
 jobs:
   official:
@@ -31,7 +31,7 @@ jobs:
           fi
           echo "HASH=$(sha256sum signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: signal-desktop_${{ env.VERSION }}_official
           path: signal-desktop_${{ env.VERSION }}_amd64.deb
@@ -53,7 +53,7 @@ jobs:
           mv ../release/signal-desktop*_${{ env.VERSION }}_amd64.deb ../release/signal-desktop_${{ env.VERSION }}_amd64.deb || true
           echo "HASH=$(sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: signal-desktop_${{ env.VERSION }}_build
           path: Signal-Desktop/release/signal-desktop_${{ env.VERSION }}_amd64.deb
@@ -88,12 +88,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download official artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: signal-desktop_${{ env.VERSION }}_official
           path: official
       - name: Download build artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: signal-desktop_${{ env.VERSION }}_build
           path: build
