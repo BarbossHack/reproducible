@@ -13,18 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Free up disk space
-        run: |
-          df -h
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache /opt/microsoft /opt/pipx /usr/local/julia* /usr/lib/jvm /usr/lib/google-cloud-sdk /usr/lib/llvm* /usr/lib/firefox /usr/share/swift /usr/share/miniconda /usr/share/az* /usr/share/gradle* /usr/lib/python* /usr/local/share/powershell /usr/local/share/chromium /usr/local/share/vcpkg
-          df -h
-      - uses: actions/checkout@v4
+        uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
       - name: Build
         run: |
           curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
           chmod +x simplex-chat-reproduce-builds.sh
           ./simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}"
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: v${{ env.VERSION }}-simplex-chat
           path: ./v${{ env.VERSION }}-simplex-chat/
@@ -35,7 +31,7 @@ jobs:
     needs: [build]
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: v${{ env.VERSION }}-simplex-chat
           path: v${{ env.VERSION }}-simplex-chat
@@ -55,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: v${{ env.VERSION }}-simplex-chat
           path: v${{ env.VERSION }}-simplex-chat
