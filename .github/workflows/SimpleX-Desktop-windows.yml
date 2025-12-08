@@ -33,11 +33,11 @@ jobs:
             desktop_asset_name: simplex-desktop-windows-x86_64.msi
     defaults:
       run:
-        working-directory: d:\a\simplex-chat\simplex-chat\
+        working-directory: d:\a\simplex-chat\simplex-chat
     steps:
       - name: Create simplex-chat dir
         working-directory: .
-        run: mkdir -p d:\a\simplex-chat\simplex-chat\
+        run: mkdir d:\a\simplex-chat\simplex-chat\
 
       - name: Checkout Code
         run: |
@@ -46,10 +46,9 @@ jobs:
           git clone --recursive --branch v${{ env.VERSION }} --depth 1 https://github.com/simplex-chat/simplex-chat/ .
           sleep 1
           pwd
-          ls -lsah
 
       - name: Prepare build
-        uses: ./.github/actions/prepare-build
+        uses: d:\a\simplex-chat\simplex-chat\.github\actions\prepare-build
         with:
           java_ver: ${{ needs.variables.outputs.JAVA_VER }}
           ghc_ver: ${{ matrix.ghc }}
