@@ -21,7 +21,7 @@ jobs:
 
   build-windows:
     name: "${{ matrix.os }} (CLI,Desktop), GHC: ${{ matrix.ghc }}"
-    needs: [maybe-release, variables]
+    needs: [variables]
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
