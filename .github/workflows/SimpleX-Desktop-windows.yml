@@ -1,0 +1,116 @@
+name: SimpleX-Desktop
+
+on:
+  push:
+    paths:
+      - ".github/workflows/SimpleX-Desktop-windows.yml"
+
+env:
+  VERSION: 6.4.7
+
+jobs:
+  variables:
+    runs-on: ubuntu-latest
+    outputs:
+      GHC_VER: "9.6.3"
+      JAVA_VER: "17"
+    steps:
+      - name: Dummy job when we have just simple variables
+        if: false
+        run: echo
+
+  build-windows:
+    name: "${{ matrix.os }} (CLI,Desktop), GHC: ${{ matrix.ghc }}"
+    needs: [maybe-release, variables]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            ghc: ${{ needs.variables.outputs.GHC_VER }}
+            cli_asset_name: simplex-chat-windows-x86-64
+            desktop_asset_name: simplex-desktop-windows-x86_64.msi
+    steps:
+      - name: Checkout Code
+        run: git clone --recursive --branch ${{ env.VERSION }} --depth 1 https://github.com/simplex-chat/simplex-chat/ .
+
+      - name: Prepare build
+        uses: ./.github/actions/prepare-build
+        with:
+          java_ver: ${{ needs.variables.outputs.JAVA_VER }}
+          ghc_ver: ${{ matrix.ghc }}
+          os: ${{ matrix.os }}
+          cache_path: "C:/cabal"
+          github_ref: ${{ github.ref }}
+
+      - name: Configure pagefile (Windows)
+        uses: simplex-chat/configure-pagefile-action@v1.4
+        with:
+          minimum-size: 16GB
+          maximum-size: 16GB
+          disk-root: "C:"
+
+      - name: "Setup MSYS2"
+        uses: simplex-chat/setup-msys2@v2
+        with:
+          msystem: ucrt64
+          update: true
+          install: >-
+            git
+            perl
+            make
+          pacboy: >-
+            toolchain:p
+            cmake:p
+
+      # rm -rf dist-newstyle/src/direct-sq* is here because of the bug in cabal's dependency which prevents second build from finishing
+      - name: Build CLI
+        id: windows_cli_build
+        shell: msys2 {0}
+        run: |
+          export PATH=$PATH:/c/ghcup/bin:$(echo /c/tools/ghc-*/bin || echo)
+          scripts/desktop/prepare-openssl-windows.sh
+          openssl_windows_style_path=$(echo `pwd`/dist-newstyle/openssl-3.0.15 | sed 's#/\([a-zA-Z]\)#\1:#' | sed 's#/#\\#g')
+          rm cabal.project.local 2>/dev/null || true
+          echo "ignore-project: False" >> cabal.project.local
+          echo "package direct-sqlcipher" >> cabal.project.local
+          echo "    flags: +openssl" >> cabal.project.local
+          echo "    extra-include-dirs: $openssl_windows_style_path\include" >> cabal.project.local
+          echo "    extra-lib-dirs: $openssl_windows_style_path" >> cabal.project.local
+
+          rm -rf dist-newstyle/src/direct-sq*
+          sed -i "s/, unix /--, unix /" simplex-chat.cabal
+          cabal build -j --enable-tests
+          rm -rf dist-newstyle/src/direct-sq*
+          path=$(cabal list-bin simplex-chat | tail -n 1)
+          echo "bin_path=$path" >> $GITHUB_OUTPUT
+          echo "bin_hash=$(echo SHA2-256\(${{ matrix.cli_asset_name }}\)= $(openssl sha256 $path | cut -d' ' -f 2))" >> $GITHUB_OUTPUT
+
+      - name: Upload CLI
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ steps.windows_cli_build.outputs.bin_path }}
+          path: ${{ matrix.cli_asset_name }}
+          retention-days: 3
+
+      - name: Build Desktop
+        id: windows_desktop_build
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: msys2 {0}
+        run: |
+          export PATH=$PATH:/c/ghcup/bin:$(echo /c/tools/ghc-*/bin || echo)
+          scripts/desktop/build-lib-windows.sh
+          cd apps/multiplatform
+          ./gradlew packageMsi
+          rm -rf dist-newstyle/src/direct-sq*
+          path=$(echo $PWD/release/main/msi/*imple*.msi | sed 's#/\([a-z]\)#\1:#' | sed 's#/#\\#g')
+          echo "package_path=$path" >> $GITHUB_OUTPUT
+          echo "package_hash=$(echo SHA2-256\(${{ matrix.desktop_asset_name }}\)= $(openssl sha256 $path | cut -d' ' -f 2))" >> $GITHUB_OUTPUT
+
+      - name: Upload Desktop
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ steps.windows_desktop_build.outputs.package_path }}
+          path: ${{ matrix.desktop_asset_name }}
+          retention-days: 3
