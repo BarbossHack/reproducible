@@ -35,15 +35,18 @@ jobs:
       run:
         working-directory: d:\a\simplex-chat\simplex-chat\
     steps:
-      - name: test
+      - name: Create simplex-chat dir
         working-directory: .
-        run: |
-          mkdir d:\a\simplex-chat\simplex-chat\
+        run: mkdir -p d:\a\simplex-chat\simplex-chat\
 
       - name: Checkout Code
         run: |
           pwd
+          sleep 1
           git clone --recursive --branch v${{ env.VERSION }} --depth 1 https://github.com/simplex-chat/simplex-chat/ .
+          sleep 1
+          pwd
+          ls -lsah
 
       - name: Prepare build
         uses: ./.github/actions/prepare-build
