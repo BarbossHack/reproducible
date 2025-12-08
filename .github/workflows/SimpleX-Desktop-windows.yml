@@ -33,7 +33,7 @@ jobs:
             desktop_asset_name: simplex-desktop-windows-x86_64.msi
     steps:
       - name: Checkout Code
-        run: git clone --recursive --branch ${{ env.VERSION }} --depth 1 https://github.com/simplex-chat/simplex-chat/ .
+        run: git clone --recursive --branch v${{ env.VERSION }} --depth 1 https://github.com/simplex-chat/simplex-chat/ .
 
       - name: Prepare build
         uses: ./.github/actions/prepare-build
