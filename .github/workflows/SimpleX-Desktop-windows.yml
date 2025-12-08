@@ -31,18 +31,19 @@ jobs:
             ghc: ${{ needs.variables.outputs.GHC_VER }}
             cli_asset_name: simplex-chat-windows-x86-64
             desktop_asset_name: simplex-desktop-windows-x86_64.msi
+    defaults:
+      run:
+        working-directory: d:\a\simplex-chat\simplex-chat\
     steps:
       - name: test
+        working-directory: .
         run: |
-          pwd
           mkdir d:\a\simplex-chat\simplex-chat\
-          cd d:\a\simplex-chat\simplex-chat\
-          pwd
-          echo END
-          exit 1
 
       - name: Checkout Code
-        run: git clone --recursive --branch v${{ env.VERSION }} --depth 1 https://github.com/simplex-chat/simplex-chat/ .
+        run: |
+          pwd
+          git clone --recursive --branch v${{ env.VERSION }} --depth 1 https://github.com/simplex-chat/simplex-chat/ .
 
       - name: Prepare build
         uses: ./.github/actions/prepare-build
