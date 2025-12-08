@@ -32,6 +32,15 @@ jobs:
             cli_asset_name: simplex-chat-windows-x86-64
             desktop_asset_name: simplex-desktop-windows-x86_64.msi
     steps:
+      - name: test
+        run: |
+          pwd
+          mkdir d:\a\simplex-chat\simplex-chat\
+          cd d:\a\simplex-chat\simplex-chat\
+          pwd
+          echo END
+          exit 1
+
       - name: Checkout Code
         run: git clone --recursive --branch v${{ env.VERSION }} --depth 1 https://github.com/simplex-chat/simplex-chat/ .
 
