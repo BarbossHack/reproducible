@@ -86,17 +86,18 @@ jobs:
           path=$(cabal list-bin simplex-chat | tail -n 1)
           echo "bin_path=$path" >> $GITHUB_OUTPUT
           echo "bin_hash=$(echo SHA2-256\(${{ matrix.cli_asset_name }}\)= $(openssl sha256 $path | cut -d' ' -f 2))" >> $GITHUB_OUTPUT
+          find . -type f -name "*.exe"
+          find . -type f -name "*.msi"
 
       - name: Upload CLI
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ steps.windows_cli_build.outputs.bin_path }}
-          path: ${{ matrix.cli_asset_name }}
+          name: ${{ matrix.cli_asset_name }}
+          path: ${{ steps.windows_cli_build.outputs.bin_path }}
           retention-days: 3
 
       - name: Build Desktop
         id: windows_desktop_build
-        if: startsWith(github.ref, 'refs/tags/v')
         shell: msys2 {0}
         run: |
           export PATH=$PATH:/c/ghcup/bin:$(echo /c/tools/ghc-*/bin || echo)
@@ -107,10 +108,12 @@ jobs:
           path=$(echo $PWD/release/main/msi/*imple*.msi | sed 's#/\([a-z]\)#\1:#' | sed 's#/#\\#g')
           echo "package_path=$path" >> $GITHUB_OUTPUT
           echo "package_hash=$(echo SHA2-256\(${{ matrix.desktop_asset_name }}\)= $(openssl sha256 $path | cut -d' ' -f 2))" >> $GITHUB_OUTPUT
+          find . -type f -name "*.exe"
+          find . -type f -name "*.msi"
 
       - name: Upload Desktop
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ steps.windows_desktop_build.outputs.package_path }}
-          path: ${{ matrix.desktop_asset_name }}
+          name: ${{ matrix.desktop_asset_name }}
+          path: ${{ steps.windows_desktop_build.outputs.package_path }}
           retention-days: 3
