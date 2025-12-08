@@ -48,7 +48,7 @@ jobs:
           pwd
 
       - name: Prepare build
-        uses: d:/a/simplex-chat/simplex-chat/.github/actions/prepare-build
+        uses: ../../simplex-chat/simplex-chat/.github/actions/prepare-build
         with:
           java_ver: ${{ needs.variables.outputs.JAVA_VER }}
           ghc_ver: ${{ matrix.ghc }}
