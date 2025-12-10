@@ -6,7 +6,7 @@ on:
       - ".github/workflows/SimpleX-Desktop.yml"
 
 env:
-  VERSION: 6.4.7
+  VERSION: 6.4.8
 
 jobs:
   build:
