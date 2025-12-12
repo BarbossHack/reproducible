@@ -6,7 +6,7 @@ on:
       - ".github/workflows/Signal-Android.yml"
 
 env:
-  VERSION: 7.66.5
+  VERSION: 7.67.1
 
 jobs:
   android:
