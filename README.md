@@ -14,7 +14,7 @@ Each dedicated page contains the full version history and verification results.
 | ProtonMail Android                                               | v7.2.1                | ⚫ N/A         | - |
 | Session Android                                                  | v1.28.2               | ⚫ N/A         | - |
 | Session Desktop                                                  | v1.17.1               | ⚫ N/A         | - |
-| [Signal Android](https://github.com/signalapp/Signal-Android)    | v7.66.5               | ✅ Yes         | [See details](history/Signal-Android.md) |
+| [Signal Android](https://github.com/signalapp/Signal-Android)    | v7.67.1               | ✅ Yes         | [See details](history/Signal-Android.md) |
 | [Signal Desktop](https://github.com/signalapp/Signal-Desktop)    | v7.82.0               | ✅ Yes _(linux)_<br>⚫ N/A _(windows/macos)_ | [See details](history/Signal-Desktop.md) |
 | SimpleX Android                                                  | v6.4.6                | ⚫ N/A         | - |
 | [SimpleX Desktop](https://github.com/simplex-chat/simplex-chat)  | v6.4.8                | ✅ Yes _(linux)_<br>⚫ N/A _(windows/macos)_ | [See details](history/SimpleX-Desktop.md) |
