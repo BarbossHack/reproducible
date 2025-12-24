@@ -8,7 +8,7 @@ Each dedicated page contains the full version history and verification results.
 | [Briar Android](https://code.briarproject.org/briar/briar)       | v1.5.14               | 🟡 In progress | [See details](history/Briar-Android.md) |
 | Briar Desktop                                                    | v0.6.4                | ⚫ N/A         | - |
 | ElementX Android                                                 | v25.10.1              | 🟡 In progress | - |
-| [Molly (Signal)](https://github.com/mollyim/mollyim-android)     | v7.66.4-1             | ✅ Yes         | [See details](history/Molly-Android.md) |
+| [Molly (Signal)](https://github.com/mollyim/mollyim-android)     | v7.66.5-1             | ✅ Yes         | [See details](history/Molly-Android.md) |
 | Olvid Android                                                    | v4.0.1                | ⚫ N/A         | - |
 | Olvid Desktop                                                    | v2.6.1                | ⚫ N/A         | - |
 | ProtonMail Android                                               | v7.2.1                | ⚫ N/A         | - |
@@ -19,7 +19,7 @@ Each dedicated page contains the full version history and verification results.
 | SimpleX Android                                                  | v6.4.6                | ⚫ N/A         | - |
 | [SimpleX Desktop](https://github.com/simplex-chat/simplex-chat)  | v6.4.8                | ✅ Yes _(linux)_<br>⚫ N/A _(windows/macos)_ | [See details](history/SimpleX-Desktop.md) |
 | [SimpleX Server](https://github.com/simplex-chat/simplexmq)      | v6.4.5                | ✅ Yes         | [See details](history/SimpleX-Server.md) |
-| [Telegram Android](https://github.com/DrKLO/Telegram)            | v12.2.3               | ✅ Yes         | [See details](history/Telegram-Android.md) |
+| [Telegram Android](https://github.com/DrKLO/Telegram)            | v12.2.10              | ✅ Yes         | [See details](history/Telegram-Android.md) |
 | Telegram Desktop                                                 | v6.2.5                | ⚫ N/A         | - |
 | [Threema Android](https://github.com/threema-ch/threema-android) | v6.2.1                | ✅ Yes         | [See details](history/Threema-Android.md) |
 | Threema Desktop                                                  | v2.0-beta57           | ⚫ N/A         | - |

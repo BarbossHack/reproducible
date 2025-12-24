@@ -4,6 +4,7 @@ Reproducible build instructions: <https://github.com/mollyim/mollyim-android/blo
 
 | Version  | Release Date | Reproducible? | Notes |
 |----------|--------------|---------------|-------|
+| v7.66.5-1| 2025-12-03   | ✅ Yes        | - |
 | v7.66.4-1| 2025-12-01   | ✅ Yes        | - |
 | v7.63.3-1| 2025-11-07   | ✅ Yes        | - |
 | v7.61.3-1| 2025-10-21   | ✅ Yes        | - |
