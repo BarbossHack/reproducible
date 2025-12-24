@@ -10,6 +10,7 @@ env:
   # https://shop.threema.ch/fr/download
   OFFICIAL_APK: https://filebin.net/rivs43vita2r82gh/Threema-6.3.0-1113.apk.filebin
   OFFICIAL_SHA256: 7210950f618cf7e8e6abdd9651045239303bed4a91514a53ce2a01458b955d93
+  SIGNATURE_SHA256: 269d600e1ce7e0a7ffddb18fb92251092938f5be38ea1113e29213564b32cb44
 
 jobs:
   build:
@@ -19,6 +20,7 @@ jobs:
         run: |
           curl -L "${{ env.OFFICIAL_APK }}" -o Threema.apk
           echo "$OFFICIAL_SHA256  Threema.apk" | sha256sum -c -
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify --print-certs --min-sdk-version 24 Threema.apk | grep $SIGNATURE_SHA256
       - name: Dockerfile
         run: |
           git clone https://github.com/threema-ch/threema-android
