@@ -6,10 +6,10 @@ on:
       - ".github/workflows/Telegram-Android.yml"
 
 env:
-  COMMIT: d1a53bbb9bc0e49f46c9c5273be742a164ea7265
+  COMMIT: 8201e36d33a14f00bcc1cc5c63f74388295ce2ef
   # https://t.me/s/TAndroidAPK
-  OFFICIAL_APK: https://filebin.net/27yfb03u4z2e8rdy/Telegram.apk.filebin
-  OFFICIAL_SHA256: ad82e3f6a5c2b9fa6a3a1ae9973ad8b40f9194317f243c76a1dc086f80116020
+  OFFICIAL_APK: https://filebin.net/ssf2x1546yj4nk9g/Telegram.apk.filebin
+  OFFICIAL_SHA256: 8e56f1e1d0170a4994fad8aaaf9fbd47de6ad57e92b9cf4c775c3510110e0a72
 
 jobs:
   official:
@@ -69,6 +69,8 @@ jobs:
       - name: apkdiff
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
+          # see https://github.com/DrKLO/Telegram/pull/1899
+          sed -i 's|"META-INF/CERT.SF"]|"META-INF/CERT.SF", "META-INF/version-control-info.textproto"]|g' apkdiff.py
           output=$(python apkdiff.py ./official/Telegram.apk ./build/app.apk)
           echo "$output"
           echo "$output" | grep -F "APKs are the same"
