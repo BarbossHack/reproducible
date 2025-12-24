@@ -13,11 +13,6 @@ jobs:
   official:
     runs-on: ubuntu-latest
     steps:
-      - name: Install apksigner
-        uses: android-actions/setup-android@v3
-        with:
-          packages: |
-            build-tools;36.1.0
       - name: Official
         run: |
           wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk
