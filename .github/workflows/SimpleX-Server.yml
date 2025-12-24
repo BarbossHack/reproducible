@@ -18,9 +18,8 @@ jobs:
           chmod +x simplexmq-reproduce-builds.sh
           ./simplexmq-reproduce-builds.sh "v${{ env.VERSION }}"
       - name: Upload artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
-          name: v${{ env.VERSION }}-simplexmq
           path: ./v${{ env.VERSION }}-simplexmq/
           retention-days: 3
 
@@ -29,11 +28,7 @@ jobs:
     needs: [build]
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v6
-        with:
-          name: v${{ env.VERSION }}-simplexmq
-          path: v${{ env.VERSION }}-simplexmq
-
+        uses: actions/download-artifact@v7
       - name: Check hashes
         run: |
           if [ -f "v${{ env.VERSION }}-simplexmq/_sha256sums" ]; then
@@ -50,10 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v6
-        with:
-          name: v${{ env.VERSION }}-simplexmq
-          path: v${{ env.VERSION }}-simplexmq
+        uses: actions/download-artifact@v7
       - name: Install dependencies
         run: sudo apt-get install -y binutils
       - name: Print hashes

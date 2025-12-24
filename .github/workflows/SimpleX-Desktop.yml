@@ -20,9 +20,8 @@ jobs:
           chmod +x simplex-chat-reproduce-builds.sh
           ./simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}"
       - name: Upload artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
-          name: v${{ env.VERSION }}-simplex-chat
           path: ./v${{ env.VERSION }}-simplex-chat/
           retention-days: 3
 
@@ -31,10 +30,7 @@ jobs:
     needs: [build]
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v6
-        with:
-          name: v${{ env.VERSION }}-simplex-chat
-          path: v${{ env.VERSION }}-simplex-chat
+        uses: actions/download-artifact@v7
       - name: Check sha256sums
         run: |
           if [ -f "v${{ env.VERSION }}-simplex-chat/_sha256sums" ]; then
@@ -51,10 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v6
-        with:
-          name: v${{ env.VERSION }}-simplex-chat
-          path: v${{ env.VERSION }}-simplex-chat
+        uses: actions/download-artifact@v7
       - name: Print hashes
         run: |
           echo "sha256 from-source"

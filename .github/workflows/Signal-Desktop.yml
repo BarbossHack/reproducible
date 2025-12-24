@@ -31,9 +31,9 @@ jobs:
           fi
           echo "HASH=$(sha256sum signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
       - name: Upload artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
-          name: signal-desktop_${{ env.VERSION }}_official
+          name: official
           path: signal-desktop_${{ env.VERSION }}_amd64.deb
           retention-days: 3
     outputs:
@@ -53,9 +53,9 @@ jobs:
           mv ../release/signal-desktop*_${{ env.VERSION }}_amd64.deb ../release/signal-desktop_${{ env.VERSION }}_amd64.deb || true
           echo "HASH=$(sha256sum ../release/signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
       - name: Upload artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
-          name: signal-desktop_${{ env.VERSION }}_build
+          name: build
           path: Signal-Desktop/release/signal-desktop_${{ env.VERSION }}_amd64.deb
           retention-days: 3
     outputs:
@@ -88,14 +88,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download official artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
-          name: signal-desktop_${{ env.VERSION }}_official
+          name: official
           path: official
       - name: Download build artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
-          name: signal-desktop_${{ env.VERSION }}_build
+          name: build
           path: build
       - name: Prepare for diff
         run: |

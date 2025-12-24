@@ -20,7 +20,7 @@ jobs:
           curl -L "${{ env.OFFICIAL_APK }}" -o Telegram.apk
           echo "$OFFICIAL_SHA256  Telegram.apk" | sha256sum -c -
       - name: Upload artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Telegram.apk
           path: Telegram.apk
@@ -46,7 +46,7 @@ jobs:
           cd Telegram
           docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle :TMessagesProj_AppStandalone:assembleAfatStandalone
       - name: Upload artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Telegram-${{ env.COMMIT }}.apk
           path: ./Telegram/TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk
@@ -57,12 +57,12 @@ jobs:
     needs: [build]
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: Telegram.apk
           path: official
       - name: Download artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: Telegram-${{ env.COMMIT }}.apk
           path: build
