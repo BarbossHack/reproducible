@@ -6,15 +6,29 @@ on:
       - ".github/workflows/Signal-Android.yml"
 
 env:
-  VERSION: 7.68.5
+  VERSION: 7.68.4
+  SIGNATURE_SHA256: 4be4f6cd5be844083e900279dc822af65a547fecc26aba7ff1f5203a45518cd8
 
 jobs:
-  android:
+  official:
     runs-on: ubuntu-latest
     steps:
       - name: Official
         run: |
           wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk
+          apksigner verify --print-certs --min-sdk-version 24 Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk | grep $SIGNATURE_SHA256
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          path: Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk
+          retention-days: 3
+
+  buildiff:
+    needs: [official]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v7
       - name: Build
         run: |
           git clone https://github.com/signalapp/Signal-Android -b v${{ env.VERSION }} --depth 1
@@ -31,6 +45,7 @@ jobs:
           uv run apkdiff.py ../../../Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk ../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk
 
   libsignal:
+    needs: [official]
     runs-on: ubuntu-latest
     steps:
       - name: Get libsignal version
