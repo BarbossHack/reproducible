@@ -6,10 +6,10 @@ on:
       - ".github/workflows/Telegram-Android.yml"
 
 env:
-  COMMIT: 20ed157cf63a8fe3d6f90a5c78cf3f3a079396fa
+  COMMIT: ef93bc4cc92d88850ef8f62c5356727e19a4f9a7
   # https://t.me/s/TAndroidAPK
-  OFFICIAL_APK: https://filebin.net/h2tch03x6ctb3pqi/Telegram.apk.filebin
-  OFFICIAL_SHA256: 3aacc479283fffd3b7c6ef6633011632f9837667713c2aed77b13c6c043cba7d
+  OFFICIAL_APK: https://filebin.net/ooi0gzc0vi1ged4z/Telegram.apk.filebin
+  OFFICIAL_SHA256: fe40aa1f32d314609a587b52fa5f4834bb38f6370452cd72f6d0abc11c45fbda
 
 jobs:
   official:
