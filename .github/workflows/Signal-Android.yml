@@ -16,7 +16,7 @@ jobs:
       - name: Official
         run: |
           wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify --print-certs --min-sdk-version 24 Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk | grep $SIGNATURE_SHA256
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:

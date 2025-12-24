@@ -20,7 +20,7 @@ jobs:
         run: |
           curl -L "${{ env.OFFICIAL_APK }}" -o Threema.apk
           echo "$OFFICIAL_SHA256  Threema.apk" | sha256sum -c -
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify --print-certs --min-sdk-version 24 Threema.apk | grep $SIGNATURE_SHA256
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Threema.apk | grep $SIGNATURE_SHA256
       - name: Dockerfile
         run: |
           git clone https://github.com/threema-ch/threema-android
