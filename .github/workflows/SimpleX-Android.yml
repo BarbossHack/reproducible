@@ -6,7 +6,7 @@ on:
       - ".github/workflows/SimpleX-Android.yml"
 
 env:
-  VERSION: v6.5.0-beta.3
+  VERSION: 6.5.0-beta.3
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
         run: |
           curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/heads/master/scripts/simplex-chat-reproduce-builds-android.sh"
           chmod +x simplex-chat-reproduce-builds-android.sh
-          ./simplex-chat-reproduce-builds-android.sh "v${{ env.VERSION }}"
+          echo | ./simplex-chat-reproduce-builds-android.sh "v${{ env.VERSION }}"
           ls -Rlsah
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
