@@ -1,0 +1,63 @@
+name: SimpleX-Android
+
+on:
+  push:
+    paths:
+      - ".github/workflows/SimpleX-Android.yml"
+
+env:
+  VERSION: v6.5.0-beta.3
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Free up disk space
+        uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
+      - name: Build
+        run: |
+          curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/heads/master/scripts/simplex-chat-reproduce-builds-android.sh"
+          chmod +x ssimplex-chat-reproduce-builds-android.sh
+          ./simplex-chat-reproduce-builds-android.sh "v${{ env.VERSION }}"
+          ls -Rlsah
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          path: ./v${{ env.VERSION }}-simplex-chat/
+          retention-days: 3
+
+  check:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v7
+      - name: Check sha256sums
+        run: |
+          if [ -f "v${{ env.VERSION }}-simplex-chat/_sha256sums" ]; then
+            echo "Reproducible"
+            exit 0
+          else
+            echo "Not reproducible"
+            exit 1
+          fi
+
+  diff:
+    needs: check
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v7
+      - name: Print hashes
+        run: |
+          echo "sha256 from-source"
+          sha256sum ./v${{ env.VERSION }}-simplex-chat/from-source/*
+          echo "sha256 prebuilt"
+          sha256sum ./v${{ env.VERSION }}-simplex-chat/prebuilt/*
+      - name: Diffoscope
+        run: |
+          for file in ./v${{ env.VERSION }}-simplex-chat/prebuilt/*; do
+            filename=$(basename "$file")
+            docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "v${{ env.VERSION }}-simplex-chat/from-source/$filename" "v${{ env.VERSION }}-simplex-chat/prebuilt/$filename" || true
+          done
