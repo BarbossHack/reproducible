@@ -17,7 +17,7 @@ jobs:
       - name: Build
         run: |
           curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/heads/master/scripts/simplex-chat-reproduce-builds-android.sh"
-          chmod +x ssimplex-chat-reproduce-builds-android.sh
+          chmod +x simplex-chat-reproduce-builds-android.sh
           ./simplex-chat-reproduce-builds-android.sh "v${{ env.VERSION }}"
           ls -Rlsah
       - name: Upload artifacts
