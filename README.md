@@ -7,7 +7,7 @@ This repository tracks the reproducibility status of open source messengers.
 | [Briar Android](https://code.briarproject.org/briar/briar)       | v1.5.14               | 🟡 In progress | - |
 | Briar Desktop                                                    | v0.6.4                | ⚫ N/A         | - |
 | ElementX Android                                                 | v25.10.1              | 🟡 In progress | - |
-| [Molly (Signal)](https://github.com/mollyim/mollyim-android)     | v7.66.5-1             | ✅ Yes         | [See details](history/Molly-Android.md) |
+| [Molly (Signal)](https://github.com/mollyim/mollyim-android)     | v7.68.5-1             | ✅ Yes         | [See details](history/Molly-Android.md) |
 | Olvid Android                                                    | v4.0.1                | ⚫ N/A         | - |
 | Olvid Desktop                                                    | v2.6.1                | ⚫ N/A         | - |
 | ProtonMail Android                                               | v7.2.1                | ⚫ N/A         | - |
