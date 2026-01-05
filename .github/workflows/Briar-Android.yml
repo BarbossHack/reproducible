@@ -6,21 +6,28 @@ on:
       - ".github/workflows/Briar-Android.yml"
 
 env:
-  VERSION: release-1.5.14
+  VERSION: release-1.5.15
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # - name: Official
-      #   run: |
-      #     curl -L "${{ env.OFFICIAL_APK }}" -o Threema.apk
-      #     echo "$OFFICIAL_SHA256  Threema.apk" | sha256sum -c -
       - name: Dockerfile
         run: |
-          git clone https://code.briarproject.org/briar/briar-reproducer.git --depth 1
+          apt update && apt install -y fuse
+          git clone https://github.com/BarbossHack/briar-reproducer -b barboss-hack-update-reproducer --depth 1
           docker build -t briar/reproducer briar-reproducer
-      - name: Build
+      - name: Reproducible
         run: |
-          apt install fuse
-          docker run --cap-add SYS_ADMIN --device /dev/fuse briar/reproducer:latest ./reproduce.py ${{ env.VERSION }}
+          docker run --cap-add SYS_ADMIN --device /dev/fus --name reproducer briar/reproducer:latest ./reproduce.py briar ${{ env.VERSION }}
+          docker cp reproducer:/opt/briar-reproducer/briar/briar-android/build/outputs/apk/official/release/briar-android-official-release-unsigned.apk build.apk
+          docker cp reproducer:/opt/briar-reproducer/briar-$(echo ${{ env.VERSION }} | | cut -d- -f2).apk official.apk
+      - name: Signal Apkdiff
+        run: |
+          pip install uv
+          git clone https://github.com/signalapp/Signal-Android --depth 1
+          cd Signal-Android/reproducible-builds/apkdiff
+          uv sync
+          zip -d official.apk "META-INF/*"
+          zip -d build.apk "META-INF/*"
+          uv run apkdiff.py official.apk build.apk
