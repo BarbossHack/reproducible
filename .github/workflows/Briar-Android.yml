@@ -17,13 +17,14 @@ jobs:
           sudo apt update && sudo apt install -y fuse
           git clone https://github.com/BarbossHack/briar-reproducer -b barboss-hack-update-reproducer --depth 1
           docker build -t briar/reproducer briar-reproducer
-      - name: Disable AppArmor
-        uses: cisagov/action-disable-apparmor@v1
+      # - name: Disable AppArmor
+      #   uses: cisagov/action-disable-apparmor@v1
       - name: Reproducible
         run: |
           sudo docker run --privileged --device /dev/fuse --name reproducer briar/reproducer:latest ./reproduce.py briar ${{ env.VERSION }}
-          docker cp reproducer:/opt/briar-reproducer/briar/briar-android/build/outputs/apk/official/release/briar-android-official-release-unsigned.apk build.apk
-          docker cp reproducer:/opt/briar-reproducer/briar-$(echo ${{ env.VERSION }} | cut -d- -f2).apk official.apk
+          sudo docker cp reproducer:/opt/briar-reproducer/briar/briar-android/build/outputs/apk/official/release/briar-android-official-release-unsigned.apk build.apk
+          sudo docker cp reproducer:/opt/briar-reproducer/briar-$(echo ${{ env.VERSION }} | cut -d- -f2).apk official.apk
+          ls -lsah
       - name: Signal Apkdiff
         run: |
           pip install uv
