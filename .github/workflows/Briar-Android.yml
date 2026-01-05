@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Dockerfile
         run: |
-          apt update && apt install -y fuse
+          sudo apt update && sudo apt install -y fuse
           git clone https://github.com/BarbossHack/briar-reproducer -b barboss-hack-update-reproducer --depth 1
           docker build -t briar/reproducer briar-reproducer
       - name: Reproducible
