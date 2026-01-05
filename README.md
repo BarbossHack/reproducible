@@ -4,23 +4,23 @@ This repository tracks the reproducibility status of open source messengers.
 
 | Software                                                         | Version               | Reproducible   | History |
 |------------------------------------------------------------------|-----------------------|----------------|---------|
-| [Briar Android](https://code.briarproject.org/briar/briar)       | v1.5.14               | 🟡 In progress | - |
+| [Briar Android](https://code.briarproject.org/briar/briar)       | v1.5.15               | 🟡 In progress _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Briar-Android.md) |
 | Briar Desktop                                                    | v0.6.4                | ⚫ N/A         | - |
-| ElementX Android                                                 | v25.10.1              | 🟡 In progress | - |
-| [Molly (Signal)](https://github.com/mollyim/mollyim-android)     | v7.68.5-1             | ✅ Yes         | [See details](history/Molly-Android.md) |
+| ElementX Android                                                 | v25.10.1              | ⚫ N/A _(PlayStore)_<br>🟡 In progress _(FDroid)_ | - |
+| [Molly (Signal)](https://github.com/mollyim/mollyim-android)     | v7.68.5-1             | ✅ Yes _(Github)_ | [See details](history/Molly-Android.md) |
 | Olvid Android                                                    | v4.0.1                | ⚫ N/A         | - |
 | Olvid Desktop                                                    | v2.6.1                | ⚫ N/A         | - |
 | ProtonMail Android                                               | v7.2.1                | ⚫ N/A         | - |
 | Session Android                                                  | v1.28.2               | ⚫ N/A         | - |
 | Session Desktop                                                  | v1.17.1               | ⚫ N/A         | - |
-| [Signal Android](https://github.com/signalapp/Signal-Android)    | v7.68.4               | ✅ Yes         | [See details](history/Signal-Android.md) |
+| [Signal Android](https://github.com/signalapp/Signal-Android)    | v7.68.4               | 🟡 In progress _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Signal-Android.md) |
 | [Signal Desktop](https://github.com/signalapp/Signal-Desktop)    | v7.83.0               | ✅ Yes _(linux)_<br>⚫ N/A _(windows/macos)_ | [See details](history/Signal-Desktop.md) |
-| SimpleX Android                                                  | v6.4.6                | ⚫ N/A         | - |
+| SimpleX Android                                                  | v6.5.0                | 🟡 In progress _(PlayStore)_<br>🟡 In progress _(Github)_ | - |
 | [SimpleX Desktop](https://github.com/simplex-chat/simplex-chat)  | v6.4.8                | ✅ Yes _(linux)_<br>⚫ N/A _(windows/macos)_ | [See details](history/SimpleX-Desktop.md) |
 | [SimpleX Server](https://github.com/simplex-chat/simplexmq)      | v6.4.5                | ✅ Yes         | [See details](history/SimpleX-Server.md) |
-| [Telegram Android](https://github.com/DrKLO/Telegram)            | v12.2.10              | ✅ Yes         | [See details](history/Telegram-Android.md) |
+| [Telegram Android](https://github.com/DrKLO/Telegram)            | v12.2.10              | 🟡 In progress _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Telegram-Android.md) |
 | Telegram Desktop                                                 | v6.2.5                | ⚫ N/A         | - |
-| [Threema Android](https://github.com/threema-ch/threema-android) | v6.3.0                | ✅ Yes         | [See details](history/Threema-Android.md) |
+| [Threema Android](https://github.com/threema-ch/threema-android) | v6.3.0                | 🟡 In progress _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Threema-Android.md) |
 | Threema Desktop                                                  | v2.0-beta57           | ⚫ N/A         | - |
 | Wire Android                                                     | v4.16.1               | ⚫ N/A         | - |
 | Wire Desktop                                                     | v3.40.3718            | ⚫ N/A         | - |
