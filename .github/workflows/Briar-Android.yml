@@ -19,9 +19,9 @@ jobs:
           docker build -t briar/reproducer briar-reproducer
       - name: Reproducible
         run: |
-          docker run --cap-add SYS_ADMIN --device /dev/fus --name reproducer briar/reproducer:latest ./reproduce.py briar ${{ env.VERSION }}
+          docker run --cap-add SYS_ADMIN --device /dev/fuse --name reproducer briar/reproducer:latest ./reproduce.py briar ${{ env.VERSION }}
           docker cp reproducer:/opt/briar-reproducer/briar/briar-android/build/outputs/apk/official/release/briar-android-official-release-unsigned.apk build.apk
-          docker cp reproducer:/opt/briar-reproducer/briar-$(echo ${{ env.VERSION }} | | cut -d- -f2).apk official.apk
+          docker cp reproducer:/opt/briar-reproducer/briar-$(echo ${{ env.VERSION }} | cut -d- -f2).apk official.apk
       - name: Signal Apkdiff
         run: |
           pip install uv
