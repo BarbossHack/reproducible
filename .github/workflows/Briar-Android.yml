@@ -17,6 +17,8 @@ jobs:
           sudo apt update && sudo apt install -y fuse
           git clone https://github.com/BarbossHack/briar-reproducer -b barboss-hack-update-reproducer --depth 1
           docker build -t briar/reproducer briar-reproducer
+      - name: Disable AppArmor
+        uses: cisagov/action-disable-apparmor@v1
       - name: Reproducible
         run: |
           sudo docker run --cap-add SYS_ADMIN --device /dev/fuse --name reproducer briar/reproducer:latest ./reproduce.py briar ${{ env.VERSION }}
