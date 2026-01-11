@@ -9,14 +9,14 @@ runs:
   steps:
     - name: Discord notification(success)
       if: success()
-      uses: Ilshidur/action-discord@v0.4
+      uses: Ilshidur/action-discord@master
       env:
         DISCORD_WEBHOOK: ${{ inputs.discord_webhook }}
       with:
         args: "✅ Success"
     - name: Discord notification (failure)
       if: failure()
-      uses: Ilshidur/action-discord@v0.4
+      uses: Ilshidur/action-discord@master
       env:
         DISCORD_WEBHOOK: ${{ inputs.discord_webhook }}
       with:
