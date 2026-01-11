@@ -16,7 +16,7 @@ runs:
         if echo "${{ inputs.NEEDS }}" | jq -e 'all(.[]; .result == "success")'; then
           echo "MESSAGE=✅ ${{ env.VERSION }}" >> $GITHUB_ENV
         else
-          echo "MESSAGE=❌ [${{ env.VERSION }}](https://github.com/BarbossHack/reproducible/actions/runs/${{ github.run_id }})" >> $GITHUB_ENV
+          echo "MESSAGE=❌ [${{ env.VERSION }}](<https://github.com/BarbossHack/reproducible/actions/runs/${{ github.run_id }}>)" >> $GITHUB_ENV
         fi
     - name: Discord notification(success)
       uses: Ilshidur/action-discord@master
