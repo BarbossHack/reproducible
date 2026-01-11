@@ -133,6 +133,8 @@ jobs:
         continue-on-error: true
         run: |
           docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd build/signal-desktop_${{ env.VERSION }}_amd64.deb official/signal-desktop_${{ env.VERSION }}_amd64.deb
+      - name: Discord Notification
+        uses: BarbossHack/reproducible/.github/actions/actions/discord-webhook@v8-github-action@master
 
   libsignal:
     needs: [official]
