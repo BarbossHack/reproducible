@@ -9,11 +9,11 @@ inputs:
     description: "needs context from the calling workflow."
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - shell: bash
       run: |
-        if echo "${{ inputs.NEEDS }}" | jq -e 'all(.[]; .result == "success")'; then
+        if ! echo "${{ inputs.NEEDS }}" | jq -e 'all(.[]; .result == "success")'; then
           echo "MESSAGE=✅ ${{ env.VERSION }}" >> $GITHUB_ENV
         else
           echo "MESSAGE=❌ [${{ env.VERSION }}](<https://github.com/BarbossHack/reproducible/actions/runs/${{ github.run_id }}>)" >> $GITHUB_ENV
