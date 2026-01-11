@@ -188,7 +188,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
-        name: Notif
         with:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           NEEDS: ${{ toJSON(needs) }}

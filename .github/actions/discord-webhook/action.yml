@@ -13,7 +13,7 @@ runs:
   steps:
     - shell: bash
       run: |
-        if echo "${{ inputs.NEEDS }}" | jq -e 'all(.[]; .result == "success")'; then
+        if ! echo "${{ inputs.NEEDS }}" | jq -e 'all(.[]; .result == "success")'; then
           echo "MESSAGE=✅ ${{ github.workflow }} ${{ env.VERSION }}" >> $GITHUB_ENV
         else
           echo "MESSAGE=❌ ${{ github.workflow }} ${{ env.VERSION }}" >> $GITHUB_ENV
