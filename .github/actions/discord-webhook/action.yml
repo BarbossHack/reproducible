@@ -20,4 +20,4 @@ runs:
       env:
         DISCORD_WEBHOOK: ${{ inputs.discord_webhook }}
       with:
-        args: "❌ Failure "
+        args: "❌ Failure"

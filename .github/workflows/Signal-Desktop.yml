@@ -81,7 +81,7 @@ jobs:
             echo "Hashes do not match!"
             exit 1
           fi
-      - name: Discord Notification
+      - name: Discord notification
         uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
         with:
           discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
