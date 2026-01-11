@@ -83,6 +83,8 @@ jobs:
           fi
       - name: Discord Notification
         uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        with:
+          discord_webhook: ${{ secrets.DISCORD_WEBHOOK }}
 
   diff:
     needs: check

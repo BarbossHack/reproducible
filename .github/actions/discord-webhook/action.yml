@@ -1,5 +1,9 @@
 name: "Discord Webhook Notification"
 description: "Send a notification to a Discord channel via webhook on workflow completion."
+inputs:
+  discord_webhook:
+    required: true
+    description: "Discord webhook URL to send the notification to."
 runs:
   using: "composite"
   steps:
@@ -7,11 +11,13 @@ runs:
       if: success()
       uses: Ilshidur/action-discord@v0.4
       env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        DISCORD_WEBHOOK: ${{ inputs.discord_webhook }}
       with:
         args: "✅ Success"
     - name: Discord notification (failure)
       if: failure()
       uses: Ilshidur/action-discord@v0.4
+      env:
+        DISCORD_WEBHOOK: ${{ inputs.discord_webhook }}
       with:
         args: "❌ Failure"
