@@ -1,0 +1,30 @@
+name: "Discord Webhook"
+description: "Sends a notification to a Discord webhook."
+inputs:
+  needs:
+    required: true
+    description: "needs context from the calling workflow."
+  env:
+    required: true
+    description: "env context from the calling workflow."
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      env:
+        DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
+        NEEDS: ${{ inputs.needs }}
+      run: |
+        echo "$NEEDS"
+        echo "${{ env.NEEDS }}"
+        echo "$NEEDS" | jq .
+        echo "${{ env.NEEDS }}" | jq .
+        PROJECT=$(echo "$ENV" | jq -r '.PROJECT_NAME // "Reproducible Project"')
+        echo "STATUS=Success my friend ✅" >> $GITHUB_ENV
+    - name: Discord notification(success)
+      uses: Ilshidur/action-discord@master
+      env:
+        DISCORD_WEBHOOK: ${{ env.DISCORD_WEBHOOK }}
+      with:
+        args: ${{ env.STATUS }}

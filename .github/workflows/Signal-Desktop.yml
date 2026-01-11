@@ -182,11 +182,21 @@ jobs:
 
           docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "./build/" "./official/"
 
+  # notify:
+  #   needs: [libsignal, check]
+  #   if: always()
+  #   uses: ./.github/workflows/templates/discord-webhook.yml
+  #   with:
+  #     needs: ${{ toJSON(needs) }}
+  #     env: ${{ toJSON(env) }}
+  #   secrets: inherit
+
   notify:
-    needs: [libsignal, check]
+    needs: [build]
     if: always()
-    uses: ./.github/workflows/templates/discord-webhook.yml
-    with:
-      needs: ${{ toJSON(needs) }}
-      env: ${{ toJSON(env) }}
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        with:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          NEEDS: ${{ toJSON(needs) }}
