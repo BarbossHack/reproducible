@@ -1,0 +1,30 @@
+on:
+  workflow_call:
+    inputs:
+      needs:
+        required: true
+        type: string
+      env:
+        required: true
+        type: string
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Rich Discord Notification
+        shell: bash
+        env:
+          NEEDS: ${{ inputs.needs }}
+          ENV: ${{ inputs.env }}
+        run: |
+          echo "$NEEDS"
+          echo "$NEEDS" | jq .
+          PROJECT=$(echo "$ENV" | jq -r '.PROJECT_NAME // "Reproducible Project"')
+          echo "STATUS=SUCCESS ✅" >> $GITHUB_ENV
+      - name: Discord notification(success)
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: ${{ env.STATUS }}
