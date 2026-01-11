@@ -14,17 +14,16 @@ runs:
     - shell: bash
       env:
         DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
-        NEEDS: ${{ inputs.needs }}
+        NEEDS: ${{ inputs.NEEDS }}
       run: |
-        echo "$NEEDS"
-        echo "${{ env.NEEDS }}"
-        echo "$NEEDS" | jq .
-        echo "${{ env.NEEDS }}" | jq .
-        PROJECT=$(echo "$ENV" | jq -r '.PROJECT_NAME // "Reproducible Project"')
-        echo "STATUS=Success my friend ✅" >> $GITHUB_ENV
+        if echo "$NEEDS" | jq -e 'all(.[]; .result == "success")'; then
+          echo "MESSAGE=Success ✅" >> $GITHUB_ENV
+        else
+          echo "MESSAGE=Failure ❌" >> $GITHUB_ENV
+        fi
     - name: Discord notification(success)
       uses: Ilshidur/action-discord@master
       env:
         DISCORD_WEBHOOK: ${{ env.DISCORD_WEBHOOK }}
       with:
-        args: ${{ env.STATUS }}
+        args: ${{ env.MESSAGE }}
