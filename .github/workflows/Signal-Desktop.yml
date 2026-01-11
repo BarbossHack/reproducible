@@ -183,7 +183,7 @@ jobs:
           docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "./build/" "./official/"
 
   notify:
-    #  needs: [libsignal, check]
+    # needs: [libsignal, check]
     needs: [official]
     if: always()
     runs-on: ubuntu-latest
