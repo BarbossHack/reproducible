@@ -1,29 +1,27 @@
 name: "Discord Webhook"
 description: "Sends a notification to a Discord webhook."
 inputs:
-  needs:
+  DISCORD_WEBHOOK:
+    required: true
+    description: "discord webhook url."
+  NEEDS:
     required: true
     description: "needs context from the calling workflow."
-  env:
-    required: true
-    description: "env context from the calling workflow."
 
 runs:
   using: "composite"
   steps:
     - shell: bash
-      env:
-        DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
-        NEEDS: ${{ inputs.NEEDS }}
       run: |
-        if echo "$NEEDS" | jq -e 'all(.[]; .result == "success")'; then
-          echo "MESSAGE=Success ✅" >> $GITHUB_ENV
+        if echo "${{ inputs.NEEDS }}" | jq -e 'all(.[]; .result == "success")'; then
+          echo "MESSAGE=✅ ${{ github.workflow }} ${{ env.VERSION }}" >> $GITHUB_ENV
         else
-          echo "MESSAGE=Failure ❌" >> $GITHUB_ENV
+          echo "MESSAGE=❌ ${{ github.workflow }} ${{ env.VERSION }}" >> $GITHUB_ENV
         fi
     - name: Discord notification(success)
       uses: Ilshidur/action-discord@master
       env:
-        DISCORD_WEBHOOK: ${{ env.DISCORD_WEBHOOK }}
+        DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
+        DISCORD_USERNAME: "${{ github.workflow }}"
       with:
         args: ${{ env.MESSAGE }}
