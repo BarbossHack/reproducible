@@ -190,4 +190,4 @@ jobs:
       - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
         with:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          NEEDS: ${{ toJSON(needs) }}
+          needs: ${{ toJSON(needs) }}
