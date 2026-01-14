@@ -24,9 +24,9 @@ jobs:
       - uses: actions/download-artifact@v7
         with:
           name: gpapi
-          path: .local/bin/gpapi
+          path: /usr/local/bin/gpapi
       - run: |
-          chmod +x .local/bin/gpapi
+          sudo chmod +x /usr/local/bin/gpapi
           VERSION=$(gpapi --email "${{secrets.EMAIL}}" --aas-token "${{secrets.AAS_TOKEN}}" --package "org.thoughtcrime.securesms")
           if ! grep -F " v${VERSION} " history/Signal-Android.md >/dev/null; then
             echo "⚠️  ${VERSION} not already checked"
