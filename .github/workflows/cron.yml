@@ -25,6 +25,6 @@ jobs:
           name: gpapi
       - run: |
           mkdir -p ./out
-          chmod +x gpapi
-          gpapi --email "${{secrets.EMAIL}}" --aas-token "${{secrets.AAS_TOKEN}}" --package "org.thoughtcrime.securesms" --output "./out"
+          chmod +x ./gpapi
+          ./gpapi --email "${{secrets.EMAIL}}" --aas-token "${{secrets.AAS_TOKEN}}" --package "org.thoughtcrime.securesms" --output "./out"
           tree -h ./out
