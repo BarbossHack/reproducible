@@ -16,7 +16,9 @@ jobs:
           name: gpapi
           path: ./gpapi/target/release/gpapi
 
-  Signal-Android-playstore:
+  Signal-Android:
+    env:
+      PACKAGE: org.thoughtcrime.securesms
     needs: build-gpapi
     runs-on: ubuntu-latest
     steps:
@@ -27,8 +29,7 @@ jobs:
           path: /usr/local/bin/
       - run: |
           sudo chmod +x /usr/local/bin/gpapi
-          ls -Rlsah /usr/local/bin/gpapi
-          VERSION=$(gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.thoughtcrime.securesms")
+          VERSION=$(gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "${{ env.PACKAGE }}")
           if ! grep -F " v${VERSION} " "history/${{ github.job }}.md" >/dev/null; then
             echo "MESSAGE=⚠️  ${{ github.job }} v${VERSION} not already checked" >> $GITHUB_ENV
           else

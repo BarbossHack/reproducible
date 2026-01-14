@@ -17,7 +17,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - if: ${{ inputs.mode != "cron" }}
+    - if: inputs.mode != "cron"
       shell: bash
       run: |
         set -eo pipefail
@@ -31,7 +31,7 @@ runs:
         else
           echo "MESSAGE=❌ [${{ env.VERSION }}](<https://github.com/BarbossHack/reproducible/actions/runs/${{ github.run_id }}>)" >> $GITHUB_ENV
         fi
-    - if: ${{ inputs.mode == "cron" }}
+    - if: inputs.mode == "cron"
       shell: bash
       run: echo "MESSAGE=${{ inputs.MESSAGE }}" >> $GITHUB_ENV
     - name: Discord notification
