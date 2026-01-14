@@ -18,7 +18,7 @@ runs:
         else
           echo "MESSAGE=❌ [${{ env.VERSION }}](<https://github.com/BarbossHack/reproducible/actions/runs/${{ github.run_id }}>)" >> $GITHUB_ENV
         fi
-    - name: Discord notification(success)
+    - name: Discord notification
       uses: Ilshidur/action-discord@master
       env:
         DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
