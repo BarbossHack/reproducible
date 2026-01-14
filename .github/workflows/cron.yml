@@ -34,7 +34,7 @@ jobs:
           else
             echo "MESSAGE=✅  ${{ github.job }} v${VERSION} already checked" >> $GITHUB_ENV
           fi
-      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@cron
         if: ${{ env.MESSAGE }}
         with:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
