@@ -24,7 +24,7 @@ jobs:
       - uses: actions/download-artifact@v7
         with:
           name: gpapi
-          path: /usr/local/bin/gpapi
+          path: /usr/local/bin/
       - run: |
           sudo chmod +x /usr/local/bin/gpapi
           ls -Rlsah /usr/local/bin/gpapi
