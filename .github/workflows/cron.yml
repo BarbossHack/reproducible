@@ -6,10 +6,25 @@ on:
       - ".github/workflows/cron.yml"
 
 jobs:
-  build:
+  build-gpapi:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
+      - run: cargo build --manifest-path gpapi/Cargo.toml --release
+      - uses: actions/upload-artifact@v6
+        with:
+          name: gpapi
+          path: ./gpapi/target/release/gpapi
+
+  Signal-Android:
+    needs: build-gpapi
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: gpapi
       - run: |
-          cargo new bibin
-          cd bibin
-          cargo run
+          mkdir -p ./out
+          chmod +x gpapi
+          gpapi --email "${{secrets.EMAIL}}" --aas-token "${{secrets.AAS_TOKEN}}" --package "org.thoughtcrime.securesms" --output "./out"
+          tree -h ./out

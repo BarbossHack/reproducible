@@ -1,0 +1,10 @@
+[package]
+name = "gpapi"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.5.54", features = ["derive", "env"] }
+env_logger = "0.11.8"
+gpapi = "6.0.0"
+tokio = { version = "1.48.0", features = ["full"] }
