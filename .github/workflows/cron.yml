@@ -33,7 +33,7 @@ jobs:
           if ! grep -F " v${VERSION} " "history/${{ github.job }}.md" >/dev/null; then
             echo "MESSAGE=⚠️  ${{ github.job }} v${VERSION} not already checked" >> $GITHUB_ENV
           else
-            echo "MESSAGE=✅  ${{ github.job }} v${VERSION} already checked" >> $GITHUB_ENV
+            echo "MESSAGE=✅ ${{ github.job }} v${VERSION} already checked" >> $GITHUB_ENV
           fi
       - uses: BarbossHack/reproducible/.github/actions/discord-webhook@cron
         if: ${{ env.MESSAGE }}
