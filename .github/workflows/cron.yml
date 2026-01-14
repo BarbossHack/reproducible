@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - ".github/workflows/cron.yml"
+  schedule:
+    - cron: "0 18 * * 5" # friday 18:00 UTC
 
 jobs:
   build-gpapi:
