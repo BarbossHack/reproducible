@@ -27,6 +27,7 @@ jobs:
           path: /usr/local/bin/gpapi
       - run: |
           sudo chmod +x /usr/local/bin/gpapi
+          ls -Rlsah /usr/local/bin/gpapi
           VERSION=$(gpapi --email "${{secrets.EMAIL}}" --aas-token "${{secrets.AAS_TOKEN}}" --package "org.thoughtcrime.securesms")
           if ! grep -F " v${VERSION} " history/Signal-Android.md >/dev/null; then
             echo "⚠️  ${VERSION} not already checked"
