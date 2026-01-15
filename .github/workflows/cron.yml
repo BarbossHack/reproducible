@@ -43,3 +43,18 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           mode: "cron"
           MESSAGE: ${{ env.MESSAGE}}
+      - name: Create PR for new version
+        if: contains(env.MESSAGE, '⚠️')
+        run: |
+          PR_EXISTS=$(gh pr list --state open --search "title:\"ci: check ${{ github.job }} v${{ env.VERSION }}\"" --json number -q 'length')
+          echo "PR_EXISTS=$PR_EXISTS" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: peter-evans/create-pull-request@v8
+        if: env.PR_EXISTS == '0'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "ci: check ${{ github.job }} v${{ env.VERSION }}"
+          title: "ci: check ${{ github.job }} v${{ env.VERSION }}"
+          body: "${{ env.MESSAGE }}"
+          branch: signal-update-${{ github.job }}
