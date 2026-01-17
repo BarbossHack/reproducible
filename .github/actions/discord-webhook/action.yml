@@ -22,10 +22,10 @@ runs:
       run: |
         set -eo pipefail
         echo '${{ inputs.needs }}'
-        if ! echo '${{ inputs.needs }}' | jq -e 'all(.[]; .result == "success")'; then
-          echo "MESSAGE=✅ ${{ env.VERSION }}" >> $GITHUB_ENV
+        if echo '${{ inputs.needs }}' | jq -e 'all(.[]; .result == "success")'; then
+          echo "MESSAGE=✅ ${{ env.VERSION }} is reproducible" >> $GITHUB_ENV
         else
-          echo "MESSAGE=❌ [${{ env.VERSION }}](<https://github.com/BarbossHack/reproducible/actions/runs/${{ github.run_id }}>)" >> $GITHUB_ENV
+          echo "MESSAGE=❌ [${{ env.VERSION }}](<https://github.com/BarbossHack/reproducible/actions/runs/${{ github.run_id }}>) is not reproducible" >> $GITHUB_ENV
         fi
     - if: inputs.mode == 'cron'
       shell: bash
