@@ -7,6 +7,10 @@ on:
   schedule:
     - cron: "0 18 * * 5" # friday 18:00 UTC
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   build-gpapi:
     runs-on: ubuntu-latest
@@ -21,6 +25,7 @@ jobs:
   Signal-Android:
     env:
       PACKAGE: org.thoughtcrime.securesms
+      TYPE: playstore
     needs: build-gpapi
     runs-on: ubuntu-latest
     steps:
@@ -33,7 +38,10 @@ jobs:
           sudo chmod +x /usr/local/bin/gpapi
           VERSION=$(gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "${{ env.PACKAGE }}")
           if ! grep -F " v${VERSION} " "history/${{ github.job }}.md" >/dev/null; then
-            echo "MESSAGE=⚠️  ${{ github.job }} v${VERSION} not already checked" >> $GITHUB_ENV
+            echo "MESSAGE=⚠️  ${{ github.job }} v${VERSION} ${{ env.TYPE }} not already checked" >> $GITHUB_ENV
+            sed -i "s/^  VERSION:.*/  VERSION=${VERSION}/g" ".github/workflows/${{ github.job }}.yml"
+            sed -i "6a | v${VERSION}  | 2026-??-??   | 🟡 In progress| - |" "history/${{ github.job }}.md"
+            echo "CREATE_PR=1" >> $GITHUB_ENV
           else
             echo "MESSAGE=✅ ${{ github.job }} v${VERSION} already checked" >> $GITHUB_ENV
           fi
@@ -43,8 +51,7 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           mode: "cron"
           MESSAGE: ${{ env.MESSAGE}}
-      - name: Create PR for new version
-        if: contains(env.MESSAGE, '⚠️')
+      - if: ${{ env.CREATE_PR }}
         run: |
           PR_EXISTS=$(gh pr list --state open --search "title:\"ci: check ${{ github.job }} v${{ env.VERSION }}\"" --json number -q 'length')
           echo "PR_EXISTS=$PR_EXISTS" >> $GITHUB_ENV
@@ -54,7 +61,7 @@ jobs:
         if: env.PR_EXISTS == '0'
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "ci: check ${{ github.job }} v${{ env.VERSION }}"
-          title: "ci: check ${{ github.job }} v${{ env.VERSION }}"
-          body: "${{ env.MESSAGE }}"
-          branch: signal-update-${{ github.job }}
+          commit-message: "ci: check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }}"
+          title: "ci: check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }}"
+          body: "Check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }}"
+          branch: check-${{ github.job }}-v${{ env.VERSION }}-${{ env.TYPE }}
