@@ -43,7 +43,7 @@ jobs:
             sed -i "6a | v${VERSION}  | $(date +%Y-%m-%d)   | 🟡 In progress| - |" "history/${{ github.job }}.md"
             echo "NEW_VERSION=1" >> $GITHUB_ENV
           fi
-      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@cron
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
         if: ${{ env.NEW_VERSION }}
         with:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
