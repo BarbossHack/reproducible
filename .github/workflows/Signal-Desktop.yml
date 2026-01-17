@@ -35,7 +35,6 @@ jobs:
         with:
           name: official
           path: signal-desktop_${{ env.VERSION }}_amd64.deb
-          retention-days: 3
     outputs:
       HASH: ${{ steps.hash.outputs.HASH }}
 
@@ -57,7 +56,6 @@ jobs:
         with:
           name: build
           path: Signal-Desktop/release/signal-desktop_${{ env.VERSION }}_amd64.deb
-          retention-days: 3
     outputs:
       HASH: ${{ steps.hash.outputs.HASH }}
 
@@ -190,4 +188,4 @@ jobs:
       - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
         with:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          NEEDS: ${{ toJSON(needs) }}
+          needs: ${{ toJSON(needs) }}

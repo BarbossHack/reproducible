@@ -1,0 +1,65 @@
+name: cron
+
+on:
+  push:
+    paths:
+      - ".github/workflows/cron.yml"
+  schedule:
+    - cron: "0 18 * * 5" # friday 18:00 UTC
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build-gpapi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: cargo build --manifest-path gpapi/Cargo.toml --release
+      - uses: actions/upload-artifact@v6
+        with:
+          name: gpapi
+          path: ./gpapi/target/release/gpapi
+
+  Signal-Android:
+    env:
+      PACKAGE: org.thoughtcrime.securesms
+      TYPE: playstore
+    needs: build-gpapi
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v7
+        with:
+          name: gpapi
+          path: /usr/local/bin/
+      - run: |
+          sudo chmod +x /usr/local/bin/gpapi
+          VERSION=$(gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "${{ env.PACKAGE }}")
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          if ! grep -F " v${VERSION} " "history/${{ github.job }}.md" >/dev/null; then
+            sed -i "s/^  VERSION:.*/  VERSION: ${VERSION}/g" ".github/workflows/${{ github.job }}.yml"
+            sed -i "6a | v${VERSION}  | $(date +%Y-%m-%d)   | 🟡 In progress| - |" "history/${{ github.job }}.md"
+            echo "NEW_VERSION=1" >> $GITHUB_ENV
+          fi
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@cron
+        if: ${{ env.NEW_VERSION }}
+        with:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          mode: "cron"
+          MESSAGE: "⚠️  ${{ github.job }} v${VERSION} (${{ env.TYPE }}) not already checked"
+      - if: ${{ env.NEW_VERSION }}
+        run: |
+          PR_EXISTS=$(gh pr list --state open --head "${{ github.job }}-v${{ env.VERSION }}-${{ env.TYPE }}" --json number -q 'length')
+          echo "PR_EXISTS=$PR_EXISTS" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: peter-evans/create-pull-request@v8
+        if: env.PR_EXISTS == '0'
+        with:
+          token: ${{ secrets.PAT_CRON }}
+          commit-message: "ci: check ${{ github.job }} v${{ env.VERSION }} (${{ env.TYPE }})"
+          title: "ci: check ${{ github.job }} v${{ env.VERSION }} (${{ env.TYPE }})"
+          body: "Check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }})"
+          branch: ${{ github.job }}-v${{ env.VERSION }}-${{ env.TYPE }}

@@ -4,21 +4,37 @@ inputs:
   DISCORD_WEBHOOK:
     required: true
     description: "discord webhook url."
-  NEEDS:
-    required: true
+  needs:
+    required: false
     description: "needs context from the calling workflow."
+  mode:
+    required: true
+    description: "mode of the composite action."
+  MESSAGE:
+    required: false
+    description: "custom message to send in cron mode."
 
 runs:
   using: composite
   steps:
-    - shell: bash
+    - if: inputs.mode != 'cron'
+      shell: bash
       run: |
-        if ! echo "${{ inputs.NEEDS }}" | jq -e 'all(.[]; .result == "success")'; then
+        set -eo pipefail
+        echo "=== DEBUG: inputs.needs ==="
+        echo "${{ inputs.needs }}"
+        echo "=== END ==="
+        echo "${{ inputs.needs }}" | jq -R 'fromjson | .'
+
+        if ! echo "${{ inputs.needs }}" | jq -e 'all(.[]; .result == "success")'; then
           echo "MESSAGE=✅ ${{ env.VERSION }}" >> $GITHUB_ENV
         else
           echo "MESSAGE=❌ [${{ env.VERSION }}](<https://github.com/BarbossHack/reproducible/actions/runs/${{ github.run_id }}>)" >> $GITHUB_ENV
         fi
-    - name: Discord notification(success)
+    - if: inputs.mode == 'cron'
+      shell: bash
+      run: echo "MESSAGE=${{ inputs.MESSAGE }}" >> $GITHUB_ENV
+    - name: Discord notification
       uses: Ilshidur/action-discord@master
       env:
         DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}

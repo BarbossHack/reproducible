@@ -23,7 +23,6 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           path: ./v${{ env.VERSION }}-simplex-chat/
-          retention-days: 3
 
   check:
     runs-on: ubuntu-latest
