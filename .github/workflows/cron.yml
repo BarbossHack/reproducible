@@ -40,8 +40,8 @@ jobs:
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           if ! grep -F " v${VERSION} " "history/${{ github.job }}.md" >/dev/null; then
             echo "MESSAGE=⚠️  ${{ github.job }} v${VERSION} ${{ env.TYPE }} not already checked" >> $GITHUB_ENV
-            sed -i "s/^  VERSION:.*/  VERSION=${VERSION}/g" ".github/workflows/${{ github.job }}.yml"
-            sed -i "6a | v${VERSION}  | 2026-??-??   | 🟡 In progress| - |" "history/${{ github.job }}.md"
+            sed -i "s/^  VERSION:.*/  VERSION: ${VERSION}/g" ".github/workflows/${{ github.job }}.yml"
+            sed -i "6a | v${VERSION}  | $(date +%Y-%m-%d)   | 🟡 In progress| - |" "history/${{ github.job }}.md"
             echo "CREATE_PR=1" >> $GITHUB_ENV
           else
             echo "MESSAGE=✅ ${{ github.job }} v${VERSION} already checked" >> $GITHUB_ENV
@@ -65,4 +65,4 @@ jobs:
           commit-message: "ci: check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }}"
           title: "ci: check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }}"
           body: "Check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }}"
-          branch: check-${{ github.job }}-v${{ env.VERSION }}-${{ env.TYPE }}
+          branch: ${{ github.job }}-v${{ env.VERSION }}-${{ env.TYPE }}
