@@ -60,7 +60,7 @@ jobs:
       - uses: peter-evans/create-pull-request@v8
         if: env.PR_EXISTS == '0'
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_CRON }}
           commit-message: "ci: check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }}"
           title: "ci: check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }}"
           body: "Check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }}"
