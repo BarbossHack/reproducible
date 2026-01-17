@@ -21,7 +21,6 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           path: Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk
-          retention-days: 3
 
   buildiff:
     needs: [official]

@@ -21,7 +21,6 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           path: ./v${{ env.VERSION }}-simplexmq/
-          retention-days: 3
 
   check:
     runs-on: ubuntu-latest
