@@ -37,6 +37,7 @@ jobs:
       - run: |
           sudo chmod +x /usr/local/bin/gpapi
           VERSION=$(gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "${{ env.PACKAGE }}")
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
           if ! grep -F " v${VERSION} " "history/${{ github.job }}.md" >/dev/null; then
             echo "MESSAGE=⚠️  ${{ github.job }} v${VERSION} ${{ env.TYPE }} not already checked" >> $GITHUB_ENV
             sed -i "s/^  VERSION:.*/  VERSION=${VERSION}/g" ".github/workflows/${{ github.job }}.yml"
