@@ -21,13 +21,8 @@ runs:
       shell: bash
       run: |
         set -eo pipefail
-        echo "=== DEBUG: inputs.needs ==="
-        echo "${{ inputs.needs }}"
-        echo "=== END ==="
-        echo "${{ inputs.needs }}" | jq -e 'all(.[]; .result == "success")'
-        echo "=== END jq ==="
-
-        if ! echo "${{ inputs.needs }}" | jq -e 'all(.[]; .result == "success")'; then
+        echo '${{ inputs.needs }}'
+        if ! echo '${{ inputs.needs }}' | jq -e 'all(.[]; .result == "success")'; then
           echo "MESSAGE=✅ ${{ env.VERSION }}" >> $GITHUB_ENV
         else
           echo "MESSAGE=❌ [${{ env.VERSION }}](<https://github.com/BarbossHack/reproducible/actions/runs/${{ github.run_id }}>)" >> $GITHUB_ENV

@@ -5,7 +5,7 @@ on:
     paths:
       - ".github/workflows/cron.yml"
   schedule:
-    - cron: "0 18 * * 5" # friday 18:00 UTC
+    - cron: "0 3 * * *" # every day 03:00 am UTC
 
 permissions:
   contents: write
