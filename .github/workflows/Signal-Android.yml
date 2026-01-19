@@ -85,6 +85,8 @@ jobs:
           name: playstore-official
       - name: Build
         run: |
+          ls -lsah
+          ls -lsah playstore-official/ || true
           git clone https://github.com/signalapp/Signal-Android -b v${{ env.VERSION }} --depth 1
           cd Signal-Android/reproducible-builds
           docker build -t signal-android .
