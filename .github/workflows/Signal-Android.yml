@@ -15,14 +15,20 @@ jobs:
     steps:
       - name: Official
         run: |
-          wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk
-
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk | grep $SIGNATURE_SHA256
+          wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk -O Signal-Android-website-prod-universale-release.apk || wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-unsigned.apk -O Signal-Android-website-prod-universale-release.apk
+          WGET_VERSION=$(aapt dump badging Signal-Android-website-prod-universale-release.apk | grep -o "versionName='[^']*'" | cut -d"'" -f2)
+          if [[ "$VERSION" == "$WGET_VERSION" ]]; then
+            echo "✅ Versions match"
+          else
+            echo "❌ Versions differ: expected $VERSION but got $WGET_VERSION"
+            exit 1
+          fi
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Signal-Android-website-prod-universale-release.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
           name: website-official
-          path: Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk
+          path: Signal-Android-website-prod-universale-release.apk
 
   playstore-official:
     runs-on: ubuntu-latest
@@ -72,7 +78,7 @@ jobs:
           pip install uv
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          uv run apkdiff.py ../../../Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk ../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk
+          uv run apkdiff.py ../../../Signal-Android-website-prod-universale-release.apk ../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk
 
   playstore-build:
     needs: [playstore-official]
