@@ -18,17 +18,21 @@ async fn main() {
     let version_code = app_details.version_code.unwrap();
 
     if let Some(output) = &args.output {
+        std::fs::create_dir(output).unwrap_or_default();
         api.download(
             &args.package,
             Some(version_code),
             true,
-            true,
+            false,
             true,
             &output,
             None,
         )
         .await
         .unwrap();
+        let mut version_file = output.clone();
+        version_file.push("VERSION");
+        std::fs::write(version_file, &version_string).unwrap();
     }
 
     println!("{}", version_string);

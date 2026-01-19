@@ -41,7 +41,6 @@ jobs:
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           if ! grep -F " v${VERSION} " "history/${{ github.job }}.md" >/dev/null; then
             sed -i "s/^  VERSION:.*/  VERSION: ${VERSION}/g" ".github/workflows/${{ github.job }}.yml"
-            sed -i "6a | v${VERSION}  | $(date +%Y-%m-%d)   | 🟡 In progress| - |" "history/${{ github.job }}.md"
             echo "NEW_VERSION=1" >> $GITHUB_ENV
           fi
       - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
@@ -62,5 +61,4 @@ jobs:
           token: ${{ secrets.PAT_CRON }}
           commit-message: "ci: check ${{ github.job }} v${{ env.VERSION }} (${{ env.TYPE }})"
           title: "ci: check ${{ github.job }} v${{ env.VERSION }} (${{ env.TYPE }})"
-          body: "Check ${{ github.job }} v${{ env.VERSION }} ${{ env.TYPE }})"
           branch: ${{ github.job }}-v${{ env.VERSION }}-${{ env.TYPE }}
