@@ -16,7 +16,7 @@ jobs:
       - name: Official
         run: |
           wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk -O Signal-Android-website-prod-universale-release.apk || wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-unsigned.apk -O Signal-Android-website-prod-universale-release.apk
-          WGET_VERSION=$(aapt dump badging Signal-Android-website-prod-universale-release.apk | grep -o "versionName='[^']*'" | cut -d"'" -f2)
+          WGET_VERSION=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Signal-Android-website-prod-universale-release.apk | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           if [[ "$VERSION" == "$WGET_VERSION" ]]; then
             echo "✅ Versions match"
           else
