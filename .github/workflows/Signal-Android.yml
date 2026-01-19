@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v6
       - run: |
           cargo build --manifest-path gpapi/Cargo.toml --release
-          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "${{ env.PACKAGE }}" --output=./playstore-official/
+          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.thoughtcrime.securesms" --output=./playstore-official/
           PLAYSTORE_VERSION=$(cat ./playstore-official/VERSION)
 
           /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk | grep $SIGNATURE_SHA256

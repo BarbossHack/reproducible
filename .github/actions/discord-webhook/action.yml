@@ -22,6 +22,7 @@ runs:
       run: |
         set -eo pipefail
         echo '${{ inputs.needs }}'
+        # TODO: display which jobs failed
         if echo '${{ inputs.needs }}' | jq -e 'all(.[]; .result == "success")'; then
           echo "MESSAGE=✅ ${{ env.VERSION }} is reproducible" >> $GITHUB_ENV
         else
