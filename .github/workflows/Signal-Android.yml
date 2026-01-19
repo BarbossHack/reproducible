@@ -42,11 +42,14 @@ jobs:
             echo "❌ Versions differ: expected $VERSION but got $PLAYSTORE_VERSION"
             echo "valid=false" >> $GITHUB_OUTPUT
           fi
+        id: validate
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
           name: playstore-official
           path: ./playstore-official/
+    outputs:
+      valid: ${{ steps.validate.outputs.valid }}
 
   website-build:
     needs: [website-official]
