@@ -83,6 +83,7 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: playstore-official
+          path: ./playstore-official/
       - name: Build
         run: |
           ls -lsah
