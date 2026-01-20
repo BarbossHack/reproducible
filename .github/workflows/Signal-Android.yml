@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Official
         run: |
-          curl -L "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk" -o Signal-Android-website-prod-universale-release.apk
+          curl -L "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk" -o Signal-Android-website-prod-universale-release.apk || curl -L "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-unsigned.apk" -o Signal-Android-website-prod-universale-release.apk
 
           curl https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk -o website.apk || curl https://updates.signal.org/android/Signal-Android-website-prod-universal-release-unsigned.apk -o website.apk || true
 
