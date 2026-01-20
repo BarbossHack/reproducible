@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - ".github/workflows/Signal-Android.yml"
+  workflow_dispatch:
 
 env:
   VERSION: 7.69.2
