@@ -20,7 +20,7 @@ jobs:
 
           curl https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk -o website.apk || curl https://updates.signal.org/android/Signal-Android-website-prod-universal-release-unsigned.apk -o website.apk || true
 
-          if -f website.apk; then
+          if [ -f website.apk ]; then
             diff Signal-Android-website-prod-universale-release.apk website.apk
           fi
 
