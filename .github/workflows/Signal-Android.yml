@@ -16,11 +16,13 @@ jobs:
       - name: Official
         run: |
           wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk -O Signal-Android-website-prod-universale-release.apk || wget https://updates.signal.org/android/Signal-Android-website-prod-universal-release-unsigned.apk -O Signal-Android-website-prod-universale-release.apk
-          WGET_VERSION=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Signal-Android-website-prod-universale-release.apk | grep -o "versionName='[^']*'" | cut -d"'" -f2)
-          if [[ "$VERSION" == "$WGET_VERSION" ]]; then
+          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Signal-Android-website-prod-universale-release.apk)
+          VERSION_NAME=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
+          VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
+          if [[ "$VERSION" == "$VERSION_NAME" ]]; then
             echo "✅ Versions match"
           else
-            echo "❌ Versions differ: expected $VERSION but got $WGET_VERSION"
+            echo "❌ Versions differ: expected $VERSION but got $VERSION_NAME"
             exit 1
           fi
           /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Signal-Android-website-prod-universale-release.apk | grep $SIGNATURE_SHA256
@@ -31,6 +33,7 @@ jobs:
           path: Signal-Android-website-prod-universale-release.apk
 
   playstore-official:
+    # TODO: make it download a specific version instead of the latest
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -73,6 +76,7 @@ jobs:
           cd ..
           function build_sa() { docker run --memory=6g --rm -v "$(pwd)":/project -w /project --user "$(id -u):$(id -g)" signal-android ./gradlew --warning-mode=all --no-daemon --max-workers=1 --stacktrace -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.daemon.jvmargs="-Xmx256m -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process assembleWebsiteProdRelease; }
           build_sa || build_sa
+          find . -name "*.apk"
       - name: Apkdiff
         run: |
           pip install uv
@@ -119,7 +123,8 @@ jobs:
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.xxhdpi.apk ../../apks/splits/base-xxhdpi.apk
 
   libsignal:
-    needs: [website-official]
+    needs: [website-official, playstore-official]
+    if: always() && (needs.website-official.result == 'success' || needs.playstore-official.result == 'success')
     runs-on: ubuntu-latest
     steps:
       - name: Get libsignal version

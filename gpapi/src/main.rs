@@ -13,9 +13,9 @@ async fn main() {
     api.login().await.unwrap();
     let details = api.details(&args.package).await.unwrap().unwrap();
     eprintln!("{:#?}", details);
-    let app_details = details.item.unwrap().details.unwrap().app_details.unwrap();
-    let version_string = app_details.version_string.unwrap();
-    let version_code = app_details.version_code.unwrap();
+    let latest = details.item.unwrap().details.unwrap().app_details.unwrap();
+    let version_string = latest.version_string.unwrap();
+    let version_code = latest.version_code.unwrap();
 
     if let Some(output) = &args.output {
         std::fs::create_dir(output).unwrap_or_default();
