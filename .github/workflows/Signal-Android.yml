@@ -89,9 +89,9 @@ jobs:
           pip install uv
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          built_apk="./../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk"
+          built_apk="../../app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk"
           if [ ! -f "$built_apk" ]; then
-            built_apk="./../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned.apk"
+            built_apk="../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned.apk"
           fi
           uv run apkdiff.py ../../../Signal-Android-website-prod-universale-release.apk "$built_apk"
 
