@@ -9,7 +9,7 @@ env:
   VERSION: 6.5.0-beta.4
 
 jobs:
-  build:
+  linux-verify:
     runs-on: ubuntu-latest
     steps:
       - name: Free up disk space
@@ -19,17 +19,6 @@ jobs:
           curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
           chmod +x simplex-chat-reproduce-builds.sh
           ./simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}"
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v6
-        with:
-          path: ./v${{ env.VERSION }}-simplex-chat/
-
-  check:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v7
       - name: Check sha256sums
         run: |
           if [ -f "v${{ env.VERSION }}-simplex-chat/_sha256sums" ]; then
@@ -39,21 +28,15 @@ jobs:
             echo "Not reproducible"
             exit 1
           fi
-
-  diff:
-    needs: check
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v7
       - name: Print hashes
+        if: ${{ always() }}
         run: |
           echo "sha256 from-source"
           sha256sum ./v${{ env.VERSION }}-simplex-chat/from-source/*
           echo "sha256 prebuilt"
           sha256sum ./v${{ env.VERSION }}-simplex-chat/prebuilt/*
       - name: Diffoscope
+        if: ${{ always() }}
         run: |
           for file in ./v${{ env.VERSION }}-simplex-chat/prebuilt/*; do
             filename=$(basename "$file")
