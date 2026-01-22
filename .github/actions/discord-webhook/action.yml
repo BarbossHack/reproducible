@@ -22,11 +22,11 @@ runs:
       run: |
         set -eo pipefail
         echo '${{ inputs.needs }}'
-        # TODO: display which jobs failed
         if echo '${{ inputs.needs }}' | jq -e 'all(.[]; .result == "success")'; then
           echo "MESSAGE=✅ ${{ env.VERSION }} is reproducible" >> $GITHUB_ENV
         else
-          echo "MESSAGE=❌ [${{ env.VERSION }}](<https://github.com/BarbossHack/reproducible/actions/runs/${{ github.run_id }}>) is not reproducible" >> $GITHUB_ENV
+          RESULTS=$(echo '${{ inputs.needs }}' | jq -r 'to_entries[] | "\(.key): \(.value.result)"' | sort)
+          echo "MESSAGE=❌ ${{ env.VERSION }}\n$RESULTS" >> $GITHUB_ENV
         fi
     - if: inputs.mode == 'cron'
       shell: bash

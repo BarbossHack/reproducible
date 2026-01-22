@@ -7,14 +7,14 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: 7.68.5
+  VERSION: 7.70.1
   SIGNATURE_SHA256: 4be4f6cd5be844083e900279dc822af65a547fecc26aba7ff1f5203a45518cd8
 
 jobs:
-  website-official:
+  website-download:
     runs-on: ubuntu-latest
     steps:
-      - name: Official
+      - name: Download website apk
         run: |
           curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk" -o Signal-Android-website-prod-universale-release.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-unsigned.apk" -o Signal-Android-website-prod-universale-release.apk
 
@@ -40,11 +40,12 @@ jobs:
           name: website-official
           path: Signal-Android-website-prod-universale-release.apk
 
-  playstore-official:
+  playstore-download:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - run: |
+      - name: Download playstore apk
+        run: |
           cargo build --manifest-path gpapi/Cargo.toml --release
           ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.thoughtcrime.securesms" --output=./playstore-official/
           PLAYSTORE_VERSION=$(cat ./playstore-official/VERSION)
@@ -67,8 +68,8 @@ jobs:
     outputs:
       valid: ${{ steps.validate.outputs.valid }}
 
-  website-build:
-    needs: [website-official]
+  website-verify:
+    needs: [website-download]
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
@@ -95,9 +96,9 @@ jobs:
           fi
           uv run apkdiff.py ../../../Signal-Android-website-prod-universale-release.apk "$built_apk"
 
-  playstore-build:
-    needs: [playstore-official]
-    if: needs.playstore-official.outputs.valid == 'true'
+  playstore-verify:
+    needs: [playstore-download]
+    if: needs.playstore-download.outputs.valid == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
@@ -117,32 +118,27 @@ jobs:
           function build_sa() { docker run --memory=6g --rm -v "$(pwd)":/project -w /project --user "$(id -u):$(id -g)" signal-android ./gradlew --warning-mode=all --no-daemon --max-workers=1 --stacktrace -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.daemon.jvmargs="-Xmx256m -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process bundlePlayProdRelease; }
           build_sa || build_sa
 
-          which bundletool || true
           curl -L https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
           java -jar bundletool.jar build-apks --bundle=./app/build/outputs/bundle/playProdRelease/Signal-Android-play-prod-release.aab --output-format=DIRECTORY --output=apks
-          tree -h apks
       - name: Apkdiff
         run: |
           pip install uv
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk ../../apks/splits/base-master.apk
-
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.arm64_v8a.apk ../../apks/splits/base-arm64_v8a.apk
-
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.xxhdpi.apk ../../apks/splits/base-xxhdpi.apk
 
   libsignal:
-    needs: [website-official, playstore-official]
-    if: always() && (needs.website-official.result == 'success' || needs.playstore-official.result == 'success')
+    needs: [website-download, playstore-download]
+    if: always() && (needs.website-download.result == 'success' || needs.playstore-download.result == 'success') && (needs.playstore-download.outputs.valid == 'true' || needs.playstore-download.outputs.valid == null)
     runs-on: ubuntu-latest
     steps:
       - name: Get libsignal version
         run: |
           LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/signalapp/Signal-Android/refs/tags/v${{ env.VERSION }}/gradle/libs.versions.toml" | grep "libsignal-client = \"[0-9\.]*\"" | cut -d= -f2 | xargs)
           echo "LIBSIGNAL_VERSION=$LIBSIGNAL_VERSION" >> $GITHUB_ENV
-      - name: Official
+      - name: Download libsignal from maven
         run: |
           wget https://build-artifacts.signal.org/libraries/maven/org/signal/libsignal-android/${{ env.LIBSIGNAL_VERSION }}/libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
           wget https://build-artifacts.signal.org/libraries/maven/org/signal/libsignal-client/${{ env.LIBSIGNAL_VERSION }}/libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar
@@ -151,13 +147,9 @@ jobs:
       - name: Build
         run: |
           git clone https://github.com/signalapp/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
-          pushd libsignal/java
           make || make
-          popd
-          find . -name "*.jar"
       - name: Hashes
         run: |
-          echo "libsignal-android"
           sha256sum ./libsignal/java/android/build/outputs/aar/libsignal-android-release.aar ./libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
           echo "libsignal-client"
           sha256sum ./libsignal/java/client/build/libs/libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar ./libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar
@@ -169,7 +161,7 @@ jobs:
           docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd ./libsignal/java/client/build/libs/libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar ./libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar
 
   notify:
-    needs: [libsignal, website-build, playstore-build]
+    needs: [libsignal, website-verify, playstore-verify]
     if: always()
     runs-on: ubuntu-latest
     steps:
