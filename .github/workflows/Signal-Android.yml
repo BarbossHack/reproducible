@@ -129,7 +129,7 @@ jobs:
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.arm64_v8a.apk ../../apks/splits/base-arm64_v8a.apk
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.xxhdpi.apk ../../apks/splits/base-xxhdpi.apk
 
-  libsignal:
+  libsignal-verify:
     needs: [website-download, playstore-download]
     if: always() && (needs.website-download.result == 'success' || needs.playstore-download.result == 'success') && (needs.playstore-download.outputs.valid == 'true' || needs.playstore-download.outputs.valid == null)
     runs-on: ubuntu-latest
@@ -162,7 +162,7 @@ jobs:
           docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd ./libsignal/java/client/build/libs/libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar ./libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar
 
   notify:
-    needs: [libsignal, website-verify, playstore-verify]
+    needs: [libsignal-verify, website-verify, playstore-verify]
     if: always()
     runs-on: ubuntu-latest
     steps:
