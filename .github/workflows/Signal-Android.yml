@@ -147,6 +147,7 @@ jobs:
       - name: Build
         run: |
           git clone https://github.com/signalapp/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
+          cd libsignal/java
           make || make
       - name: Hashes
         run: |
