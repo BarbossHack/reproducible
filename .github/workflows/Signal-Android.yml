@@ -139,7 +139,7 @@ jobs:
 
   libsignal-verify:
     needs: [website-download, playstore-download]
-    if: always() && (needs.website-download.result == 'success' || needs.playstore-download.result == 'success') && (needs.playstore-download.outputs.valid == 'true' || needs.playstore-download.outputs.valid == null)
+    if: always() && (needs.website-download.result == 'success' || (needs.playstore-download.result == 'success' && needs.playstore-download.outputs.valid == 'true'))
     runs-on: ubuntu-latest
     steps:
       - name: Get libsignal version
