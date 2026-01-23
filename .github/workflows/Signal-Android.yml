@@ -16,13 +16,21 @@ jobs:
     steps:
       - name: Download website apk
         run: |
-          curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk" -o Signal-Android-website-prod-universale-release.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-unsigned.apk" -o Signal-Android-website-prod-universale-release.apk
+          curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk" -o github.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-unsigned.apk" -o github.apk || true
 
           curl -f https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk -o website.apk || curl -f https://updates.signal.org/android/Signal-Android-website-prod-universal-release-unsigned.apk -o website.apk || true
 
-          # if [ -f website.apk ]; then
-          #   diff Signal-Android-website-prod-universale-release.apk website.apk
-          # fi
+          if [ -f website.apk ] && [ -f github.apk ]; then
+            diff github.apk website.apk
+          fi
+          if [ -f github.apk ]; then
+            mv github.apk Signal-Android-website-prod-universale-release.apk
+          elif [ -f website.apk ]; then
+            mv website.apk Signal-Android-website-prod-universale-release.apk
+          else
+            echo "❌ Could not download apk from either source"
+            exit 1
+          fi
 
           AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Signal-Android-website-prod-universale-release.apk)
           VERSION_NAME=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
