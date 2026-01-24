@@ -27,7 +27,8 @@ runs:
         else
           RESULTS=$(echo '${{ inputs.needs }}' | jq -r 'to_entries[] | "\(.key): \(.value.result)"' | sort)
           echo "MESSAGE<<EOF" >> $GITHUB_ENV
-          echo "❌ ${{ env.VERSION }}\n$RESULTS" >> $GITHUB_ENV
+          echo "❌ ${{ env.VERSION }}" >> $GITHUB_ENV
+          echo "$RESULTS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           echo "${{ env.MESSAGE }}"
         fi
