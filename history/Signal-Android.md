@@ -4,6 +4,7 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
 
 | Version  | Release Date | Reproducible? | Notes |
 |----------|--------------|---------------|-------|
+| v7.70.2  | 2026-01-23   | ⚫ N/A _(PlayStore)_<br>✅ Yes _(Website)_ | This release has not been published on the PlayStore; it is a fix for the website variant, see [#14540](https://github.com/signalapp/Signal-Android/issues/14540) |
 | v7.70.1  | 2026-01-20   | ✅ Yes _(PlayStore)_<br>✅ Yes _(Website)_ |   -   |
 | v7.69.2  | 2026-01-12   | ✅ Yes _(PlayStore)_<br>✅ Yes _(Website)_ |   -   |
 | v7.68.5  | 2025-12-19   | ✅ Yes _(Website)_ |   -   |
