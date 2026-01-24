@@ -22,16 +22,18 @@ runs:
       run: |
         set -eo pipefail
         echo '${{ inputs.needs }}'
-        if echo '${{ inputs.needs }}' | jq -e 'all(.[]; .result == "success")'; then
-          echo "MESSAGE=✅ ${{ env.VERSION }} is reproducible" >> $GITHUB_ENV
+        RESULTS=$(echo '${{ inputs.needs }}' | jq -r 'to_entries[] | "\(.key): \(.value.result)"' | sort)
+        echo "MESSAGE<<EOF" >> $GITHUB_ENV
+
+        if echo '${{ inputs.needs }}' | jq -e '([.[] | select(.result == "success")] | length) >= 1 and ([.[] | select(.result == "failure")] | length) == 0'; then
+          echo "✅ ${{ env.VERSION }}" >> $GITHUB_ENV
         else
-          RESULTS=$(echo '${{ inputs.needs }}' | jq -r 'to_entries[] | "\(.key): \(.value.result)"' | sort)
-          echo "MESSAGE<<EOF" >> $GITHUB_ENV
           echo "❌ ${{ env.VERSION }}" >> $GITHUB_ENV
-          echo "$RESULTS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-          echo "${{ env.MESSAGE }}"
         fi
+
+        echo "$RESULTS" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+        echo "[${{ env.MESSAGE }}]"
     - if: inputs.mode == 'cron'
       shell: bash
       run: echo "MESSAGE=${{ inputs.MESSAGE }}" >> $GITHUB_ENV
