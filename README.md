@@ -6,13 +6,13 @@ This repository tracks the reproducibility status of open source messengers.
 |------------------------------------------------------------------|-----------------------|----------------|---------|
 | [Briar Android](https://code.briarproject.org/briar/briar)       | v1.5.15               | 🟡 In progress _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Briar-Android.md) |
 | Briar Desktop                                                    | v0.6.4                | ⚫ N/A         | - |
-| ElementX Android                                                 | v25.10.1              | ⚫ N/A _(PlayStore)_<br>🟡 In progress _(FDroid)_ | - |
+| ElementX Android                                                 | v26.01.1              | ⚫ N/A _(PlayStore)_<br>🟡 In progress _(FDroid)_ | - |
 | [Molly (Signal)](https://github.com/mollyim/mollyim-android)     | v7.68.5-1             | ✅ Yes _(Github)_ | [See details](history/Molly-Android.md) |
-| Olvid Android                                                    | v4.0.1                | ⚫ N/A         | - |
-| Olvid Desktop                                                    | v2.6.1                | ⚫ N/A         | - |
-| ProtonMail Android                                               | v7.2.1                | ⚫ N/A         | - |
-| Session Android                                                  | v1.28.2               | ⚫ N/A         | - |
-| Session Desktop                                                  | v1.17.1               | ⚫ N/A         | - |
+| Olvid Android                                                    | v4.2                  | ⚫ N/A         | - |
+| Olvid Desktop                                                    | v2.7.0                | ⚫ N/A         | - |
+| ProtonMail Android                                               | v7.6.2                | ⚫ N/A         | - |
+| Session Android                                                  | v1.30.3               | ⚫ N/A         | - |
+| Session Desktop                                                  | v1.17.7               | ⚫ N/A         | - |
 | [Signal Android](https://github.com/signalapp/Signal-Android)    | v7.70.2               | ⚫ N/A _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Signal-Android.md) |
 | [Signal Desktop](https://github.com/signalapp/Signal-Desktop)    | v7.84.0               | ✅ Yes _(linux)_<br>⚫ N/A _(windows/macos)_ | [See details](history/Signal-Desktop.md) |
 | SimpleX Android                                                  | v6.5.0                | 🟡 In progress _(PlayStore)_<br>🟡 In progress _(Github)_ | - |

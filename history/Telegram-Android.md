@@ -2,7 +2,7 @@
 
 Reproducible build instructions: <https://core.telegram.org/reproducible-builds#reproducible-builds-for-android>
 
-| Version | Release Date | Reproducible? | Notes                                                                             |
+| Version | Release Date | Reproducible  | Notes                                                                             |
 |---------|--------------|---------------|-----------------------------------------------------------------------------------|
 | v12.2.10| 2025-12-07   | ✅ Yes        | Not fully reproducible, see [#1899](https://github.com/DrKLO/Telegram/pull/1899). |
 | v12.2.9 | 2025-12-05   | ✅ Yes        | Not fully reproducible, see [#1899](https://github.com/DrKLO/Telegram/pull/1899). |

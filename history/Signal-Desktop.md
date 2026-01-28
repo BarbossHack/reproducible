@@ -2,7 +2,7 @@
 
 Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/blob/main/reproducible-builds/README.md>
 
-| Version | Release Date | Reproducible? | Notes |
+| Version | Release Date | Reproducible  | Notes |
 |---------|--------------|---------------|-------|
 | v7.84.0 | 2026-01-08   | ✅ Yes        | - |
 | v7.83.0 | 2025-12-18   | ✅ Yes        | - |

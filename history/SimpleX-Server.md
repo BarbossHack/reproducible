@@ -2,7 +2,7 @@
 
 Reproducible build instructions: <https://github.com/simplex-chat/simplex-chat/blob/stable/docs/SERVER.md#reproduce-builds>
 
-| Version | Release Date | Reproducible? | Notes |
+| Version | Release Date | Reproducible  | Notes |
 |---------|--------------|---------------|-------|
 | v6.4.5  | 2025-10-03   | ✅ Yes        | - |
 | v6.4.4  | 2025-08-23   | ✅ Yes        | - |

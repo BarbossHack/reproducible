@@ -2,7 +2,7 @@
 
 Reproducible build instructions: <https://github.com/simplex-chat/simplex-chat/blob/stable/scripts/simplex-chat-reproduce-builds.sh>
 
-| Version | Release Date | Reproducible? | Notes |
+| Version | Release Date | Reproducible  | Notes |
 |---------|--------------|---------------|-------|
 | v6.4.8  | 2025-12-10   | ✅ Yes        | - |
 | v6.4.7  | 2025-11-02   | ✅ Yes        | - |
