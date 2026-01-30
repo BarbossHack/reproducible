@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: 7.71.2
+  VERSION: 7.68.5
   SIGNATURE_SHA256: 4be4f6cd5be844083e900279dc822af65a547fecc26aba7ff1f5203a45518cd8
 
 jobs:
@@ -35,6 +35,7 @@ jobs:
           AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Signal-Android-website-prod-universale-release.apk)
           VERSION_NAME=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
           if [[ "$VERSION" == "$VERSION_NAME" ]]; then
             echo "✅ Versions match"
           else
@@ -49,17 +50,19 @@ jobs:
           path: Signal-Android-website-prod-universale-release.apk
 
   playstore-download:
+    needs: [website-download]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - name: Download playstore apk
         run: |
+          VERSION_CODE=${{ needs.website-download.outputs.VERSION_CODE }}
+
           cargo build --manifest-path gpapi/Cargo.toml --release
-          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.thoughtcrime.securesms" --output=./playstore-official/
-          PLAYSTORE_VERSION=$(cat ./playstore-official/VERSION)
+          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.thoughtcrime.securesms" --version-code ${VERSION_CODE} --output=./playstore-official/
 
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk | grep $SIGNATURE_SHA256
-
+          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk)
+          PLAYSTORE_VERSION=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           if [[ "$VERSION" == "$PLAYSTORE_VERSION" ]]; then
             echo "✅ Versions match"
             echo "valid=true" >> $GITHUB_OUTPUT
@@ -67,6 +70,7 @@ jobs:
             echo "❌ Versions differ: expected $VERSION but got $PLAYSTORE_VERSION"
             echo "valid=false" >> $GITHUB_OUTPUT
           fi
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk | grep $SIGNATURE_SHA256
         id: validate
       - name: Upload artifacts
         uses: actions/upload-artifact@v6

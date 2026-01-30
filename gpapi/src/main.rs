@@ -15,7 +15,12 @@ async fn main() {
     eprintln!("{:#?}", details);
     let latest = details.item.unwrap().details.unwrap().app_details.unwrap();
     let version_string = latest.version_string.unwrap();
-    let version_code = latest.version_code.unwrap();
+
+    let version_code = if let Some(vc) = args.version_code {
+        vc
+    } else {
+        latest.version_code.unwrap()
+    };
 
     if let Some(output) = &args.output {
         std::fs::create_dir(output).unwrap_or_default();
@@ -25,7 +30,7 @@ async fn main() {
             true,
             false,
             true,
-            &output,
+            output,
             None,
         )
         .await

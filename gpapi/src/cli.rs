@@ -15,5 +15,8 @@ pub struct Args {
     pub package: String,
 
     #[arg(short, long)]
+    pub version_code: Option<i64>,
+
+    #[arg(short, long)]
     pub output: Option<PathBuf>,
 }
