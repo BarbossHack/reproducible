@@ -38,7 +38,7 @@ jobs:
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
           if [[ "$VERSION" == "$VERSION_NAME" ]]; then
-            echo "✅ Versions match"
+            echo "✅ Versions $VERSION_NAME match"
           else
             echo "❌ Versions (api/apk) differ: expected $VERSION but got $VERSION_NAME"
             exit 1
@@ -67,7 +67,7 @@ jobs:
           AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk)
           PLAYSTORE_VERSION=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           if [[ "$VERSION" == "$PLAYSTORE_VERSION" ]]; then
-            echo "✅ Versions match"
+            echo "✅ Versions $PLAYSTORE_VERSION match"
             echo "valid=true" >> $GITHUB_OUTPUT
           else
             echo "❌ Versions differ: expected $VERSION but got $PLAYSTORE_VERSION"

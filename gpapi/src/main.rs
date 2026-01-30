@@ -11,14 +11,24 @@ async fn main() {
     let mut api = Gpapi::new("px_9a", &args.email);
     api.set_aas_token(args.aas_token);
     api.login().await.unwrap();
-    let details = api.details(&args.package).await.unwrap().unwrap();
-    eprintln!("{:#?}", details);
-    let latest = details.item.unwrap().details.unwrap().app_details.unwrap();
-    let version_string = latest.version_string.unwrap();
 
-    let version_code = if let Some(vc) = args.version_code {
-        vc
+    let version_code = if let Some(version_code) = args.version_code {
+        // specific version
+        println!("version_code: {}", version_code);
+        version_code
     } else {
+        // latest version
+        let details = api.details(&args.package).await.unwrap().unwrap();
+        let latest = details.item.unwrap().details.unwrap().app_details.unwrap();
+        let version_string = latest.version_string.unwrap();
+        println!("version_string: {}", version_string);
+        println!("version_code: {}", latest.version_code.unwrap());
+        if let Some(output) = &args.output {
+            std::fs::create_dir(output).unwrap_or_default();
+            let mut version_file = output.clone();
+            version_file.push("VERSION");
+            std::fs::write(version_file, &version_string).unwrap();
+        }
         latest.version_code.unwrap()
     };
 
@@ -35,10 +45,5 @@ async fn main() {
         )
         .await
         .unwrap();
-        let mut version_file = output.clone();
-        version_file.push("VERSION");
-        std::fs::write(version_file, &version_string).unwrap();
     }
-
-    println!("{}", version_string);
 }
