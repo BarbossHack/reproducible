@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download website apk
+        id: download
         run: |
           curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk" -o github.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-unsigned.apk" -o github.apk || true
 
@@ -48,6 +49,8 @@ jobs:
         with:
           name: website-official
           path: Signal-Android-website-prod-universale-release.apk
+    outputs:
+      VERSION_CODE: ${{ steps.download.outputs.VERSION_CODE }}
 
   playstore-download:
     needs: [website-download]
