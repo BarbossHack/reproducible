@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: 7.68.4
+  VERSION: 7.67.1
   SIGNATURE_SHA256: 4be4f6cd5be844083e900279dc822af65a547fecc26aba7ff1f5203a45518cd8
 
 jobs:
