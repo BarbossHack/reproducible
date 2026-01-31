@@ -14,21 +14,22 @@ async fn main() {
 
     let version_code = if let Some(version_code) = args.version_code {
         // specific version
-        println!("version_code: {}", version_code);
+        eprintln!("version_code: {}", version_code);
         version_code
     } else {
         // latest version
         let details = api.details(&args.package).await.unwrap().unwrap();
         let latest = details.item.unwrap().details.unwrap().app_details.unwrap();
         let version_string = latest.version_string.unwrap();
-        println!("version_string: {}", version_string);
-        println!("version_code: {}", latest.version_code.unwrap());
+        eprintln!("version_string: {}", version_string);
+        eprintln!("version_code: {}", latest.version_code.unwrap());
         if let Some(output) = &args.output {
             std::fs::create_dir(output).unwrap_or_default();
             let mut version_file = output.clone();
             version_file.push("VERSION");
             std::fs::write(version_file, &version_string).unwrap();
         }
+        println!("{version_string}");
         latest.version_code.unwrap()
     };
 
