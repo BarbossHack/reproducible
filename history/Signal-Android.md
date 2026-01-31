@@ -39,25 +39,25 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
         <tr>
             <td>v7.68.5</td>
             <td>2025-12-19</td>
-            <td>✅ Yes <i>(Website)</i></td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v7.68.4</td>
             <td>2025-12-18</td>
-            <td>✅ Yes <i>(Website)</i></td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v7.67.1</td>
             <td>2025-12-04</td>
-            <td>✅ Yes <i>(Website)</i></td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v7.66.5</td>
             <td>2025-12-02</td>
-            <td>✅ Yes <i>(Website)</i></td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
             <td>-</td>
         </tr>
         <tr>
