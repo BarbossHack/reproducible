@@ -11,8 +11,7 @@ on:
         required: false
 
 env:
-  HARDCODED_VERSION: 7.71.2
-  VERSION: ${{ github.event.inputs.VERSION || github.env.HARDCODED_VERSION }}
+  VERSION: ${{ github.event.inputs.VERSION || '7.71.2' }}
   SIGNATURE_SHA256: 4be4f6cd5be844083e900279dc822af65a547fecc26aba7ff1f5203a45518cd8
 
 jobs:
