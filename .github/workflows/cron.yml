@@ -49,6 +49,16 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           mode: "cron"
           MESSAGE: "⚠️  ${{ github.job }} v${VERSION} (${{ env.TYPE }}) not already checked"
+      - name: Create issue and run workflow if new version
+        # if: ${{ env.NEW_VERSION }}
+        run: |
+          title="${{ github.job }}: check v${{ env.VERSION }} (${{ env.TYPE }})"
+          if ! gh issue list --search "${title}" --state open | grep -q "${title}"; then
+            gh issue create --title "${title}" --body "-"
+            gh workflow run "${{ github.job }}" -f VERSION=${{ env.VERSION }}
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - if: ${{ env.NEW_VERSION }}
         run: |
           PR_EXISTS=$(gh pr list --state open --head "${{ github.job }}-v${{ env.VERSION }}-${{ env.TYPE }}" --json number -q 'length')
