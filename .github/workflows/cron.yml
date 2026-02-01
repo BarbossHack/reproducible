@@ -10,7 +10,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
   issues: write
   actions: write
 
@@ -37,41 +36,27 @@ jobs:
         with:
           name: gpapi
           path: /usr/local/bin/
-      - run: |
+      - name: Check for new version
+        run: |
           sudo chmod +x /usr/local/bin/gpapi
           VERSION=$(gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "${{ env.PACKAGE }}")
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
           if ! grep -F ">v${VERSION}<" "history/${{ github.job }}.md" >/dev/null; then
-            sed -i "s/^  VERSION:.*/  VERSION: ${VERSION}/g" ".github/workflows/${{ github.job }}.yml"
-            echo "NEW_VERSION=1" >> $GITHUB_ENV
+            echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
           fi
-      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+      - name: Send Discord notification
+        uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
         if: ${{ env.NEW_VERSION }}
         with:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           mode: "cron"
-          MESSAGE: "⚠️  ${{ github.job }} v${VERSION} (${{ env.TYPE }}) not already checked"
+          MESSAGE: "⚠️  ${{ github.job }} v${NEW_VERSION} (${{ env.TYPE }}) not already checked"
       - name: Create issue and run workflow if new version
-        # if: ${{ env.NEW_VERSION }}
+        if: ${{ env.NEW_VERSION }}
         run: |
-          title="${{ github.job }}: check v${{ env.VERSION }} (${{ env.TYPE }})"
+          title="${{ github.job }}: check v${{ env.NEW_VERSION }} (${{ env.TYPE }})"
           if ! gh issue list --search "${title}" --state open | grep -q "${title}"; then
             gh issue create --title "${title}" --body "-"
-            gh workflow run "${{ github.job }}" -f VERSION=${{ env.VERSION }}
+            gh workflow run "${{ github.job }}" -f VERSION=${{ env.NEW_VERSION }}
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - if: ${{ env.NEW_VERSION }}
-        run: |
-          PR_EXISTS=$(gh pr list --state open --head "${{ github.job }}-v${{ env.VERSION }}-${{ env.TYPE }}" --json number -q 'length')
-          echo "PR_EXISTS=$PR_EXISTS" >> $GITHUB_ENV
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: peter-evans/create-pull-request@v8
-        if: env.PR_EXISTS && env.PR_EXISTS == '0'
-        with:
-          token: ${{ secrets.PAT_CRON }}
-          commit-message: "ci: check ${{ github.job }} v${{ env.VERSION }} (${{ env.TYPE }})"
-          body: "-"
-          title: "ci: check ${{ github.job }} v${{ env.VERSION }} (${{ env.TYPE }})"
-          branch: ${{ github.job }}-v${{ env.VERSION }}-${{ env.TYPE }}
