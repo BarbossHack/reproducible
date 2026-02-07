@@ -37,6 +37,8 @@ jobs:
           pip install uv
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
+          sed -i '/IGNORE_FILES = \[/a "META-INF/KEY0.RSA",' apkdiff.py
+          sed -i '/IGNORE_FILES = \[/a "META-INT/KEY0.SF",' apkdiff.py
           uv run apkdiff.py ../../../Molly-v${{ env.VERSION }}.apk ../../../mollyim-android/reproducible-builds/outputs/apk/prodWebsite/release/Molly-unsigned-v${{ env.VERSION }}.apk
 
   notify:
