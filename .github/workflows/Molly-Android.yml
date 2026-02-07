@@ -11,7 +11,7 @@ on:
         required: false
 
 env:
-  VERSION: ${{ github.event.inputs.VERSION || "7.72.2-1" }}
+  VERSION: ${{ github.event.inputs.VERSION || '7.72.2-1' }}
   SIGNATURE_SHA256: 6aa80fdf4a8cc13737cfb434fc0cde486f09cf8fcda21a67bea5ee1ca2700886
 
 jobs:
