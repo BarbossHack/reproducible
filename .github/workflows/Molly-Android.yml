@@ -41,8 +41,39 @@ jobs:
           sed -i '/IGNORE_FILES = \[/a "META-INF/KEY0.SF",' apkdiff.py
           uv run apkdiff.py ../../../Molly-v${{ env.VERSION }}.apk ../../../mollyim-android/reproducible-builds/outputs/apk/prodWebsite/release/Molly-unsigned-v${{ env.VERSION }}.apk
 
+  libsignal-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get libsignal version
+        run: |
+          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/mollyim/mollyim-android/refs/tags/v${{ env.VERSION }}/gradle/libs.versions.toml" | grep "libsignal-client = \"[0-9\.]*\"" | cut -d= -f2 | xargs)
+          echo "LIBSIGNAL_VERSION=$LIBSIGNAL_VERSION" >> $GITHUB_ENV
+      - name: Download libsignal from maven
+        run: |
+          wget https://dl.cloudsmith.io/public/mollyim/libsignal/maven/im/molly/libsignal-android/${{ env.LIBSIGNAL_VERSION }}/libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
+          wget https://dl.cloudsmith.io/public/mollyim/libsignal/maven/im/molly/libsignal-client/${{ env.LIBSIGNAL_VERSION }}/libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar
+      - name: Free up disk space
+        uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
+      - name: Build
+        run: |
+          git clone https://github.com/mollyim/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
+          cd libsignal/java
+          make || make
+      - name: Hashes
+        run: |
+          echo "libsignal-android"
+          sha256sum ./libsignal/java/android/build/outputs/aar/libsignal-android-release.aar ./libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
+          echo "libsignal-client"
+          sha256sum ./libsignal/java/client/build/libs/libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar ./libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar
+      - name: Diffoscope libsignal-android
+        run: docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd ./libsignal/java/android/build/outputs/aar/libsignal-android-release.aar ./libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
+      - name: Diffoscope libsignal-client
+        run: |
+          zip -d ./libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar '*.dylib' '*.dll'
+          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd ./libsignal/java/client/build/libs/libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar ./libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar
+
   notify:
-    needs: [molly-verify]
+    needs: [molly-verify, libsignal-verify]
     if: always()
     runs-on: ubuntu-latest
     steps:
