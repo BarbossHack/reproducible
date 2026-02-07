@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Get libsignal version
         run: |
-          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/mollyim/mollyim-android/refs/tags/v${{ env.VERSION }}/gradle/libs.versions.toml" | grep "libsignal-client = \"[0-9\.]*\"" | cut -d= -f2 | xargs)
+          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/mollyim/mollyim-android/refs/tags/v${{ env.VERSION }}/gradle/libs.versions.toml" | grep "libsignal-client = \"[0-9\.-]*\"" | cut -d= -f2 | xargs)
           echo "LIBSIGNAL_VERSION=$LIBSIGNAL_VERSION" >> $GITHUB_ENV
       - name: Download libsignal from maven
         run: |
