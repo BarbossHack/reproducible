@@ -13,6 +13,12 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
     </thead>
     <tbody>
         <tr>
+            <td>v7.72.2</td>
+            <td>2026-01-31</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v7.71.2</td>
             <td>2026-01-23</td>
             <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>

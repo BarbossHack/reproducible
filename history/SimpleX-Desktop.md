@@ -4,6 +4,7 @@ Reproducible build instructions: <https://github.com/simplex-chat/simplex-chat/b
 
 | Version | Release Date | Reproducible  | Notes |
 |---------|--------------|---------------|-------|
+| v6.4.10 | 2026-02-29   | ✅ Yes        | - |
 | v6.4.8  | 2025-12-10   | ✅ Yes        | - |
 | v6.4.7  | 2025-11-02   | ✅ Yes        | - |
 | v6.4.6  | 2025-10-04   | ❌ No         | Desktop .deb and .AppImage packages are not reproducible, mainly due to a JDK version mismatch between pre-built and built binaries (17.0.17 vs 17.0.16) (see [#6434](https://github.com/simplex-chat/simplex-chat/issues/6434)). |
