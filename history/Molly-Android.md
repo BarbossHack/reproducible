@@ -13,6 +13,12 @@ Reproducible build instructions: <https://github.com/mollyim/mollyim-android/blo
     </thead>
     <tbody>
         <tr>
+            <td>v7.72.2-1</td>
+            <td>2026-02-07</td>
+            <td>✅ Yes</td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v7.68.5-1</td>
             <td>2025-12-25</td>
             <td>✅ Yes</td>
