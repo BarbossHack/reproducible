@@ -26,7 +26,7 @@ jobs:
           cd mollyim-android/reproducible-builds
           docker build -t reproducible-molly -f ../Dockerfile ..
           docker run --rm -v ./certs:/molly/app/certs:ro -v ./outputs:/molly/app/build/outputs reproducible-molly:latest :app:assembleProdWebsiteRelease || docker run --rm -v ./certs:/molly/app/certs:ro -v ./outputs:/molly/app/build/outputs reproducible-molly:latest :app:assembleProdGmsWebsiteRelease
-          find . -name Molly-unsigned-v${{ env.VERSION }}.apk -exec mv {} . \;
+          find . -name Molly-unsigned-v${{ env.VERSION }}.apk -exec mv {} ../../ \;
       - name: Molly apkdiff
         run: |
           python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ inputs.VERSION }}.apk Molly-unsigned-v${{ inputs.VERSION }}.apk
