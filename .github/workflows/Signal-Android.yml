@@ -5,9 +5,11 @@ on:
     inputs:
       VERSION:
         description: "VERSION"
-        required: false
+        required: true
 
-run-name: Check Signal-Android v${{ inputs.VERSION }}
+# gh workflow run "Signal-Android" -f VERSION=7.72.2
+
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 env:
   SIGNATURE_SHA256: 4be4f6cd5be844083e900279dc822af65a547fecc26aba7ff1f5203a45518cd8
@@ -39,10 +41,10 @@ jobs:
           VERSION_NAME=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
-          if [[ "$VERSION" == "$VERSION_NAME" ]]; then
+          if [[ "${{ inputs.VERSION }}" == "$VERSION_NAME" ]]; then
             echo "✅ Versions $VERSION_NAME match"
           else
-            echo "❌ Versions (api/apk) differ: expected $VERSION but got $VERSION_NAME"
+            echo "❌ Versions (api/apk) differ: expected ${{ inputs.VERSION }} but got $VERSION_NAME"
             exit 1
           fi
           /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Signal-Android-website-prod-universale-release.apk | grep $SIGNATURE_SHA256
@@ -68,11 +70,11 @@ jobs:
 
           AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk)
           PLAYSTORE_VERSION=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
-          if [[ "$VERSION" == "$PLAYSTORE_VERSION" ]]; then
+          if [[ "${{ inputs.VERSION }}" == "$PLAYSTORE_VERSION" ]]; then
             echo "✅ Versions $PLAYSTORE_VERSION match"
             echo "valid=true" >> $GITHUB_OUTPUT
           else
-            echo "❌ Versions differ: expected $VERSION but got $PLAYSTORE_VERSION"
+            echo "❌ Versions differ: expected ${{ inputs.VERSION }} but got $PLAYSTORE_VERSION"
             echo "valid=false" >> $GITHUB_OUTPUT
           fi
           /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk | grep $SIGNATURE_SHA256
