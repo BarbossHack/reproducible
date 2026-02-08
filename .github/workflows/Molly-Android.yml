@@ -25,7 +25,7 @@ jobs:
           git clone https://github.com/mollyim/mollyim-android.git -b v${{ inputs.VERSION }} --depth 1
           cd mollyim-android/reproducible-builds
           docker build -t reproducible-molly -f ../Dockerfile ..
-          docker run --memory=12g --rm -v ./certs:/molly/app/certs:ro -v ./outputs:/molly/app/build/outputs reproducible-molly:latest --no-daemon --max-workers=1 -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process :app:assembleProdWebsiteRelease
+          docker run --rm -v ./certs:/molly/app/certs:ro -v ./outputs:/molly/app/build/outputs reproducible-molly:latest :app:assembleProdWebsiteRelease || docker run --rm -v ./certs:/molly/app/certs:ro -v ./outputs:/molly/app/build/outputs reproducible-molly:latest :app:assembleProdGmsWebsiteRelease
       - name: Molly apkdiff
         run: |
           python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ inputs.VERSION }}.apk mollyim-android/reproducible-builds/outputs/apk/prodWebsite/release/Molly-unsigned-v${{ inputs.VERSION }}.apk
