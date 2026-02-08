@@ -60,6 +60,10 @@ jobs:
           cd libsignal
           docker build -f Dockerfile.java -t libsignal-builder .
           docker run --memory=12g --rm -v $(pwd):/build libsignal-builder:latest --no-daemon --max-workers=1 -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process build
+      - name: Find
+        run: |
+          find . -name "*.aar"
+          find . -name "*.jar"
       - name: Hashes
         run: |
           echo "libsignal-android"
