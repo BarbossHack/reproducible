@@ -84,5 +84,6 @@ jobs:
     steps:
       - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
         with:
+          VERSION: ${{ env.VERSION }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           needs: ${{ toJSON(needs) }}
