@@ -59,7 +59,7 @@ jobs:
           git clone https://github.com/mollyim/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
           cd libsignal
           docker build -f Dockerfile.java -t libsignal-builder .
-          docker run --memory=12g --rm -v $(pwd):/build -w /build libsignal-builder:latest --no-daemon --max-workers=1 -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process build
+          docker run --memory=12g --rm -v $(pwd):/libsignal --entrypoint="" libsignal-builder:latest ./java/gradlew -p java --no-daemon --max-workers=1 -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process build
       - name: Find
         run: |
           find . -name "*.aar"
