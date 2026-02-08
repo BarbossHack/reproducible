@@ -1,17 +1,15 @@
 name: Molly-Android
 
 on:
-  push:
-    paths:
-      - ".github/workflows/Molly-Android.yml"
   workflow_dispatch:
     inputs:
       VERSION:
-        description: "Version"
-        required: false
+        description: "VERSION"
+        required: true
+
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 env:
-  VERSION: ${{ github.event.inputs.VERSION || '7.72.2-1' }}
   SIGNATURE_SHA256: 6aa80fdf4a8cc13737cfb434fc0cde486f09cf8fcda21a67bea5ee1ca2700886
 
 jobs:
@@ -20,17 +18,17 @@ jobs:
     steps:
       - name: Official
         run: |
-          wget https://github.com/mollyim/mollyim-android/releases/download/v${{ env.VERSION }}/Molly-v${{ env.VERSION }}.apk
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Molly-v${{ env.VERSION }}.apk | grep $SIGNATURE_SHA256
+          wget https://github.com/mollyim/mollyim-android/releases/download/v${{ inputs.VERSION }}/Molly-v${{ inputs.VERSION }}.apk
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Molly-v${{ inputs.VERSION }}.apk | grep $SIGNATURE_SHA256
       - name: Build
         run: |
-          git clone https://github.com/mollyim/mollyim-android.git -b v${{ env.VERSION }} --depth 1
+          git clone https://github.com/mollyim/mollyim-android.git -b v${{ inputs.VERSION }} --depth 1
           cd mollyim-android/reproducible-builds
           docker build -t reproducible-molly -f ../Dockerfile ..
           docker run --memory=12g --rm -v ./certs:/molly/app/certs:ro -v ./outputs:/molly/app/build/outputs reproducible-molly:latest --no-daemon --max-workers=1 -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process :app:assembleProdWebsiteRelease
       - name: Molly apkdiff
         run: |
-          python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ env.VERSION }}.apk mollyim-android/reproducible-builds/outputs/apk/prodWebsite/release/Molly-unsigned-v${{ env.VERSION }}.apk
+          python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ inputs.VERSION }}.apk mollyim-android/reproducible-builds/outputs/apk/prodWebsite/release/Molly-unsigned-v${{ inputs.VERSION }}.apk
       - name: Signal apkdiff
         run: |
           git clone --depth 1 https://github.com/signalapp/Signal-Android
@@ -39,14 +37,14 @@ jobs:
           uv sync
           sed -i '/IGNORE_FILES = \[/a "META-INF/KEY0.RSA",' apkdiff.py
           sed -i '/IGNORE_FILES = \[/a "META-INF/KEY0.SF",' apkdiff.py
-          uv run apkdiff.py ../../../Molly-v${{ env.VERSION }}.apk ../../../mollyim-android/reproducible-builds/outputs/apk/prodWebsite/release/Molly-unsigned-v${{ env.VERSION }}.apk
+          uv run apkdiff.py ../../../Molly-v${{ inputs.VERSION }}.apk ../../../mollyim-android/reproducible-builds/outputs/apk/prodWebsite/release/Molly-unsigned-v${{ inputs.VERSION }}.apk
 
   libsignal-verify:
     runs-on: ubuntu-latest
     steps:
       - name: Get libsignal version
         run: |
-          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/mollyim/mollyim-android/refs/tags/v${{ env.VERSION }}/gradle/libs.versions.toml" | grep "libsignal-client = \"[0-9\.-]*\"" | cut -d= -f2 | xargs)
+          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/mollyim/mollyim-android/refs/tags/v${{ inputs.VERSION }}/gradle/libs.versions.toml" | grep "libsignal-client = \"[0-9\.-]*\"" | cut -d= -f2 | xargs)
           echo "LIBSIGNAL_VERSION=$LIBSIGNAL_VERSION" >> $GITHUB_ENV
           echo "LIBSIGNAL_VERSION_MAJOR=$(echo $LIBSIGNAL_VERSION | cut -d- -f1)" >> $GITHUB_ENV
       - name: Download libsignal from maven
@@ -84,6 +82,6 @@ jobs:
     steps:
       - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
         with:
-          VERSION: ${{ env.VERSION }}
+          VERSION: ${{ inputs.VERSION }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           needs: ${{ toJSON(needs) }}
