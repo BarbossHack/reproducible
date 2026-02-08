@@ -5,11 +5,11 @@ Reproducible build instructions: <https://github.com/mollyim/mollyim-android/blo
 <table align="center">
     <thead>
         <tr>
-            <th width="10%">Version</th>
+            <th width="15%">Version</th>
             <th width="15%">Release Date</th>
             <th width="25%">Reproducible</th>
             <th width="10%">Workflow</th>
-            <th width="40%">Notes</th>
+            <th width="35%">Notes</th>
         </tr>
     </thead>
     <tbody>
