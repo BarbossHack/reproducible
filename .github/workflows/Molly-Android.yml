@@ -59,7 +59,7 @@ jobs:
           git clone https://github.com/mollyim/libsignal -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
           cd libsignal
           docker build -f Dockerfile.java -t libsignal-builder .
-          docker run --memory=12g --rm -v $(pwd):/build libsignal-builder:latest --no-daemon --max-workers=1 -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process build
+          docker run --memory=12g --rm -v $(pwd):/build -w /build libsignal-builder:latest --no-daemon --max-workers=1 -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process build
       - name: Find
         run: |
           find . -name "*.aar"
@@ -74,7 +74,6 @@ jobs:
         run: docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd ./libsignal/java/android/build/outputs/aar/libsignal-android-release.aar ./libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
       - name: Diffoscope libsignal-client
         run: |
-          zip -d ./libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar '*.dylib' '*.dll'
           docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd ./libsignal/java/client/build/libs/libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar ./libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar
 
   notify:
