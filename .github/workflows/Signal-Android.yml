@@ -1,17 +1,15 @@
 name: Signal-Android
 
 on:
-  push:
-    paths:
-      - ".github/workflows/Signal-Android.yml"
   workflow_dispatch:
     inputs:
       VERSION:
-        description: "Version"
+        description: "VERSION"
         required: false
 
+run-name: Check Signal-Android v${{ inputs.VERSION }}
+
 env:
-  VERSION: ${{ github.event.inputs.VERSION || '7.71.2' }}
   SIGNATURE_SHA256: 4be4f6cd5be844083e900279dc822af65a547fecc26aba7ff1f5203a45518cd8
 
 jobs:
@@ -21,9 +19,9 @@ jobs:
       - name: Download website apk
         id: download
         run: |
-          curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk" -o github.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ env.VERSION }}/Signal-Android-website-prod-universal-release-unsigned.apk" -o github.apk || true
+          curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk" -o github.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-website-prod-universal-release-unsigned.apk" -o github.apk || true
 
-          curl -f https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ env.VERSION }}.apk -o website.apk || true
+          curl -f https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk -o website.apk || true
 
           if [ -f website.apk ] && [ -f github.apk ]; then
             diff github.apk website.apk
@@ -97,7 +95,7 @@ jobs:
           name: website-official
       - name: Build
         run: |
-          git clone https://github.com/signalapp/Signal-Android -b v${{ env.VERSION }} --depth 1
+          git clone https://github.com/signalapp/Signal-Android -b v${{ inputs.VERSION }} --depth 1
           cd Signal-Android/reproducible-builds
           docker build -t signal-android .
           cd ..
@@ -108,7 +106,7 @@ jobs:
           pip install uv
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          built_apk="../../app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ env.VERSION }}.apk"
+          built_apk="../../app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
           if [ ! -f "$built_apk" ]; then
             built_apk="../../app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned.apk"
           fi
@@ -126,7 +124,7 @@ jobs:
           path: ./playstore-official/
       - name: Build
         run: |
-          git clone https://github.com/signalapp/Signal-Android -b v${{ env.VERSION }} --depth 1
+          git clone https://github.com/signalapp/Signal-Android -b v${{ inputs.VERSION }} --depth 1
           cd Signal-Android/reproducible-builds
           docker build -t signal-android .
           cd ..
@@ -150,7 +148,7 @@ jobs:
     steps:
       - name: Get libsignal version
         run: |
-          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/signalapp/Signal-Android/refs/tags/v${{ env.VERSION }}/gradle/libs.versions.toml" | grep "libsignal-client = \"[0-9\.]*\"" | cut -d= -f2 | xargs)
+          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/signalapp/Signal-Android/refs/tags/v${{ inputs.VERSION }}/gradle/libs.versions.toml" | grep "libsignal-client = \"[0-9\.]*\"" | cut -d= -f2 | xargs)
           echo "LIBSIGNAL_VERSION=$LIBSIGNAL_VERSION" >> $GITHUB_ENV
       - name: Download libsignal from maven
         run: |
@@ -165,6 +163,7 @@ jobs:
           make || make
       - name: Hashes
         run: |
+          echo "libsignal-android"
           sha256sum ./libsignal/java/android/build/outputs/aar/libsignal-android-release.aar ./libsignal-android-${{ env.LIBSIGNAL_VERSION }}.aar
           echo "libsignal-client"
           sha256sum ./libsignal/java/client/build/libs/libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar ./libsignal-client-${{ env.LIBSIGNAL_VERSION }}.jar
