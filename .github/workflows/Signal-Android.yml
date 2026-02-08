@@ -7,8 +7,6 @@ on:
         description: "VERSION"
         required: true
 
-# gh workflow run "Signal-Android" -f VERSION=7.72.2
-
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 env:
