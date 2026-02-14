@@ -24,14 +24,14 @@ Reproducible build instructions: <https://github.com/mollyim/mollyim-android/blo
             <td>v7.68.5-1</td>
             <td>2025-12-25</td>
             <td>✅ Yes</td>
-            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/21802970900">#21802970900</a></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/21806781728">#21806781728</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v7.66.5-1</td>
             <td>2025-12-03</td>
             <td>✅ Yes</td>
-            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/21802973016">#21802973016</a></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/21807399481">#21807399481</a></td>
             <td>-</td>
         </tr>
         <tr>
