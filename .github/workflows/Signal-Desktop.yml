@@ -113,7 +113,7 @@ jobs:
       - name: Diffoscope
         continue-on-error: true
         run: |
-          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd build/signal-desktop_${{ env.VERSION }}_amd64.deb official/signal-desktop_${{ env.VERSION }}_amd64.deb
+          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress build/signal-desktop_${{ env.VERSION }}_amd64.deb official/signal-desktop_${{ env.VERSION }}_amd64.deb
 
   libsignal-verify:
     needs: [linux-download]
@@ -161,7 +161,7 @@ jobs:
           find ./official -exec touch -a -m -t "202401011200" {} +
           find ./build -exec touch -a -m -t "202401011200" {} +
 
-          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "./build/" "./official/"
+          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress "./build/" "./official/"
 
   notify:
     needs: [libsignal-verify, linux-verify]

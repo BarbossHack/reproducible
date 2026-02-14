@@ -40,5 +40,5 @@ jobs:
         run: |
           for file in ./v${{ env.VERSION }}-simplex-chat/prebuilt/*; do
             filename=$(basename "$file")
-            docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "v${{ env.VERSION }}-simplex-chat/from-source/$filename" "v${{ env.VERSION }}-simplex-chat/prebuilt/$filename" || true
+            docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress "v${{ env.VERSION }}-simplex-chat/from-source/$filename" "v${{ env.VERSION }}-simplex-chat/prebuilt/$filename" || true
           done
