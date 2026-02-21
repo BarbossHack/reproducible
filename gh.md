@@ -5,6 +5,7 @@
 ```bash
 # Run new workflow
 gh workflow run "Signal-Android" -f VERSION=7.72.2
+gh workflow run "Signal-Android" -f VERSION=7.74.4 -f VERSION_CODE=165102
 # List workflows
 gh run list -w Signal-Android --limit 1000
 # Delete all workflows

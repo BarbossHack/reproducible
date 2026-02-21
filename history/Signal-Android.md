@@ -14,6 +14,13 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
     </thead>
     <tbody>
         <tr>
+            <td>v7.74.4</td>
+            <td>2026-02-19</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>⚫ N/A <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/22255979711">#22255979711</a></td>
+            <td>This release has not been published on the WebSite (or on Github Releases); it is a fix for the PlayStore variant, see <a href="https://github.com/signalapp/Signal-Android/issues/14611">#14611</a></td>
+        </tr>
+        <tr>
             <td>v7.73.2</td>
             <td>2026-02-09</td>
             <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
