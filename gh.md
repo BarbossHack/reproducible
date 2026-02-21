@@ -12,6 +12,17 @@ gh run list -w Signal-Android --limit 1000
 gh run list -w Signal-Android --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
 ```
 
+## Signal-Desktop
+
+```bash
+# Run new workflow
+gh workflow run "Signal-Desktop" -f VERSION=7.90.0
+# List workflows
+gh run list -w Signal-Desktop --limit 1000
+# Delete all workflows
+gh run list -w Signal-Desktop --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
+```
+
 ## Molly-Android
 
 ```bash
