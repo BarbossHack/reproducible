@@ -1,12 +1,13 @@
 name: SimpleX-Desktop
 
 on:
-  push:
-    paths:
-      - ".github/workflows/SimpleX-Desktop.yml"
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: "VERSION"
+        required: true
 
-env:
-  VERSION: 6.4.10
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
   linux-verify:
@@ -16,12 +17,12 @@ jobs:
         uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
       - name: Build
         run: |
-          curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ env.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
+          curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ inputs.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
           chmod +x simplex-chat-reproduce-builds.sh
-          ./simplex-chat-reproduce-builds.sh "v${{ env.VERSION }}"
+          ./simplex-chat-reproduce-builds.sh "v${{ inputs.VERSION }}"
       - name: Check sha256sums
         run: |
-          if [ -f "v${{ env.VERSION }}-simplex-chat/_sha256sums" ]; then
+          if [ -f "v${{ inputs.VERSION }}-simplex-chat/_sha256sums" ]; then
             echo "Reproducible"
             exit 0
           else
@@ -32,13 +33,24 @@ jobs:
         if: ${{ always() }}
         run: |
           echo "sha256 from-source"
-          sha256sum ./v${{ env.VERSION }}-simplex-chat/from-source/*
+          sha256sum ./v${{ inputs.VERSION }}-simplex-chat/from-source/*
           echo "sha256 prebuilt"
-          sha256sum ./v${{ env.VERSION }}-simplex-chat/prebuilt/*
+          sha256sum ./v${{ inputs.VERSION }}-simplex-chat/prebuilt/*
       - name: Diffoscope
         if: ${{ always() }}
         run: |
-          for file in ./v${{ env.VERSION }}-simplex-chat/prebuilt/*; do
+          for file in ./v${{ inputs.VERSION }}-simplex-chat/prebuilt/*; do
             filename=$(basename "$file")
-            docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress "v${{ env.VERSION }}-simplex-chat/from-source/$filename" "v${{ env.VERSION }}-simplex-chat/prebuilt/$filename" || true
+            docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress "v${{ inputs.VERSION }}-simplex-chat/from-source/$filename" "v${{ inputs.VERSION }}-simplex-chat/prebuilt/$filename" || true
           done
+
+  notify:
+    needs: [linux-verify]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        with:
+          VERSION: ${{ inputs.VERSION }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          needs: ${{ toJSON(needs) }}

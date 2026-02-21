@@ -33,3 +33,14 @@ gh run list -w Molly-Android --limit 1000
 # Delete all workflows
 gh run list -w Molly-Android --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
 ```
+
+## Simplex-Desktop
+
+```bash
+# Run new workflow
+gh workflow run "Simplex-Desktop" -f VERSION=6.4.10
+# List workflows
+gh run list -w Simplex-Desktop --limit 1000
+# Delete all workflows
+gh run list -w Simplex-Desktop --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
+```
