@@ -64,6 +64,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Download playstore apk
+        id: validate
         run: |
           VERSION_CODE="${{ needs.website-download.outputs.VERSION_CODE }}"
           if [ -z "$VERSION_CODE" ]; then
@@ -83,7 +84,6 @@ jobs:
             echo "valid=false" >> $GITHUB_OUTPUT
           fi
           /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk | grep $SIGNATURE_SHA256
-        id: validate
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -121,7 +121,7 @@ jobs:
 
   playstore-verify:
     needs: [playstore-download]
-    if: needs.playstore-download.outputs.valid == 'true'
+    if: always() && needs.playstore-download.outputs.valid == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
