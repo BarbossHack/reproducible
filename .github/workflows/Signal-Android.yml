@@ -6,6 +6,9 @@ on:
       VERSION:
         description: "VERSION"
         required: true
+      VERSION_CODE:
+        description: "VERSION_CODE"
+        required: false
 
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
@@ -56,12 +59,16 @@ jobs:
 
   playstore-download:
     needs: [website-download]
+    if: always() && (needs.website-download.result == 'success' || inputs.VERSION_CODE != '')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - name: Download playstore apk
         run: |
-          VERSION_CODE=${{ needs.website-download.outputs.VERSION_CODE }}
+          VERSION_CODE="${{ needs.website-download.outputs.VERSION_CODE }}"
+          if [ -z "$VERSION_CODE" ]; then
+            VERSION_CODE="${{ inputs.VERSION_CODE }}"
+          fi
 
           cargo build --manifest-path gpapi/Cargo.toml --release
           ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.thoughtcrime.securesms" --version-code ${VERSION_CODE} --output=./playstore-official/
