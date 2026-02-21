@@ -1,12 +1,13 @@
 name: Signal-Desktop
 
 on:
-  push:
-    paths:
-      - ".github/workflows/Signal-Desktop.yml"
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: "VERSION"
+        required: true
 
-env:
-  VERSION: 7.87.0
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
   linux-download:
@@ -22,19 +23,19 @@ jobs:
       - name: Download official .deb
         id: hash
         run: |
-          PARSED_VERSION=$(echo "${{ env.VERSION }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+.*' | tr '-' '~')
+          PARSED_VERSION=$(echo "${{ inputs.VERSION }}" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+.*' | tr '-' '~')
           if [[ "$PARSED_VERSION" == *"beta"* ]]; then
             apt-get download signal-desktop-beta=$PARSED_VERSION
-            mv signal-desktop-beta_${PARSED_VERSION}_amd64.deb signal-desktop_${{ env.VERSION }}_amd64.deb 
+            mv signal-desktop-beta_${PARSED_VERSION}_amd64.deb signal-desktop_${{ inputs.VERSION }}_amd64.deb 
           else
-            apt-get download signal-desktop=${{ env.VERSION }}
+            apt-get download signal-desktop=${{ inputs.VERSION }}
           fi
-          echo "HASH=$(sha256sum signal-desktop_${{ env.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
+          echo "HASH=$(sha256sum signal-desktop_${{ inputs.VERSION }}_amd64.deb | awk '{print $1}')" >> $GITHUB_OUTPUT
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
           name: linux-download
-          path: signal-desktop_${{ env.VERSION }}_amd64.deb
+          path: signal-desktop_${{ inputs.VERSION }}_amd64.deb
     outputs:
       HASH: ${{ steps.hash.outputs.HASH }}
 
@@ -50,18 +51,18 @@ jobs:
       - name: Build
         id: hash
         run: |
-          git clone https://github.com/signalapp/Signal-Desktop -b v${{ env.VERSION }} --depth 1
+          git clone https://github.com/signalapp/Signal-Desktop -b v${{ inputs.VERSION }} --depth 1
           cd Signal-Desktop/reproducible-builds
           chmod +x build.sh
           ./build.sh public
-          mv ../release/signal-desktop*_${{ env.VERSION }}_amd64.deb ../release/signal-desktop_${{ env.VERSION }}_amd64.deb || true
+          mv ../release/signal-desktop*_${{ inputs.VERSION }}_amd64.deb ../release/signal-desktop_${{ inputs.VERSION }}_amd64.deb || true
       - name: Upload build
         uses: actions/upload-artifact@v6
         with:
           name: linux-verify
-          path: Signal-Desktop/release/signal-desktop_${{ env.VERSION }}_amd64.deb
+          path: Signal-Desktop/release/signal-desktop_${{ inputs.VERSION }}_amd64.deb
       - name: Diff official vs build
-        run: diff official/signal-desktop_${{ env.VERSION }}_amd64.deb Signal-Desktop/release/signal-desktop_${{ env.VERSION }}_amd64.deb
+        run: diff official/signal-desktop_${{ inputs.VERSION }}_amd64.deb Signal-Desktop/release/signal-desktop_${{ inputs.VERSION }}_amd64.deb
 
   diff-debug:
     needs: linux-verify
@@ -82,11 +83,11 @@ jobs:
         run: |
           sudo npm install -g asar
 
-          dpkg-deb -R official/signal-desktop_${{ env.VERSION }}_amd64.deb official_deb
-          dpkg-deb -R build/signal-desktop_${{ env.VERSION }}_amd64.deb build_deb
+          dpkg-deb -R official/signal-desktop_${{ inputs.VERSION }}_amd64.deb official_deb
+          dpkg-deb -R build/signal-desktop_${{ inputs.VERSION }}_amd64.deb build_deb
 
-          dpkg-deb --contents official/signal-desktop_${{ env.VERSION }}_amd64.deb > official_deb_contents.txt
-          dpkg-deb --contents build/signal-desktop_${{ env.VERSION }}_amd64.deb > build_deb_contents.txt
+          dpkg-deb --contents official/signal-desktop_${{ inputs.VERSION }}_amd64.deb > official_deb_contents.txt
+          dpkg-deb --contents build/signal-desktop_${{ inputs.VERSION }}_amd64.deb > build_deb_contents.txt
 
           find official_deb -name *.asar -exec asar extract {} official_asar \;
           find build_deb -name *.asar -exec asar extract {} build_asar \;
@@ -113,7 +114,7 @@ jobs:
       - name: Diffoscope
         continue-on-error: true
         run: |
-          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress build/signal-desktop_${{ env.VERSION }}_amd64.deb official/signal-desktop_${{ env.VERSION }}_amd64.deb
+          docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress build/signal-desktop_${{ inputs.VERSION }}_amd64.deb official/signal-desktop_${{ inputs.VERSION }}_amd64.deb
 
   libsignal-verify:
     needs: [linux-download]
@@ -121,7 +122,7 @@ jobs:
     steps:
       - name: Get libsignal version
         run: |
-          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/signalapp/Signal-Desktop/refs/tags/v${{ env.VERSION }}/package.json" | grep "@signalapp/libsignal-client\": \"[0-9\.]*\"" | cut -d: -f2 | tr -d , | xargs)
+          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/signalapp/Signal-Desktop/refs/tags/v${{ inputs.VERSION }}/package.json" | grep "@signalapp/libsignal-client\": \"[0-9\.]*\"" | cut -d: -f2 | tr -d , | xargs)
           echo "LIBSIGNAL_VERSION=$LIBSIGNAL_VERSION" >> $GITHUB_ENV
       - name: Official
         run: |
@@ -170,6 +171,6 @@ jobs:
     steps:
       - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
         with:
-          VERSION: ${{ env.VERSION }}
+          VERSION: ${{ inputs.VERSION }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           needs: ${{ toJSON(needs) }}
