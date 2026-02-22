@@ -13,7 +13,7 @@ This repository tracks the reproducibility status of open source messengers.
 | ProtonMail Android                                               | v7.6.2                | ⚫ N/A         | - |
 | Session Android                                                  | v1.30.3               | ⚫ N/A         | - |
 | Session Desktop                                                  | v1.17.7               | ⚫ N/A         | - |
-| [Signal Android](https://github.com/signalapp/Signal-Android)    | v7.74.4               | ✅ Yes _(PlayStore)_<br>⚫ N/A _(Website)_ | [See details](history/Signal-Android.md) |
+| [Signal Android](https://github.com/signalapp/Signal-Android)    | v7.74.5               | ✅ Yes _(PlayStore)_<br>⚫ N/A _(Website)_<br>✅ Yes _(Github)_ | [See details](history/Signal-Android.md) |
 | [Signal Desktop](https://github.com/signalapp/Signal-Desktop)    | v7.90.0               | ✅ Yes _(linux)_<br>⚫ N/A _(windows/macos)_ | [See details](history/Signal-Desktop.md) |
 | SimpleX Android                                                  | v6.5.0                | 🟡 In progress _(PlayStore)_<br>🟡 In progress _(Github)_ | - |
 | [SimpleX Desktop](https://github.com/simplex-chat/simplex-chat)  | v6.4.10               | ✅ Yes _(linux)_<br>⚫ N/A _(windows/macos)_ | [See details](history/SimpleX-Desktop.md) |
