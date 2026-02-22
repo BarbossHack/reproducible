@@ -22,12 +22,11 @@ jobs:
       - name: Download website apk
         id: download
         run: |
-          curl -f https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk -o website.apk
+          curl -f https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk -o website.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk" -o website.apk
 
           AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging website.apk)
           VERSION_NAME=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
-          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
           if [[ "${{ inputs.VERSION }}" == "$VERSION_NAME" ]]; then
             echo "✅ Versions $VERSION_NAME match"
           else
@@ -35,6 +34,7 @@ jobs:
             exit 1
           fi
           /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 website.apk | grep $SIGNATURE_SHA256
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -107,6 +107,7 @@ jobs:
 
   website-verify:
     needs: [website-download]
+    if: always() && needs.website-download.result == 'success' && needs.website-download.outputs.VERSION_CODE != ''
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
@@ -135,7 +136,7 @@ jobs:
           if [ ! -f "$built_apk" ]; then
             built_apk="../../app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned.apk"
           fi
-          uv run apkdiff.py ../../../Signal-Android-website-prod-universale-release.apk "$built_apk"
+          uv run apkdiff.py ../../../website.apk "$built_apk"
 
   github-verify:
     needs: [github-download]
@@ -165,9 +166,9 @@ jobs:
           uv sync
           built_apk="../../app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
           if [ ! -f "$built_apk" ]; then
-            built_apk="../../app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned.apk"
+            built_apk="../../app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned.apk"
           fi
-          uv run apkdiff.py ../../../Signal-Android-website-prod-universale-release.apk "$built_apk"
+          uv run apkdiff.py ../../../github.apk "$built_apk"
 
   playstore-verify:
     needs: [playstore-download]
