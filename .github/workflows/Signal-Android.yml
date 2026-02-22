@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download website apk
+        continue-on-error: true
         id: download
         run: |
           curl -f https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk -o website.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk" -o website.apk
