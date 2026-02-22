@@ -108,6 +108,11 @@ jobs:
           cd ..
           function build_sa() { docker run --memory=12g --rm -v "$(pwd)":/project -w /project signal-android ./gradlew --no-daemon --max-workers=1 -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process assembleWebsiteProdRelease; }
           build_sa || build_sa
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: website-build
+          path: Signal-Android/app/build/outputs/apk/websiteProd/release/*.apk
       - name: Apkdiff
         run: |
           pip install uv
@@ -139,6 +144,11 @@ jobs:
           build_sa || build_sa
           curl -L https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
           java -jar bundletool.jar build-apks --bundle=./app/build/outputs/bundle/playProdRelease/Signal-Android-play-prod-release.aab --output-format=DIRECTORY --output=apks
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: playstore-build
+          path: Signal-Android/apks/splits/
       - name: Apkdiff
         run: |
           pip install uv
