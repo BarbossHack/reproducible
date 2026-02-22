@@ -22,7 +22,7 @@ jobs:
       - name: Download website apk
         id: download
         run: |
-          curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk" -o github.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-website-prod-universal-release-unsigned.apk" -o github.apk || true
+          curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk" -o github.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-github-prod-universal-release-${{ inputs.VERSION }}.apk" -o github.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-website-prod-universal-release-unsigned.apk" -o github.apk || true
 
           curl -f https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk -o website.apk || true
 
