@@ -27,41 +27,18 @@ jobs:
           path: ./gpapi/target/release/gpapi
 
   Signal-Android:
-    env:
-      PACKAGE: org.thoughtcrime.securesms
-      TYPE: playstore
     needs: build-gpapi
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/download-artifact@v7
+      - uses: BarbossHack/reproducible/.github/actions/cron@master
         with:
-          name: gpapi
-          path: /usr/local/bin/
-      - name: Check for new version
-        run: |
-          sudo chmod +x /usr/local/bin/gpapi
-          VERSION=$(gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "${{ env.PACKAGE }}")
-          if ! grep -F ">v${VERSION}<" "history/${{ github.job }}.md" >/dev/null; then
-            echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
-          fi
-      - name: Send Discord notification
-        uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
-        if: ${{ env.NEW_VERSION }}
-        with:
+          JOB_NAME: ${{ github.job }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          mode: "cron"
-          MESSAGE: "⚠️  ${{ github.job }} v${NEW_VERSION} (${{ env.TYPE }}) not already checked"
-      - name: Create issue and run workflow if new version
-        if: ${{ env.NEW_VERSION }}
-        run: |
-          title="${{ github.job }}: check v${{ env.NEW_VERSION }} (${{ env.TYPE }})"
-          if ! gh issue list --search "${title}" --state open | grep -q "${title}"; then
-            gh issue create --title "${title}" --body "-"
-            gh workflow run "${{ github.job }}" -f VERSION=${{ env.NEW_VERSION }}
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TYPE: playstore
+          GPAPI_EMAIL: ${{ secrets.EMAIL }}
+          AAS_TOKEN: ${{ secrets.AAS_TOKEN }}
+          PACKAGE: org.thoughtcrime.securesms
 
   Signal-Desktop:
     env:

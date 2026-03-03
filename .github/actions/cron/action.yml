@@ -1,0 +1,59 @@
+name: "Cron"
+description: "Checks for new versions of an app."
+inputs:
+  JOB_NAME:
+    required: true
+    description: "name of the job to check."
+  DISCORD_WEBHOOK:
+    required: true
+    description: "discord webhook url."
+  GITHUB_TOKEN:
+    required: true
+    description: "github token."
+  TYPE:
+    required: true
+    description: "type of check (e.g. 'playstore', 'linux')."
+  GPAPI_EMAIL:
+    required: false
+    description: "gpapi email address."
+  AAS_TOKEN:
+    required: false
+    description: "gpapi aas token."
+  PACKAGE:
+    required: false
+    description: "android package name."
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v6
+    - uses: actions/download-artifact@v7
+      with:
+        name: gpapi
+        path: /usr/local/bin/
+    - name: Check for new version
+      shell: bash
+      run: |
+        sudo chmod +x /usr/local/bin/gpapi
+        VERSION=$(gpapi --email "${{ inputs.GPAPI_EMAIL }}" --aas-token "${{ inputs.AAS_TOKEN }}" --package "${{ inputs.PACKAGE }}")
+        if ! grep -F ">v${VERSION}<" "history/${{ inputs.JOB_NAME }}.md" >/dev/null; then
+          echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
+        fi
+    - name: Send Discord notification
+      uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+      if: ${{ env.NEW_VERSION }}
+      with:
+        DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
+        mode: "cron"
+        MESSAGE: "⚠️  ${{ inputs.JOB_NAME }} v${NEW_VERSION} (${{ inputs.TYPE }}) not already checked"
+    - name: Create issue and run workflow if new version
+      if: ${{ env.NEW_VERSION }}
+      shell: bash
+      run: |
+        title="${{ inputs.JOB_NAME }}: check v${{ env.NEW_VERSION }} (${{ inputs.TYPE }})"
+        if ! gh issue list --search "${title}" --state open | grep -q "${title}"; then
+          gh issue create --title "${title}" --body "-"
+          gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }}
+        fi
+      env:
+        GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
