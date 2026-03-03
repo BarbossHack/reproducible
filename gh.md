@@ -55,3 +55,14 @@ gh run list -w Briar-Android --limit 1000
 # Delete all workflows
 gh run list -w Briar-Android --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
 ```
+
+## Threema-Android
+
+```bash
+# Run new workflow
+gh workflow run "Threema-Android" -f VERSION=6.3.1
+# List workflows
+gh run list -w Threema-Android --limit 1000
+# Delete all workflows
+gh run list -w Threema-Android --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
+```

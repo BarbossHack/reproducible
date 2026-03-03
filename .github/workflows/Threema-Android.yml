@@ -1,15 +1,17 @@
 name: Threema-Android
 
+# https://shop.threema.ch/fr/download
+
 on:
-  push:
-    paths:
-      - ".github/workflows/Threema-Android.yml"
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: "VERSION"
+        required: true
+
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 env:
-  COMMIT: 5c202d9ffd42be441b893795c4f07151b10c5bba
-  # https://shop.threema.ch/fr/download
-  OFFICIAL_APK: https://filebin.net/rivs43vita2r82gh/Threema-6.3.0-1113.apk.filebin
-  OFFICIAL_SHA256: 7210950f618cf7e8e6abdd9651045239303bed4a91514a53ce2a01458b955d93
   SIGNATURE_SHA256: 269d600e1ce7e0a7ffddb18fb92251092938f5be38ea1113e29213564b32cb44
 
 jobs:
@@ -18,28 +20,25 @@ jobs:
     steps:
       - name: Official
         run: |
-          curl -L "${{ env.OFFICIAL_APK }}" -o Threema.apk
-          echo "$OFFICIAL_SHA256  Threema.apk" | sha256sum -c -
+          curl -L "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Threema-Android/${{ inputs.VERSION }}.apk" -o Threema.apk
+          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Threema.apk)
+          VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
           /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Threema.apk | grep $SIGNATURE_SHA256
       - name: Dockerfile
         run: |
-          git clone https://github.com/threema-ch/threema-android
+          git clone https://github.com/threema-ch/threema-android --depth 1 -b "${{ inputs.VERSION }}-${{ env.VERSION_CODE }}"
           cd threema-android
-          git checkout ${{ env.COMMIT }}
-          export CODE=$(grep "val defaultVersionCode = " "./app/build.gradle.kts" | cut -d= -f2 | xargs)
-          export VERSION=$(grep "val appVersion = " "./app/build.gradle.kts" | cut -d= -f2 | xargs)
           export RUST_VERSION=$(grep "channel = " "./domain/libthreema/rust-toolchain.toml" | cut -d= -f2 | xargs)
-          echo "CODE=$CODE" >> $GITHUB_ENV
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
           cd scripts
-          docker build --build-arg RUST_VERSION=$RUST_VERSION -t docker.io/threema/android-compile:$CODE .
+          docker build --build-arg RUST_VERSION=$RUST_VERSION -t docker.io/threema/android-compile:${{ env.VERSION_CODE }} .
       - name: Build
         run: |
           ./threema-android/scripts/build-release.sh -v threemashop_private --no-image-export --i-accept-the-android-sdk-license
           ls -Rlsah threema-android/release
       - name: Apkdiff
         run: |
-          ./threema-android/scripts/verify-build.sh -n "$VERSION-$CODE" -v threemashop_private -p Threema.apk
+          ./threema-android/scripts/verify-build.sh -n "${{ inputs.VERSION }}-${{ env.VERSION_CODE }}" -v threemashop_private -p Threema.apk
       - name: Signal Apkdiff
         run: |
           pip install uv
@@ -47,5 +46,5 @@ jobs:
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
           zip -d ../../../Threema.apk "META-INF/*"
-          zip -d ../../../threema-android/release/$VERSION-$CODE/threemashop_private/app-store_threema-universal-release-unsigned.apk "META-INF/*"
-          uv run apkdiff.py ../../../Threema.apk ../../../threema-android/release/$VERSION-$CODE/threemashop_private/app-store_threema-universal-release-unsigned.apk
+          zip -d ../../../threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/threemashop_private/app-store_threema-universal-release-unsigned.apk "META-INF/*"
+          uv run apkdiff.py ../../../Threema.apk ../../../threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/threemashop_private/app-store_threema-universal-release-unsigned.apk
