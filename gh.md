@@ -66,3 +66,14 @@ gh run list -w Threema-Android --limit 1000
 # Delete all workflows
 gh run list -w Threema-Android --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
 ```
+
+## Telegram-Android
+
+```bash
+# Run new workflow
+gh workflow run "Telegram-Android" -f VERSION=12.4.1
+# List workflows
+gh run list -w Telegram-Android --limit 1000
+# Delete all workflows
+gh run list -w Telegram-Android --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
+```
