@@ -12,7 +12,11 @@ inputs:
     description: "github token."
   TYPE:
     required: true
-    description: "type of check (e.g. 'playstore', 'linux')."
+    description: "type of check (e.g. 'playstore', 'github')."
+  TRIGGER_WORKFLOW:
+    required: false
+    description: "weither it should trigger the workflow or not."
+    default: "true"
   GPAPI_EMAIL:
     required: false
     description: "gpapi email address."
@@ -22,6 +26,9 @@ inputs:
   PACKAGE:
     required: false
     description: "android package name."
+  REPO:
+    required: false
+    description: "github repo name."
 
 runs:
   using: composite
@@ -31,11 +38,20 @@ runs:
       with:
         name: gpapi
         path: /usr/local/bin/
-    - name: Check for new version
+    - name: Playstore check
+      if: ${{ inputs.TYPE == 'playstore' }}
       shell: bash
       run: |
         sudo chmod +x /usr/local/bin/gpapi
         VERSION=$(gpapi --email "${{ inputs.GPAPI_EMAIL }}" --aas-token "${{ inputs.AAS_TOKEN }}" --package "${{ inputs.PACKAGE }}")
+        if ! grep -F ">v${VERSION}<" "history/${{ inputs.JOB_NAME }}.md" >/dev/null; then
+          echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
+        fi
+    - name: Github check
+      if: ${{ inputs.TYPE == 'github' }}
+      shell: bash
+      run: |
+        VERSION=$(curl -s --fail https://api.github.com/repos/${{ inputs.REPO }}/releases/latest | jq -r .tag_name | tr -d vV)
         if ! grep -F ">v${VERSION}<" "history/${{ inputs.JOB_NAME }}.md" >/dev/null; then
           echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
         fi
@@ -53,7 +69,13 @@ runs:
         title="${{ inputs.JOB_NAME }}: check v${{ env.NEW_VERSION }} (${{ inputs.TYPE }})"
         if ! gh issue list --search "${title}" --state open | grep -q "${title}"; then
           gh issue create --title "${title}" --body "-"
-          gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }}
+          echo "ISSUE_CREATED=true" >> $GITHUB_ENV
         fi
+      env:
+        GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+    - name: Trigger workflow if new version
+      if: ${{ env.ISSUE_CREATED == 'true' && inputs.TRIGGER_WORKFLOW == 'true' }}
+      shell: bash
+      run: gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }}
       env:
         GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
