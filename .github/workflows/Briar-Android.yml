@@ -34,8 +34,33 @@ jobs:
           zip -d ../../../build.apk "META-INF/*"
           uv run apkdiff.py ../../../official.apk ../../../build.apk
 
+  playstore-verify:
+    needs: website-verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download website APK
+        run: |
+          curl -sL https://briarproject.org/apk/briar.apk -o briar.apk
+          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging briar.apk)
+          VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+      - name: Download Play Store APK
+        run: |
+          cargo build --manifest-path gpapi/Cargo.toml --release
+          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.briarproject.briar.android" --version-code ${{ env.VERSION_CODE }} --output=./playstore/
+      - name: Signal Apkdiff
+        run: |
+          pip install uv
+          git clone https://github.com/signalapp/Signal-Android --depth 1
+          cd Signal-Android/reproducible-builds/apkdiff
+          uv sync
+          zip -d ../../../briar.apk "META-INF/*"
+          zip -d ../../../playstore/org.briarproject.briar.android.apk "META-INF/*"
+          uv run apkdiff.py ../../../briar.apk ../../../playstore/org.briarproject.briar.android.apk
+
   notify:
-    needs: [website-verify]
+    needs: [website-verify, playstore-verify]
     if: always()
     runs-on: ubuntu-latest
     steps:
