@@ -35,10 +35,24 @@ jobs:
           JOB_NAME: ${{ github.job }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TYPE: playstore
           GPAPI_EMAIL: ${{ secrets.EMAIL }}
           AAS_TOKEN: ${{ secrets.AAS_TOKEN }}
           PACKAGE: org.thoughtcrime.securesms
+          TYPE: playstore
+
+  Telegram-Android:
+    needs: build-gpapi
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/cron@master
+        with:
+          JOB_NAME: ${{ github.job }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPAPI_EMAIL: ${{ secrets.EMAIL }}
+          AAS_TOKEN: ${{ secrets.AAS_TOKEN }}
+          PACKAGE: org.telegram.messenger
+          TYPE: playstore
 
   Signal-Desktop:
     env:
