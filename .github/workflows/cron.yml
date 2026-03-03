@@ -70,6 +70,20 @@ jobs:
           PACKAGE: ch.threema.app
           TYPE: playstore
 
+  Briar-Android:
+    needs: build-gpapi
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/cron@master
+        with:
+          JOB_NAME: ${{ github.job }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPAPI_EMAIL: ${{ secrets.EMAIL }}
+          AAS_TOKEN: ${{ secrets.AAS_TOKEN }}
+          PACKAGE: org.briarproject.briar.android
+          TYPE: playstore
+
   Signal-Desktop:
     runs-on: ubuntu-latest
     steps:
