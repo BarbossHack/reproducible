@@ -60,3 +60,33 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  Signal-Desktop:
+    env:
+      TYPE: linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check for new version
+        run: |
+          VERSION=$(curl -s --fail https://api.github.com/repos/signalapp/Signal-Desktop/releases/latest | jq -r .tag_name)
+          if ! grep -F ">v${VERSION}<" "history/${{ github.job }}.md" >/dev/null; then
+            echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
+          fi
+      - name: Send Discord notification
+        uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        if: ${{ env.NEW_VERSION }}
+        with:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          mode: "cron"
+          MESSAGE: "⚠️  ${{ github.job }} v${NEW_VERSION} (${{ env.TYPE }}) not already checked"
+      - name: Create issue and run workflow if new version
+        if: ${{ env.NEW_VERSION }}
+        run: |
+          title="${{ github.job }}: check v${{ env.NEW_VERSION }} (${{ env.TYPE }})"
+          if ! gh issue list --search "${title}" --state open | grep -q "${title}"; then
+            gh issue create --title "${title}" --body "-"
+            gh workflow run "${{ github.job }}" -f VERSION=${{ env.NEW_VERSION }}
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
