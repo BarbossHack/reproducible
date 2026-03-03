@@ -10,7 +10,7 @@ on:
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
-  build:
+  website-verify:
     runs-on: ubuntu-latest
     steps:
       - name: Dockerfile
@@ -33,3 +33,14 @@ jobs:
           zip -d ../../../official.apk "META-INF/*"
           zip -d ../../../build.apk "META-INF/*"
           uv run apkdiff.py ../../../official.apk ../../../build.apk
+
+  notify:
+    needs: [website-verify]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        with:
+          VERSION: ${{ inputs.VERSION }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          needs: ${{ toJSON(needs) }}

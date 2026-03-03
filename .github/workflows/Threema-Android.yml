@@ -15,7 +15,7 @@ env:
   SIGNATURE_SHA256: 269d600e1ce7e0a7ffddb18fb92251092938f5be38ea1113e29213564b32cb44
 
 jobs:
-  build:
+  website-verify:
     runs-on: ubuntu-latest
     steps:
       - name: Official
@@ -48,3 +48,14 @@ jobs:
           zip -d ../../../Threema.apk "META-INF/*"
           zip -d ../../../threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/threemashop_private/app-store_threema-universal-release-unsigned.apk "META-INF/*"
           uv run apkdiff.py ../../../Threema.apk ../../../threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/threemashop_private/app-store_threema-universal-release-unsigned.apk
+
+  notify:
+    needs: [website-verify]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        with:
+          VERSION: ${{ inputs.VERSION }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          needs: ${{ toJSON(needs) }}
