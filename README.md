@@ -4,7 +4,7 @@ This repository tracks the reproducibility status of open source messengers.
 
 | Software                                                         | Version               | Reproducible   | History |
 |------------------------------------------------------------------|-----------------------|----------------|---------|
-| [Briar Android](https://code.briarproject.org/briar/briar)       | v1.5.15               | 🟡 In progress _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Briar-Android.md) |
+| [Briar Android](https://code.briarproject.org/briar/briar)       | v1.5.15               | ✅ Yes _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Briar-Android.md) |
 | Briar Desktop                                                    | v0.6.4                | ⚫ N/A         | - |
 | ElementX Android                                                 | v26.01.1              | ⚫ N/A _(PlayStore)_<br>🟡 In progress _(FDroid)_ | - |
 | [Molly (Signal)](https://github.com/mollyim/mollyim-android)     | v7.72.2-1             | ✅ Yes _(Github)_ | [See details](history/Molly-Android.md) |

@@ -16,8 +16,8 @@ Reproducible build instructions: <https://code.briarproject.org/briar/briar-repr
         <tr>
             <td>v1.5.15</td>
             <td>2025-12-08</td>
-            <td>✅ Yes <i>(Website)</i></td>
-            <td>-</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/22645086714">#22645086714</a></td>
             <td>-</td>
         </tr>
         <tr>
