@@ -58,14 +58,7 @@ runs:
         if ! grep -F ">v${VERSION}<" "history/${{ inputs.JOB_NAME }}.md" >/dev/null; then
           echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
         fi
-    - name: Send Discord notification
-      uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
-      if: ${{ env.NEW_VERSION }}
-      with:
-        DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
-        mode: "cron"
-        MESSAGE: "⚠️  ${{ inputs.JOB_NAME }} v${NEW_VERSION} (${{ inputs.TYPE }}) not already checked"
-    - name: Create issue and run workflow if new version
+    - name: Create issue
       if: ${{ env.NEW_VERSION }}
       shell: bash
       run: |
@@ -76,6 +69,13 @@ runs:
         fi
       env:
         GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+    - name: Send Discord notification
+      uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+      if: ${{ env.ISSUE_CREATED == 'true' }}
+      with:
+        DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
+        mode: "cron"
+        MESSAGE: "⚠️  ${{ inputs.JOB_NAME }} v${NEW_VERSION} (${{ inputs.TYPE }}) not already checked"
     - name: Trigger workflow if new version
       if: ${{ env.ISSUE_CREATED == 'true' && inputs.TRIGGER_WORKFLOW == 'true' }}
       shell: bash
