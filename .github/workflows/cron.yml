@@ -8,6 +8,8 @@ on:
     - cron: "0 3 * * *" # every day 03:00 am UTC
   workflow_dispatch:
 
+run-name: "cron"
+
 permissions:
   contents: write
   issues: write
@@ -69,7 +71,7 @@ jobs:
       - uses: actions/checkout@v6
       - name: Check for new version
         run: |
-          VERSION=$(curl -s --fail https://api.github.com/repos/signalapp/Signal-Desktop/releases/latest | jq -r .tag_name)
+          VERSION=$(curl -s --fail https://api.github.com/repos/signalapp/Signal-Desktop/releases/latest | jq -r .tag_name | tr -d vV)
           if ! grep -F ">v${VERSION}<" "history/${{ github.job }}.md" >/dev/null; then
             echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
           fi
