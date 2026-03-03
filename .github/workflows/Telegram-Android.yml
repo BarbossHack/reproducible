@@ -21,7 +21,7 @@ jobs:
       - name: Download
         run: |
           curl -L "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Telegram-Android/${{ inputs.VERSION }}.apk" -o Telegram.apk
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Threema.apk)
+          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Telegram.apk)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
           /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Telegram.apk | grep $SIGNATURE_SHA256
