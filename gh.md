@@ -44,3 +44,14 @@ gh run list -w Simplex-Desktop --limit 1000
 # Delete all workflows
 gh run list -w Simplex-Desktop --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
 ```
+
+## Briar-Android
+
+```bash
+# Run new workflow
+gh workflow run "Briar-Android" -f VERSION=1.5.15
+# List workflows
+gh run list -w Briar-Android --limit 1000
+# Delete all workflows
+gh run list -w Briar-Android --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
+```

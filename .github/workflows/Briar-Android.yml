@@ -1,12 +1,13 @@
 name: Briar-Android
 
 on:
-  push:
-    paths:
-      - ".github/workflows/Briar-Android.yml"
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: "VERSION"
+        required: true
 
-env:
-  VERSION: release-1.5.15
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
   build:
@@ -19,9 +20,9 @@ jobs:
           docker build -t briar/reproducer briar-reproducer
       - name: Reproducible
         run: |
-          sudo docker run --privileged --device /dev/fuse --name reproducer briar/reproducer:latest ./reproduce.py briar ${{ env.VERSION }}
+          sudo docker run --privileged --device /dev/fuse --name reproducer briar/reproducer:latest ./reproduce.py briar release-${{ inputs.VERSION }}
           sudo docker cp reproducer:/opt/briar-reproducer/briar/briar-android/build/outputs/apk/official/release/briar-android-official-release-unsigned.apk build.apk
-          sudo docker cp reproducer:/opt/briar-reproducer/briar-$(echo ${{ env.VERSION }} | cut -d- -f2).apk official.apk
+          sudo docker cp reproducer:/opt/briar-reproducer/briar-${{ inputs.VERSION }}.apk official.apk
           sudo chmod 666 *.apk
       - name: Signal Apkdiff
         run: |
