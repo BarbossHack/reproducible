@@ -45,6 +45,7 @@ runs:
       run: |
         sudo chmod +x /usr/local/bin/gpapi
         VERSION=$(gpapi --email "${{ inputs.GPAPI_EMAIL }}" --aas-token "${{ inputs.AAS_TOKEN }}" --package "${{ inputs.PACKAGE }}")
+        echo "$VERSION"
         if ! grep -F ">v${VERSION}<" "history/${{ inputs.JOB_NAME }}.md" >/dev/null; then
           echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
         fi
@@ -53,6 +54,7 @@ runs:
       shell: bash
       run: |
         VERSION=$(curl -s --fail https://api.github.com/repos/${{ inputs.REPO }}/releases/latest | jq -r .tag_name | tr -d vV)
+        echo "$VERSION"
         if ! grep -F ">v${VERSION}<" "history/${{ inputs.JOB_NAME }}.md" >/dev/null; then
           echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
         fi
