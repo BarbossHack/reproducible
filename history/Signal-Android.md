@@ -23,14 +23,14 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
         <tr>
             <td>v7.74.5</td>
             <td>2026-02-19</td>
-            <td>✅ Yes <i>(PlayStore)</i><br>⚫ N/A <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✴️ N/A <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/22276514283">#22276514283</a></td>
             <td>This release has not been published on the WebSite.</td>
         </tr>
         <tr>
             <td>v7.74.4</td>
             <td>2026-02-19</td>
-            <td>✅ Yes <i>(PlayStore)</i><br>⚫ N/A <i>(Website)</i></td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✴️ N/A <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/22255979711">#22255979711</a></td>
             <td>This release has not been published on the WebSite (or on Github Releases); it is a fix for the PlayStore variant, see <a href="https://github.com/signalapp/Signal-Android/issues/14611">#14611</a></td>
         </tr>
@@ -58,7 +58,7 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
         <tr>
             <td>v7.70.2</td>
             <td>2026-01-23</td>
-            <td>⚫ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td>✴️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/21800412265">#21800412265</a></td>
             <td>This release has not been published on the PlayStore; it is a fix for the website variant, see <a href="https://github.com/signalapp/Signal-Android/issues/14540">#14540</a></td>
         </tr>
