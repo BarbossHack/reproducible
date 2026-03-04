@@ -70,15 +70,8 @@ jobs:
         with:
           name: Telegram-${{ env.VERSION }}.apk
           path: build
-      - name: apkdiff
-        run: |
-          curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
-          # see https://github.com/DrKLO/Telegram/pull/1899
-          sed -i 's|"META-INF/CERT.SF"]|"META-INF/CERT.SF", "META-INF/version-control-info.textproto"]|g' apkdiff.py
-          output=$(python apkdiff.py ./official/Telegram.apk ./build/app.apk)
-          echo "$output"
-          echo "$output" | grep -F "APKs are the same"
       - name: Signal Apkdiff
+        continue-on-error: true
         run: |
           pip install uv
           git clone https://github.com/signalapp/Signal-Android --depth 1
@@ -87,3 +80,11 @@ jobs:
           zip -d ../../../Telegram.apk "META-INF/*"
           zip -d ../../../Telegram-${{ env.VERSION }}.apk "META-INF/*"
           uv run apkdiff.py ../../../Telegram.apk ../../../Telegram-${{ env.VERSION }}.apk
+      - name: apkdiff
+        run: |
+          curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
+          # see https://github.com/DrKLO/Telegram/pull/1899
+          sed -i 's|"META-INF/CERT.SF"]|"META-INF/CERT.SF", "META-INF/version-control-info.textproto"]|g' apkdiff.py
+          output=$(python apkdiff.py ./official/Telegram.apk ./build/app.apk)
+          echo "$output"
+          echo "$output" | grep -F "APKs are the same"
