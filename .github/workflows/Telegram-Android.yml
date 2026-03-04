@@ -53,7 +53,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
-          name: Telegram-${{ env.COMMIT }}.apk
+          name: Telegram-${{ env.VERSION }}.apk
           path: ./Telegram/TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk
 
   diff:
@@ -68,7 +68,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v7
         with:
-          name: Telegram-${{ env.COMMIT }}.apk
+          name: Telegram-${{ env.VERSION }}.apk
           path: build
       - name: apkdiff
         run: |
@@ -78,3 +78,12 @@ jobs:
           output=$(python apkdiff.py ./official/Telegram.apk ./build/app.apk)
           echo "$output"
           echo "$output" | grep -F "APKs are the same"
+      - name: Signal Apkdiff
+        run: |
+          pip install uv
+          git clone https://github.com/signalapp/Signal-Android --depth 1
+          cd Signal-Android/reproducible-builds/apkdiff
+          uv sync
+          zip -d ../../../Telegram.apk "META-INF/*"
+          zip -d ../../../Telegram-${{ env.VERSION }}.apk "META-INF/*"
+          uv run apkdiff.py ../../../Telegram.apk ../../../Telegram-${{ env.VERSION }}.apk
