@@ -46,7 +46,7 @@ jobs:
         run: |
           git clone https://github.com/DrKLO/Telegram
           cd Telegram
-          git checkout $(git log --all --grep="${{ env.VERSION }}" -n 1 --format="%H")
+          git checkout $(git log --all --grep="${{ inputs.VERSION }}" -n 1 --format="%H")
       - name: Dockerfile
         run: |
           cd Telegram
@@ -58,7 +58,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
-          name: Telegram-${{ env.VERSION }}.apk
+          name: Telegram-${{ inputs.VERSION }}.apk
           path: ./Telegram/TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk
 
   diff:
@@ -73,7 +73,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v7
         with:
-          name: Telegram-${{ env.VERSION }}.apk
+          name: Telegram-${{ inputs.VERSION }}.apk
           path: build
       - name: Signal Apkdiff
         continue-on-error: true
@@ -83,8 +83,8 @@ jobs:
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
           zip -d ../../../Telegram.apk "META-INF/*"
-          zip -d ../../../Telegram-${{ env.VERSION }}.apk "META-INF/*"
-          uv run apkdiff.py ../../../Telegram.apk ../../../Telegram-${{ env.VERSION }}.apk
+          zip -d ../../../Telegram-${{ inputs.VERSION }}.apk "META-INF/*"
+          uv run apkdiff.py ../../../Telegram.apk ../../../Telegram-${{ inputs.VERSION }}.apk
       - name: apkdiff
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
