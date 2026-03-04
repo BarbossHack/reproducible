@@ -18,7 +18,7 @@ This repository tracks the reproducibility status of open source messengers.
 | SimpleX Android                                                  | v6.5.0                | 🟡 In progress _(PlayStore)_<br>🟡 In progress _(Github)_ | - |
 | [SimpleX Desktop](https://github.com/simplex-chat/simplex-chat)  | v6.4.10               | ✅ Yes _(linux)_<br>⚫ N/A _(windows/macos)_ | [See details](history/SimpleX-Desktop.md) |
 | [SimpleX Server](https://github.com/simplex-chat/simplexmq)      | v6.4.5                | ✅ Yes         | [See details](history/SimpleX-Server.md) |
-| [Telegram Android](https://github.com/DrKLO/Telegram)            | v12.2.10              | 🟡 In progress _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Telegram-Android.md) |
+| [Telegram Android](https://github.com/DrKLO/Telegram)            | v12.4.1               | 🟡 In progress _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Telegram-Android.md) |
 | Telegram Desktop                                                 | v6.2.5                | ⚫ N/A         | - |
 | [Threema Android](https://github.com/threema-ch/threema-android) | v6.3.1                | ⚫ N/A _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Threema-Android.md) |
 | Threema Desktop                                                  | v2.0-beta57           | ⚫ N/A         | - |
