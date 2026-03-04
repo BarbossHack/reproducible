@@ -2,28 +2,138 @@
 
 This repository tracks the reproducibility status of open source messengers.  
 
-| Software                                                         | Version               | Reproducible   | History |
-|------------------------------------------------------------------|-----------------------|----------------|---------|
-| [Briar Android](https://code.briarproject.org/briar/briar)       | v1.5.15               | ✅ Yes _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Briar-Android.md) |
-| Briar Desktop                                                    | v0.6.4                | ✖️ N/A         | - |
-| ElementX Android                                                 | v26.01.1              | ✖️ N/A _(PlayStore)_<br>🟡 In progress _(FDroid)_ | - |
-| [Molly (Signal)](https://github.com/mollyim/mollyim-android)     | v7.72.2-1             | ✅ Yes _(Github)_ | [See details](history/Molly-Android.md) |
-| Olvid Android                                                    | v4.2                  | ✖️ N/A         | - |
-| Olvid Desktop                                                    | v2.7.0                | ✖️ N/A         | - |
-| ProtonMail Android                                               | v7.6.2                | ✖️ N/A         | - |
-| Session Android                                                  | v1.30.3               | ✖️ N/A         | - |
-| Session Desktop                                                  | v1.17.7               | ✖️ N/A         | - |
-| [Signal Android](https://github.com/signalapp/Signal-Android)    | v8.0.4                | ✅ Yes _(PlayStore)_<br>✅ Yes _(Website)_<br>✅ Yes _(Github)_ | [See details](history/Signal-Android.md) |
-| [Signal Desktop](https://github.com/signalapp/Signal-Desktop)    | v8.0.0                | ✅ Yes _(linux)_<br>✖️ N/A _(windows/macos)_ | [See details](history/Signal-Desktop.md) |
-| SimpleX Android                                                  | v6.5.0                | 🟡 In progress _(PlayStore)_<br>🟡 In progress _(Github)_ | - |
-| [SimpleX Desktop](https://github.com/simplex-chat/simplex-chat)  | v6.4.10               | ✅ Yes _(linux)_<br>✖️ N/A _(windows/macos)_ | [See details](history/SimpleX-Desktop.md) |
-| [SimpleX Server](https://github.com/simplex-chat/simplexmq)      | v6.4.5                | ✅ Yes         | [See details](history/SimpleX-Server.md) |
-| [Telegram Android](https://github.com/DrKLO/Telegram)            | v12.4.1               | 🟡 In progress _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Telegram-Android.md) |
-| Telegram Desktop                                                 | v6.2.5                | ✖️ N/A         | - |
-| [Threema Android](https://github.com/threema-ch/threema-android) | v6.3.1                | ✖️ N/A _(PlayStore)_<br>✅ Yes _(Website)_ | [See details](history/Threema-Android.md) |
-| Threema Desktop                                                  | v2.0-beta57           | ✖️ N/A         | - |
-| Wire Android                                                     | v4.16.1               | ✖️ N/A         | - |
-| Wire Desktop                                                     | v3.40.3718            | ✖️ N/A         | - |
+<table>
+  <thead>
+    <tr>
+      <th>Software</th>
+      <th>Version</th>
+      <th>Reproducible</th>
+      <th>History</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://code.briarproject.org/briar/briar">Briar Android</a></td>
+      <td>v1.5.15</td>
+      <td>✅ Yes <i>PlayStore</i><br>✅ Yes <i>Website</i></td>
+      <td><a href="history/Briar-Android.md">See details</a></td>
+    </tr>
+    <tr>
+      <td>Briar Desktop</td>
+      <td>v0.6.4</td>
+      <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>ElementX Android</td>
+      <td>v26.01.1</td>
+      <td>✖️ N/A <i>PlayStore</i><br>🟡 In progress <i>FDroid</i></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/mollyim/mollyim-android">Molly (Signal)</a></td>
+      <td>v7.72.2-1</td>
+      <td>✅ Yes <i>Github</i></td>
+      <td><a href="history/Molly-Android.md">See details</a></td>
+    </tr>
+    <tr>
+      <td>Olvid Android</td>
+      <td>v4.2</td>
+      <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Olvid Desktop</td>
+      <td>v2.7.0</td>
+      <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>ProtonMail Android</td>
+      <td>v7.6.2</td>
+      <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Session Android</td>
+      <td>v1.30.3</td>
+      <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Session Desktop</td>
+      <td>v1.17.7</td>
+      <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/signalapp/Signal-Android">Signal Android</a></td>
+      <td>v8.0.4</td>
+      <td>✅ Yes <i>PlayStore</i><br>✅ Yes <i>Website</i><br>✅ Yes <i>Github</i></td>
+      <td><a href="history/Signal-Android.md">See details</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/signalapp/Signal-Desktop">Signal Desktop</a></td>
+      <td>v8.0.0</td>
+      <td>✅ Yes <i>linux</i><br>✖️ N/A <i>windows/macos</i></td>
+      <td><a href="history/Signal-Desktop.md">See details</a></td>
+    </tr>
+    <tr>
+      <td>SimpleX Android</td>
+      <td>v6.5.0</td>
+      <td>🟡 In progress <i>PlayStore</i><br>🟡 In progress <i>Github</i></td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/simplex-chat/simplex-chat">SimpleX Desktop</a></td>
+      <td>v6.4.10</td>
+      <td>✅ Yes <i>linux</i><br>✖️ N/A <i>windows/macos</i></td>
+      <td><a href="history/SimpleX-Desktop.md">See details</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/simplex-chat/simplexmq">SimpleX Server</a></td>
+      <td>v6.4.5</td>
+      <td>✅ Yes</td>
+      <td><a href="history/SimpleX-Server.md">See details</a></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/DrKLO/Telegram">Telegram Android</a></td>
+      <td>v12.4.1</td>
+      <td>🟡 In progress <i>PlayStore</i><br>✅ Yes <i>Website</i></td>
+      <td><a href="history/Telegram-Android.md">See details</a></td>
+    </tr>
+    <tr>
+      <td>Telegram Desktop</td>
+      <td>v6.2.5</td>
+      <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/threema-ch/threema-android">Threema Android</a></td>
+      <td>v6.3.1</td>
+      <td>✖️ N/A <i>PlayStore</i><br>✅ Yes <i>Website</i></td>
+      <td><a href="history/Threema-Android.md">See details</a></td>
+    </tr>
+    <tr>
+      <td>Threema Desktop</td>
+      <td>v2.0-beta57</td>
+      <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Wire Android</td>
+      <td>v4.16.1</td>
+      <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>Wire Desktop</td>
+      <td>v3.40.3718</td>
+      <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
