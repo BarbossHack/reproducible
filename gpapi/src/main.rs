@@ -21,27 +21,31 @@ async fn main() {
         let details = api.details(&args.package).await.unwrap().unwrap();
         let latest = details.item.unwrap().details.unwrap().app_details.unwrap();
         let version_string = latest.version_string.unwrap();
+        let version_code = latest.version_code.unwrap();
         eprintln!("version_string: {}", version_string);
-        eprintln!("version_code: {}", latest.version_code.unwrap());
-        if let Some(output) = &args.output {
-            std::fs::create_dir(output).unwrap_or_default();
-            let mut version_file = output.clone();
-            version_file.push("VERSION");
-            std::fs::write(version_file, &version_string).unwrap();
-        }
-        println!("{version_string}");
+        eprintln!("version_code: {}", version_code);
+        std::fs::create_dir(&args.output).unwrap_or_default();
+
+        let mut version_file = args.output.clone();
+        version_file.push("VERSION");
+        std::fs::write(version_file, &version_string).unwrap();
+
+        let mut version_file = args.output.clone();
+        version_file.push("VERSION_CODE");
+        std::fs::write(version_file, version_code.to_string()).unwrap();
+
         latest.version_code.unwrap()
     };
 
-    if let Some(output) = &args.output {
-        std::fs::create_dir(output).unwrap_or_default();
+    if args.download {
+        std::fs::create_dir(&args.output).unwrap_or_default();
         api.download(
             &args.package,
             Some(version_code),
             true,
             false,
             true,
-            output,
+            &args.output,
             None,
         )
         .await

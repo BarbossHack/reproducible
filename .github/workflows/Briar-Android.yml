@@ -48,7 +48,7 @@ jobs:
       - name: Download Play Store APK
         run: |
           cargo build --manifest-path gpapi/Cargo.toml --release
-          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.briarproject.briar.android" --version-code ${{ env.VERSION_CODE }} --output=./playstore/
+          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.briarproject.briar.android" --version-code ${{ env.VERSION_CODE }} --output=./playstore/ --download
       - name: Signal Apkdiff
         run: |
           pip install uv

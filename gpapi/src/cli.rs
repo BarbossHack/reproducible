@@ -18,5 +18,8 @@ pub struct Args {
     pub version_code: Option<i64>,
 
     #[arg(short, long)]
-    pub output: Option<PathBuf>,
+    pub output: PathBuf,
+
+    #[arg(short, long, default_value = "false")]
+    pub download: bool,
 }

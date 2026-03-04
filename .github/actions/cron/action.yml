@@ -44,10 +44,14 @@ runs:
       shell: bash
       run: |
         sudo chmod +x /usr/local/bin/gpapi
-        VERSION=$(gpapi --email "${{ inputs.GPAPI_EMAIL }}" --aas-token "${{ inputs.AAS_TOKEN }}" --package "${{ inputs.PACKAGE }}")
+        gpapi --email "${{ inputs.GPAPI_EMAIL }}" --aas-token "${{ inputs.AAS_TOKEN }}" --package "${{ inputs.PACKAGE }}" --output ./out/
+        VERSION=$(cat ./out/VERSION)
+        VERSION_CODE=$(cat ./out/VERSION_CODE)
         echo "$VERSION"
+        echo "$VERSION_CODE"
         if ! grep -F ">v${VERSION}<" "history/${{ inputs.JOB_NAME }}.md" >/dev/null; then
           echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "NEW_VERSION_CODE=${VERSION_CODE}" >> $GITHUB_ENV
         fi
     - name: Github check
       if: ${{ inputs.TYPE == 'github' }}
@@ -79,6 +83,6 @@ runs:
     - name: Trigger workflow if new version
       if: ${{ env.ISSUE_CREATED == 'true' && inputs.TRIGGER_WORKFLOW == 'true' }}
       shell: bash
-      run: gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }}
+      run: gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }} -f VERSION_CODE=${{ env.NEW_VERSION_CODE }}
       env:
         GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
