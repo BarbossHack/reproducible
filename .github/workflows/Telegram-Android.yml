@@ -24,8 +24,8 @@ jobs:
       - name: Download
         id: download
         run: |
-          curl -L "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Telegram-Android/${{ inputs.VERSION }}.apk" -o Telegram-official.apk
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Telegram-official.apk)
+          curl -L "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Telegram-Android/${{ inputs.VERSION }}.apk" -o Telegram-website.apk
+          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Telegram-website.apk)
           VERSION_NAME=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
@@ -33,7 +33,7 @@ jobs:
             echo "Version name mismatch: expected ${{ inputs.VERSION }}, got $VERSION_NAME"
             exit 1
           fi
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Telegram-official.apk | grep $SIGNATURE_SHA256
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Telegram-website.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -53,6 +53,7 @@ jobs:
           if [ -z "$VERSION_CODE" ]; then
             VERSION_CODE="${{ inputs.VERSION_CODE }}"
           fi
+          VERSION_CODE=$(( ($VERSION_CODE / 10) * 10 + 1 ))
 
           cargo build --manifest-path gpapi/Cargo.toml --release
           ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.telegram.messenger" --version-code ${VERSION_CODE} --output=./playstore-official/ --download
@@ -74,7 +75,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    needs: [website-download]
+    needs: [website-download, playstore-download]
     steps:
       - name: Free up disk space
         uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
