@@ -39,6 +39,7 @@ async fn main() {
 
     if args.download {
         std::fs::create_dir(&args.output).unwrap_or_default();
+        dbg!(api.get_download_info(&args.package, Some(version_code)).await.unwrap());
         api.download(
             &args.package,
             Some(version_code),
