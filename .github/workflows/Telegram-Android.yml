@@ -8,6 +8,9 @@ on:
       VERSION:
         description: "VERSION"
         required: true
+      VERSION_CODE:
+        description: "VERSION_CODE"
+        required: false
 
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
@@ -15,66 +18,86 @@ env:
   SIGNATURE_SHA256: 49c1522548ebacd46ce322b6fd47f6092bb745d0f88082145caf35e14dcc38e1
 
 jobs:
-  official:
+  website-download:
     runs-on: ubuntu-latest
     steps:
       - name: Download
+        id: download
         run: |
-          curl -L "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Telegram-Android/${{ inputs.VERSION }}.apk" -o Telegram.apk
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Telegram.apk)
+          curl -L "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Telegram-Android/${{ inputs.VERSION }}.apk" -o Telegram-official.apk
+          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Telegram-official.apk)
           VERSION_NAME=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
-          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
           if [ "$VERSION_NAME" != "${{ inputs.VERSION }}" ]; then
             echo "Version name mismatch: expected ${{ inputs.VERSION }}, got $VERSION_NAME"
             exit 1
           fi
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Telegram.apk | grep $SIGNATURE_SHA256
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Telegram-official.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
-          name: Telegram.apk
-          path: Telegram.apk
+          name: website-official
+          path: Telegram-website.apk
+    outputs:
+      VERSION_CODE: ${{ steps.download.outputs.VERSION_CODE }}
+
+  playstore-download:
+    runs-on: ubuntu-latest
+    needs: [website-download]
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download
+        run: |
+          VERSION_CODE="${{ needs.website-download.outputs.VERSION_CODE }}"
+          if [ -z "$VERSION_CODE" ]; then
+            VERSION_CODE="${{ inputs.VERSION_CODE }}"
+          fi
+
+          cargo build --manifest-path gpapi/Cargo.toml --release
+          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.telegram.messenger" --version-code ${VERSION_CODE} --output=./playstore-official/ --download
+
+          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk)
+          PLAYSTORE_VERSION=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
+          if [[ "${{ inputs.VERSION }}" == "$PLAYSTORE_VERSION" ]]; then
+            echo "✅ Versions $PLAYSTORE_VERSION match"
+          else
+            echo "❌ Versions differ: expected ${{ inputs.VERSION }} but got $PLAYSTORE_VERSION"
+            exit 1
+          fi
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk | grep $SIGNATURE_SHA256
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: playstore-official
+          path: ./playstore-official/
 
   build:
     runs-on: ubuntu-latest
-    needs: [official]
+    needs: [website-download]
     steps:
       - name: Free up disk space
         uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
-      - name: Clone
+      - name: Build
         run: |
           git clone https://github.com/DrKLO/Telegram
           cd Telegram
           git checkout $(git log --all --grep="${{ inputs.VERSION }}" -n 1 --format="%H")
-      - name: Dockerfile
-        run: |
-          cd Telegram
           docker build -t telegram-build .
-      - name: Build
-        run: |
-          cd Telegram
           docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle :TMessagesProj_AppStandalone:assembleAfatStandalone
+          mv Telegram/TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk ../Telegram-build.apk
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
-          name: Telegram-${{ inputs.VERSION }}.apk
-          path: ./Telegram/TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk
+          name: build
+          path: Telegram-build.apk
 
-  diff:
+  website-verify:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v7
-        with:
-          name: Telegram.apk
-          path: official
-      - name: Download artifact
-        uses: actions/download-artifact@v7
-        with:
-          name: Telegram-${{ inputs.VERSION }}.apk
-          path: build
+        uses: actions/download-artifact@v8
       - name: Signal Apkdiff
         continue-on-error: true
         run: |
@@ -82,14 +105,51 @@ jobs:
           git clone https://github.com/signalapp/Signal-Android --depth 1
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          zip -d ../../../Telegram.apk "META-INF/*"
-          zip -d ../../../Telegram-${{ inputs.VERSION }}.apk "META-INF/*"
-          uv run apkdiff.py ../../../Telegram.apk ../../../Telegram-${{ inputs.VERSION }}.apk
+          zip -d ../../../Telegram-website.apk "META-INF/*"
+          zip -d ../../../Telegram-build.apk "META-INF/*"
+          uv run apkdiff.py ../../../Telegram-website.apk ../../../Telegram-build.apk
       - name: apkdiff
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
           # see https://github.com/DrKLO/Telegram/pull/1899
           sed -i 's|"META-INF/CERT.SF"]|"META-INF/CERT.SF", "META-INF/version-control-info.textproto"]|g' apkdiff.py
-          output=$(python apkdiff.py ./official/Telegram.apk ./build/app.apk)
+          output=$(python apkdiff.py ./Telegram-website.apk ./Telegram-build.apk)
           echo "$output"
           echo "$output" | grep -F "APKs are the same"
+
+  playstore-verify:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v8
+      - name: Signal Apkdiff
+        continue-on-error: true
+        run: |
+          ls -Rlsah
+          pip install uv
+          git clone https://github.com/signalapp/Signal-Android --depth 1
+          cd Signal-Android/reproducible-builds/apkdiff
+          uv sync
+          zip -d ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk "META-INF/*"
+          zip -d ../../../Telegram-build.apk "META-INF/*"
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../Telegram-build.apk
+      - name: apkdiff
+        run: |
+          curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
+          # see https://github.com/DrKLO/Telegram/pull/1899
+          sed -i 's|"META-INF/CERT.SF"]|"META-INF/CERT.SF", "META-INF/version-control-info.textproto"]|g' apkdiff.py
+          output=$(python apkdiff.py ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk ./Telegram-build.apk)
+          echo "$output"
+          echo "$output" | grep -F "APKs are the same"
+
+  notify:
+    needs: [website-verify, playstore-verify]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        with:
+          VERSION: ${{ inputs.VERSION }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          needs: ${{ toJSON(needs) }}
