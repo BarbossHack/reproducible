@@ -53,10 +53,11 @@ jobs:
           if [ -z "$VERSION_CODE" ]; then
             VERSION_CODE="${{ inputs.VERSION_CODE }}"
           fi
-          VERSION_CODE=$(( ($VERSION_CODE / 10) * 10 + 1 ))
+          VERSION_CODE_PLAYSTORE=$(( ($VERSION_CODE / 10) * 10 + 1 ))
+          echo "Using version code $VERSION_CODE_PLAYSTORE for playstore download, expected to be $VERSION_CODE / 10 * 10 + 1"
 
           cargo build --manifest-path gpapi/Cargo.toml --release
-          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.telegram.messenger" --version-code ${VERSION_CODE} --output=./playstore-official/ --download
+          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.telegram.messenger" --version-code ${VERSION_CODE_PLAYSTORE} --output=./playstore-official/ --download
 
           AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk)
           PLAYSTORE_VERSION=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
