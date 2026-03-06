@@ -49,6 +49,7 @@ jobs:
       - uses: actions/checkout@v6
       - name: Download
         run: |
+          curl ipinfo.io
           VERSION_CODE="${{ needs.website-download.outputs.VERSION_CODE }}"
           if [ -z "$VERSION_CODE" ]; then
             VERSION_CODE="${{ inputs.VERSION_CODE }}"
