@@ -372,11 +372,9 @@ impl Gpapi {
         if self.auth_token.is_none() {
             return Err(GpapiError::new(GpapiErrorKind::LoginRequired));
         }
-        println!("YOLO_0");
         if version_code.is_none() {
             version_code = Some(self.get_latest_version_for_pkg_name(&pkg_name).await?);
         }
-        println!("YOLO_1");
         let resp = {
             let version_code_string = version_code.unwrap().to_string();
             let mut params = HashMap::new();
@@ -390,11 +388,10 @@ impl Gpapi {
                 String::from("0"),
             );
 
-            self.execute_request("purchase", Some(params), Some(&[]), headers)
+            self.execute_request("purchase", Some(dbg!(params)), Some(&[]), dbg!(headers))
                 .await?
         };
-        println!("YOLO_1.5: {:#?}", resp);
-        println!("YOLO_2");
+        dbg!(&resp);
         if let Some(payload) = resp.payload {
             if let Some(buy_response) = payload.buy_response {
                 if let Some(delivery_token) = buy_response.encoded_delivery_token {
@@ -404,7 +401,6 @@ impl Gpapi {
                 }
             }
         }
-        println!("YOLO_3");
         Err(GpapiError::new(GpapiErrorKind::InvalidApp))
     }
 
