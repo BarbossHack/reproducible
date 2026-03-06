@@ -388,7 +388,7 @@ impl Gpapi {
                 String::from("0"),
             );
 
-            self.execute_request("purchase", Some(dbg!(params)), Some(&[]), dbg!(headers))
+            self.execute_request("purchase", Some(params), Some(&[]), headers)
                 .await?
         };
         dbg!(&resp);
