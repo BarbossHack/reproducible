@@ -393,6 +393,7 @@ impl Gpapi {
             self.execute_request("purchase", Some(params), Some(&[]), headers)
                 .await?
         };
+        println!("YOLO_1.5: {:#?}", resp);
         println!("YOLO_2");
         if let Some(payload) = resp.payload {
             if let Some(buy_response) = payload.buy_response {
