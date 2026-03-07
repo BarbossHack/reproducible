@@ -99,6 +99,7 @@ jobs:
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v8
+      - run: ls -Rlsah .
       - name: Signal Apkdiff
         continue-on-error: true
         run: |
@@ -124,6 +125,7 @@ jobs:
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v8
+      - run: ls -Rlsah .
       - name: Signal Apkdiff
         continue-on-error: true
         run: |
