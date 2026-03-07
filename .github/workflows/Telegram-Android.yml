@@ -81,10 +81,10 @@ jobs:
           git checkout $(git log --all --grep="${{ inputs.VERSION }}" -n 1 --format="%H")
           docker build -t telegram-build .
           docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle -Dorg.gradle.jvmargs="-Xmx8g" assembleRelease
-          sudo ls -lsah TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk
+          find . -name "*.apk" -exec bash -c "sudo ls -lsah {}" \;
           ID=$(id -u):$(id -g)
           sudo chown -R $ID .
-          sudo ls -lsah TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk
+          find . -name "*.apk" -exec bash -c "sudo ls -lsah {}" \;
           mv TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk ../Telegram-build.apk
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
