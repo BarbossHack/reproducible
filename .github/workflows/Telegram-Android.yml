@@ -107,15 +107,15 @@ jobs:
           git clone https://github.com/signalapp/Signal-Android --depth 1
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          zip -d ../../../Telegram-website.apk "META-INF/*"
-          zip -d ../../../Telegram-build-website.apk "META-INF/*"
-          uv run apkdiff.py ../../../Telegram-website.apk ../../../Telegram-build-website.apk
+          zip -d ../../../website-official/Telegram-website.apk "META-INF/*"
+          zip -d ../../../build/Telegram-build-website.apk "META-INF/*"
+          uv run apkdiff.py ../../../website-official/Telegram-website.apk ../../../build/Telegram-build-website.apk
       - name: apkdiff
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
           # see https://github.com/DrKLO/Telegram/pull/1899
           sed -i 's|"META-INF/CERT.SF"]|"META-INF/CERT.SF", "META-INF/version-control-info.textproto"]|g' apkdiff.py
-          output=$(python apkdiff.py ./Telegram-website.apk ./Telegram-build-website.apk)
+          output=$(python apkdiff.py ./website-official/Telegram-website.apk ./build/Telegram-build-website.apk)
           echo "$output"
           echo "$output" | grep -F "APKs are the same"
 
@@ -134,14 +134,14 @@ jobs:
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
           zip -d ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk "META-INF/*"
-          zip -d ../../../Telegram-build-playstore.apk "META-INF/*"
-          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../Telegram-build-playstore.apk
+          zip -d ../../../build/Telegram-build-playstore.apk "META-INF/*"
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../build/Telegram-build-playstore.apk
       - name: apkdiff
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
           # see https://github.com/DrKLO/Telegram/pull/1899
           sed -i 's|"META-INF/CERT.SF"]|"META-INF/CERT.SF", "META-INF/version-control-info.textproto"]|g' apkdiff.py
-          output=$(python apkdiff.py ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk ./Telegram-build-playstore.apk)
+          output=$(python apkdiff.py ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk ./build/Telegram-build-playstore.apk)
           echo "$output"
           echo "$output" | grep -F "APKs are the same"
 
