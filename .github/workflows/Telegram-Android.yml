@@ -80,7 +80,8 @@ jobs:
           cd Telegram
           git checkout $(git log --all --grep="${{ inputs.VERSION }}" -n 1 --format="%H")
           docker build -t telegram-build .
-          docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle :TMessagesProj_AppStandalone:assembleAfatStandalone
+          docker run --rm --user $(id -u):$(id -g) -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle :TMessagesProj_AppStandalone:assembleAfatStandalone
+          ls -lsah TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk
           mv TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk ../Telegram-build.apk
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
