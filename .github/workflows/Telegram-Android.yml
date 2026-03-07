@@ -8,9 +8,6 @@ on:
       VERSION:
         description: "VERSION"
         required: true
-      VERSION_CODE:
-        description: "VERSION_CODE"
-        required: false
 
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
@@ -50,9 +47,6 @@ jobs:
       - name: Download
         run: |
           VERSION_CODE="${{ needs.website-download.outputs.VERSION_CODE }}"
-          if [ -z "$VERSION_CODE" ]; then
-            VERSION_CODE="${{ inputs.VERSION_CODE }}"
-          fi
           VERSION_CODE_PLAYSTORE=$(( ($VERSION_CODE / 10) * 10 + 1 ))
           echo "Using version code $VERSION_CODE_PLAYSTORE for playstore download, expected to be $VERSION_CODE / 10 * 10 + 1"
 

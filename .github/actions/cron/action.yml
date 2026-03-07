@@ -83,6 +83,6 @@ runs:
     - name: Trigger workflow if new version
       if: ${{ env.ISSUE_CREATED == 'true' && inputs.TRIGGER_WORKFLOW == 'true' }}
       shell: bash
-      run: gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }}
+      run: gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }} -f VERSION_CODE=${{ env.NEW_VERSION_CODE }} || gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }}
       env:
         GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
