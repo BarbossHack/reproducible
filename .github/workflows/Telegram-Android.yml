@@ -49,7 +49,6 @@ jobs:
       - uses: actions/checkout@v6
       - name: Download
         run: |
-          curl ipinfo.io
           VERSION_CODE="${{ needs.website-download.outputs.VERSION_CODE }}"
           if [ -z "$VERSION_CODE" ]; then
             VERSION_CODE="${{ inputs.VERSION_CODE }}"
@@ -88,7 +87,7 @@ jobs:
           git checkout $(git log --all --grep="${{ inputs.VERSION }}" -n 1 --format="%H")
           docker build -t telegram-build .
           docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle :TMessagesProj_AppStandalone:assembleAfatStandalone
-          mv Telegram/TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk ../Telegram-build.apk
+          mv TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk ../Telegram-build.apk
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
