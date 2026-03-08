@@ -79,6 +79,12 @@ This repository tracks the reproducibility status of open source messengers.
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
     <tr>
+      <td><a href="https://github.com/AsamK/signal-cli">signal-cli</a></td>
+      <td>v0.14.1</td>
+      <td>❌ No <i>(Github)</i></td>
+      <td><a href="history/signal-cli.md">See details</a></td>
+    </tr>
+    <tr>
       <td>SimpleX Android</td>
       <td>v6.5.0</td>
       <td>🟡 In progress <i>(PlayStore)</i><br>🟡 In progress <i>(Github)</i></td>
