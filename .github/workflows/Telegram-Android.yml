@@ -80,18 +80,23 @@ jobs:
           cd Telegram
           git checkout $(git log --all --grep="${{ inputs.VERSION }}" -n 1 --format="%H")
           docker build -t telegram-build .
-          docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle -Dorg.gradle.jvmargs="-Xmx8g" assembleRelease
-          ID=$(id -u):$(id -g)
-          sudo chown -R $ID .
-          mv ./TMessagesProj_AppStandalone/build/outputs/apk/afat/release/app.apk ../Telegram-build-website.apk
-          mv ./TMessagesProj_App/build/outputs/apk/bundleAfat/release/app.apk ../Telegram-build-playstore.apk
+          docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle -Dorg.gradle.jvmargs="-Xmx8g" :TMessagesProj_AppStandalone:assembleAfatStandalone :TMessagesProj_App:bundleBundleAfatRelease
+
+          sudo chown -R $(id -u):$(id -g) .
+          curl -L https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
+          java -jar bundletool.jar build-apks --bundle=./TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/TMessagesProj_App-bundleAfat-release.aab --output-format=DIRECTORY --output=apks
+
+          mv ./apks/splits ../playstore
+          mv /TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/TMessagesProj_App-bundleAfat-release.aab ../Telegram-build-bundle.aab
+          mv ./TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk ../Telegram-build-website.apk
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
           name: build
           path: |
             Telegram-build-website.apk
-            Telegram-build-playstore.apk
+            Telegram-build-bundle.aab
+            playstore
 
   website-verify:
     runs-on: ubuntu-latest
@@ -135,13 +140,14 @@ jobs:
           uv sync
           zip -d ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk "META-INF/*"
           zip -d ../../../build/Telegram-build-playstore.apk "META-INF/*"
-          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../build/Telegram-build-playstore.apk
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../build/playstore/base-master.apk
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.arm64_v8a.apk ../../../build/playstore/base-arm64_v8a.apk
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.en.apk ../../../build/playstore/base-en.apk
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.xxhdpi.apk ../../../build/playstore/base-xxhdpi.apk
       - name: apkdiff
         run: |
-          curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
-          # see https://github.com/DrKLO/Telegram/pull/1899
-          sed -i 's|"META-INF/CERT.SF"]|"META-INF/CERT.SF", "META-INF/version-control-info.textproto"]|g' apkdiff.py
-          output=$(python apkdiff.py ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk ./build/Telegram-build-playstore.apk)
+          curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkfrombundle.py -o apkfrombundle.py
+          output=$(python apkfrombundle.py /build/Telegram-build-bundle.aab ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk)
           echo "$output"
           echo "$output" | grep -F "APKs are the same"
 
