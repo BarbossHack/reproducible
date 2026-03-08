@@ -99,9 +99,7 @@ jobs:
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v8
-      - run: ls -Rlsah .
       - name: Signal Apkdiff
-        continue-on-error: true
         run: |
           pip install uv
           git clone https://github.com/signalapp/Signal-Android --depth 1
@@ -125,33 +123,49 @@ jobs:
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v8
-      - run: ls -Rlsah .
-      - name: Aab to Apk
-        run: |
-          curl -L https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
-          java -jar bundletool.jar build-apks --bundle=../build/Telegram-build-bundle.aab --output-format=DIRECTORY --output=apks
-      - name: Signal Apkdiff
+      - name: apkfrombundle
         continue-on-error: true
-        run: |
-          pip install uv
-          git clone https://github.com/signalapp/Signal-Android --depth 1
-          cd Signal-Android/reproducible-builds/apkdiff
-          uv sync
-          zip -d ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk "META-INF/*"
-          zip -d ../../../build/Telegram-build-playstore.apk "META-INF/*"
-          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../apks/splits/base-master.apk
-          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.arm64_v8a.apk ../../../apks/splits/base-arm64_v8a.apk
-          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.en.apk ../../../apks/splits/base-en.apk
-          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.xxhdpi.apk ../../../apks/splits/base-xxhdpi.apk
-      - name: apkdiff
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkfrombundle.py -o apkfrombundle.py
           output=$(python apkfrombundle.py /build/Telegram-build-bundle.aab ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk)
           echo "$output"
           echo "$output" | grep -F "APKs are the same"
+      - name: Aab to Apk
+        run: |
+          curl -L https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
+          java -jar bundletool.jar build-apks --bundle=./build/Telegram-build-bundle.aab --output-format=DIRECTORY --output=apks
+      - name: Signal Apkdiff
+        run: |
+          set -x
+          pip install uv
+          git clone https://github.com/signalapp/Signal-Android --depth 1
+          cd Signal-Android/reproducible-builds/apkdiff
+          uv sync
+          zip -d ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk "META-INF/*"
+          zip -d ../../../apks/splits/base-master.apk "META-INF/*"
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../apks/splits/base-master.apk || true
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.arm64_v8a.apk ../../../apks/splits/base-arm64_v8a.apk
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.en.apk ../../../apks/splits/base-en.apk
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.xxhdpi.apk ../../../apks/splits/base-xxhdpi.apk
+
+          find mismatches/ -type f -exec sha256sum {} \;
+          find mismatches/ -type f -name "version-control-info.textproto" -delete
+
+          not_in_second=$(awk 'NR==FNR{h[$1]++;next} !($1 in h){print}' <(find "mismatches/second/" -type f -exec sha256sum {} + | sort -k1) <(find "mismatches/first/" -type f -exec sha256sum {} + | sort -k1))
+          not_in_first=$(awk 'NR==FNR{h[$1]++;next} !($1 in h){print}' <(find "mismatches/first/" -type f -exec sha256sum {} + | sort -k1) <(find "mismatches/second/" -type f -exec sha256sum {} + | sort -k1))
+
+          echo "Files in playstore but not in build:"
+          echo "$not_in_second"
+          echo "Files in build but not in playstore:"
+          echo "$not_in_first"
+
+          if [[ $(echo "$not_in_second" | grep -v "AndroidManifest.xml" | wc -l) -gt 0 ]] || [[ $(echo "$not_in_first" | grep -v "AndroidManifest.xml" | wc -l) -gt 0 ]];
+          then
+            exit 1
+          fi
 
   notify:
-    needs: [website-verify, playstore-verify]
+    needs: [build, website-verify, playstore-verify]
     if: always()
     runs-on: ubuntu-latest
     steps:
