@@ -83,7 +83,7 @@ jobs:
           docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle -Dorg.gradle.jvmargs="-Xmx8g" :TMessagesProj_AppStandalone:assembleAfatStandalone :TMessagesProj_App:bundleBundleAfatRelease
 
           sudo chown -R $(id -u):$(id -g) .
-          mv /TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/TMessagesProj_App-bundleAfat-release.aab ../Telegram-build-bundle.aab
+          mv ./TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/TMessagesProj_App-bundleAfat-release.aab ../Telegram-build-bundle.aab
           mv ./TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk ../Telegram-build-website.apk
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
