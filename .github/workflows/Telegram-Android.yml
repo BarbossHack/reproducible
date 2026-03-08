@@ -51,9 +51,9 @@ jobs:
           echo "Using version code $VERSION_CODE_PLAYSTORE for playstore download, expected to be $VERSION_CODE / 10 * 10 + 1"
 
           cargo build --manifest-path gpapi/Cargo.toml --release
-          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.telegram.messenger" --version-code ${VERSION_CODE_PLAYSTORE} --output=./playstore-official/ --download
+          gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.telegram.messenger" --version-code ${VERSION_CODE_PLAYSTORE} --output=./playstore-official/ --download
 
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk)
+          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging playstore-official/org.telegram.messenger/org.telegram.messenger.apk)
           PLAYSTORE_VERSION=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           if [[ "${{ inputs.VERSION }}" == "$PLAYSTORE_VERSION" ]]; then
             echo "✅ Versions $PLAYSTORE_VERSION match"
@@ -61,12 +61,12 @@ jobs:
             echo "❌ Versions differ: expected ${{ inputs.VERSION }} but got $PLAYSTORE_VERSION"
             exit 1
           fi
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk | grep $SIGNATURE_SHA256
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 playstore-official/org.telegram.messenger/org.telegram.messenger.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
           name: playstore-official
-          path: ./playstore-official/
+          path: playstore-official/
 
   build:
     runs-on: ubuntu-latest
@@ -83,8 +83,8 @@ jobs:
           docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle -Dorg.gradle.jvmargs="-Xmx8g" :TMessagesProj_AppStandalone:assembleAfatStandalone :TMessagesProj_App:bundleBundleAfatRelease
 
           sudo chown -R $(id -u):$(id -g) .
-          mv ./TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/TMessagesProj_App-bundleAfat-release.aab ../Telegram-build-bundle.aab
-          mv ./TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk ../Telegram-build-website.apk
+          mv TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/TMessagesProj_App-bundleAfat-release.aab ../Telegram-build-bundle.aab
+          mv TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk ../Telegram-build-website.apk
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -113,7 +113,7 @@ jobs:
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
           # see https://github.com/DrKLO/Telegram/pull/1899
           sed -i 's|"META-INF/CERT.SF"]|"META-INF/CERT.SF", "META-INF/version-control-info.textproto"]|g' apkdiff.py
-          output=$(python apkdiff.py ./website-official/Telegram-website.apk ./build/Telegram-build-website.apk)
+          output=$(python apkdiff.py website-official/Telegram-website.apk build/Telegram-build-website.apk)
           echo "$output"
           echo "$output" | grep -F "APKs are the same"
 
@@ -127,7 +127,7 @@ jobs:
         continue-on-error: true
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkfrombundle.py -o apkfrombundle.py
-          output=$(python apkfrombundle.py /build/Telegram-build-bundle.aab ./playstore-official/org.telegram.messenger/org.telegram.messenger.apk)
+          output=$(python apkfrombundle.py build/Telegram-build-bundle.aab playstore-official/org.telegram.messenger/org.telegram.messenger.apk)
           echo "$output"
           echo "$output" | grep -F "APKs are the same"
       - name: Aab to Apk
@@ -136,7 +136,6 @@ jobs:
           java -jar bundletool.jar build-apks --bundle=./build/Telegram-build-bundle.aab --output-format=DIRECTORY --output=apks
       - name: Signal Apkdiff
         run: |
-          set -x
           pip install uv
           git clone https://github.com/signalapp/Signal-Android --depth 1
           cd Signal-Android/reproducible-builds/apkdiff
