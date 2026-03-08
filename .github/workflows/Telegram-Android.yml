@@ -83,10 +83,6 @@ jobs:
           docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle -Dorg.gradle.jvmargs="-Xmx8g" :TMessagesProj_AppStandalone:assembleAfatStandalone :TMessagesProj_App:bundleBundleAfatRelease
 
           sudo chown -R $(id -u):$(id -g) .
-          curl -L https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
-          java -jar bundletool.jar build-apks --bundle=./TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/TMessagesProj_App-bundleAfat-release.aab --output-format=DIRECTORY --output=apks
-
-          mv ./apks/splits ../playstore
           mv /TMessagesProj_App/build/outputs/bundle/bundleAfatRelease/TMessagesProj_App-bundleAfat-release.aab ../Telegram-build-bundle.aab
           mv ./TMessagesProj_AppStandalone/build/outputs/apk/afat/standalone/app.apk ../Telegram-build-website.apk
       - name: Upload artifacts
@@ -96,7 +92,6 @@ jobs:
           path: |
             Telegram-build-website.apk
             Telegram-build-bundle.aab
-            playstore
 
   website-verify:
     runs-on: ubuntu-latest
@@ -131,6 +126,10 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v8
       - run: ls -Rlsah .
+      - name: Aab to Apk
+        run: |
+          curl -L https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
+          java -jar bundletool.jar build-apks --bundle=../build/Telegram-build-bundle.aab --output-format=DIRECTORY --output=apks
       - name: Signal Apkdiff
         continue-on-error: true
         run: |
@@ -140,10 +139,10 @@ jobs:
           uv sync
           zip -d ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk "META-INF/*"
           zip -d ../../../build/Telegram-build-playstore.apk "META-INF/*"
-          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../build/playstore/base-master.apk
-          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.arm64_v8a.apk ../../../build/playstore/base-arm64_v8a.apk
-          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.en.apk ../../../build/playstore/base-en.apk
-          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.xxhdpi.apk ../../../build/playstore/base-xxhdpi.apk
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../apks/splits/base-master.apk
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.arm64_v8a.apk ../../../apks/splits/base-arm64_v8a.apk
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.en.apk ../../../apks/splits/base-en.apk
+          uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.xxhdpi.apk ../../../apks/splits/base-xxhdpi.apk
       - name: apkdiff
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkfrombundle.py -o apkfrombundle.py
