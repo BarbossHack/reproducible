@@ -16,9 +16,9 @@ Reproducible build instructions: <https://core.telegram.org/reproducible-builds#
         <tr>
             <td>v12.4.1</td>
             <td>2026-02-09</td>
-            <td>✅ Yes <i>(Website)</i></td>
-            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/22645852962">#22645852962</a></td>
-            <td>-</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/22824584053">#22824584053</a></td>
+            <td>Reproducible builds script provided by Telegram does not allow verification of the PlayStore APK. The dex files are not in the same order (but they are striclty identicals) and the PlayStore APK miss the `baseline.prof` file. Reported to @BotSupport.</td>
         </tr>
         <tr>
             <td>v12.4.0</td>

@@ -105,7 +105,7 @@ This repository tracks the reproducibility status of open source messengers.
     <tr>
       <td><a href="https://github.com/DrKLO/Telegram">Telegram Android</a></td>
       <td>v12.4.1</td>
-      <td>🟡 In progress <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+      <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Telegram-Android.md">See details</a></td>
     </tr>
     <tr>
