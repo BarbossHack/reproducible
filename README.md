@@ -79,6 +79,12 @@ This repository tracks the reproducibility status of open source messengers.
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
     <tr>
+      <td><a href="https://github.com/signalapp/Signal-iOS">Signal iOS</a></td>
+      <td>v8.1</td>
+      <td>❌ No</td>
+      <td>-</td>
+    </tr>
+    <tr>
       <td><a href="https://github.com/AsamK/signal-cli">signal-cli</a></td>
       <td>v0.14.1</td>
       <td>❌ No <i>(Github)</i></td>
@@ -104,7 +110,7 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td><a href="https://github.com/DrKLO/Telegram">Telegram Android</a></td>
-      <td>v12.4.1</td>
+      <td>v12.5.1</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Telegram-Android.md">See details</a></td>
     </tr>
@@ -112,6 +118,12 @@ This repository tracks the reproducibility status of open source messengers.
       <td>Telegram Desktop</td>
       <td>v6.2.5</td>
       <td>✖️ N/A</td>
+      <td>-</td>
+    </tr>
+     <tr>
+      <td><a href="https://github.com/TelegramMessenger/Telegram-iOS">Telegram iOS</a></td>
+      <td>v12.5.1</td>
+      <td>🟡 In progress</i></td>
       <td>-</td>
     </tr>
     <tr>
