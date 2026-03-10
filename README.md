@@ -128,7 +128,7 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td><a href="https://github.com/threema-ch/threema-android">Threema Android</a></td>
-      <td>v6.3.1</td>
+      <td>v6.3.2</td>
       <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Threema-Android.md">See details</a></td>
     </tr>

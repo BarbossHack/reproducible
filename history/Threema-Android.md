@@ -14,6 +14,13 @@ Reproducible build instructions: <https://threema.com/en/why-threema/open-source
     </thead>
     <tbody>
         <tr>
+            <td>v6.3.2</td>
+            <td>2026-03-09</td>
+            <td>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/22923227408">#22923227408</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v6.3.1</td>
             <td>2026-02-04</td>
             <td>✅ Yes <i>(Website)</i></td>
