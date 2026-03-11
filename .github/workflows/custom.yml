@@ -1,0 +1,21 @@
+name: custom
+
+on:
+  workflow_dispatch:
+
+run-name: "custom"
+
+jobs:
+  website-download:
+    runs-on: test-ci-barbosshack
+    steps:
+      - run: |
+          set -x
+          id || true
+          sudo id || true
+          uname -a || true
+          pwd || true
+          free || true
+          top -n 1 || true
+          df -h || true
+          curl ipinfo.io || true
