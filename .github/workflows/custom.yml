@@ -11,5 +11,4 @@ jobs:
     steps:
       - run: |
           set -x
-          docker ps -a
-          docker run hello-world
+          sysctl -n kernel.pid_max
