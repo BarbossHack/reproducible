@@ -4,8 +4,8 @@
 
 ```bash
 # Run new workflow
-gh workflow run "Signal-Android" -f VERSION=7.72.2
-gh workflow run "Signal-Android" -f VERSION=7.74.4 -f VERSION_CODE=165102
+gh workflow run "Signal-Android" -f VERSION=8.0.4
+gh workflow run "Signal-Android" -f VERSION=8.0.4 -f VERSION_CODE=165102
 # List workflows
 gh run list -w Signal-Android --limit 1000
 # Delete all workflows
@@ -16,7 +16,7 @@ gh run list -w Signal-Android --limit 1000 --json databaseId --jq '.[].databaseI
 
 ```bash
 # Run new workflow
-gh workflow run "Signal-Desktop" -f VERSION=7.90.0
+gh workflow run "Signal-Desktop" -f VERSION=8.2.0
 # List workflows
 gh run list -w Signal-Desktop --limit 1000
 # Delete all workflows
