@@ -7,7 +7,7 @@ run-name: "custom"
 
 jobs:
   website-download:
-    runs-on: test-ci-barbosshack
+    runs-on: self-hosted
     steps:
       - run: |
           set -x
