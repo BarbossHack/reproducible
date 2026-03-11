@@ -12,10 +12,10 @@ jobs:
       - run: |
           set -x
           id || true
-          sudo id || true
           uname -a || true
           pwd || true
           free || true
           top -n 1 || true
           df -h || true
           curl ipinfo.io || true
+          timeout 5 sudo id || true
