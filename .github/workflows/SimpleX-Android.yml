@@ -1,29 +1,28 @@
 name: SimpleX-Android
 
 on:
-  push:
-    paths:
-      - ".github/workflows/SimpleX-Android.yml"
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: "VERSION"
+        required: true
 
-env:
-  VERSION: 6.5.0-beta.3
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-      - name: Free up disk space
-        uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
       - name: Build
         run: |
           curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/heads/master/scripts/simplex-chat-reproduce-builds-android.sh"
           chmod +x simplex-chat-reproduce-builds-android.sh
-          echo | ./simplex-chat-reproduce-builds-android.sh "v${{ env.VERSION }}"
+          yes | ./simplex-chat-reproduce-builds-android.sh "v${{ inputs.VERSION }}" || yes | ./simplex-chat-reproduce-builds-android.sh "v${{ inputs.VERSION }}"
           ls -Rlsah
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
-          path: ./v${{ env.VERSION }}-simplex-chat/
+          path: ./v${{ inputs.VERSION }}-simplex-chat/
 
   check:
     runs-on: ubuntu-latest
@@ -33,7 +32,7 @@ jobs:
         uses: actions/download-artifact@v7
       - name: Check sha256sums
         run: |
-          if [ -f "v${{ env.VERSION }}-simplex-chat/_sha256sums" ]; then
+          if [ -f "v${{ inputs.VERSION }}-simplex-chat/_sha256sums" ]; then
             echo "Reproducible"
             exit 0
           else
@@ -51,12 +50,12 @@ jobs:
       - name: Print hashes
         run: |
           echo "sha256 from-source"
-          sha256sum ./v${{ env.VERSION }}-simplex-chat/from-source/*
+          sha256sum ./v${{ inputs.VERSION }}-simplex-chat/from-source/*
           echo "sha256 prebuilt"
-          sha256sum ./v${{ env.VERSION }}-simplex-chat/prebuilt/*
+          sha256sum ./v${{ inputs.VERSION }}-simplex-chat/prebuilt/*
       - name: Diffoscope
         run: |
-          for file in ./v${{ env.VERSION }}-simplex-chat/prebuilt/*; do
+          for file in ./v${{ inputs.VERSION }}-simplex-chat/prebuilt/*; do
             filename=$(basename "$file")
-            docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "v${{ env.VERSION }}-simplex-chat/from-source/$filename" "v${{ env.VERSION }}-simplex-chat/prebuilt/$filename" || true
+            docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress --exclude-command objdump --exclude-command readelf --exclude-command strings --exclude-command zipdetails --exclude-command xxd "v${{ inputs.VERSION }}-simplex-chat/from-source/$filename" "v${{ inputs.VERSION }}-simplex-chat/prebuilt/$filename" || true
           done
