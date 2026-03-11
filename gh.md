@@ -77,3 +77,14 @@ gh run list -w Telegram-Android --limit 1000
 # Delete all workflows
 gh run list -w Telegram-Android --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
 ```
+
+## SimpleX-Android
+
+```bash
+# Run new workflow
+gh workflow run "SimpleX-Android" -f VERSION=6.5.0-beta.5
+# List workflows
+gh run list -w SimpleX-Android --limit 1000
+# Delete all workflows
+gh run list -w SimpleX-Android --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
+```
