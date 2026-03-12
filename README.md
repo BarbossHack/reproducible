@@ -68,7 +68,7 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td><a href="https://github.com/signalapp/Signal-Android">Signal Android</a></td>
-      <td>v8.0.4</td>
+      <td>v8.2.2</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
       <td><a href="history/Signal-Android.md">See details</a></td>
     </tr>
