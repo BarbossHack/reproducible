@@ -49,10 +49,10 @@ This repository tracks the reproducibility status of open source messengers.
       <td>-</td>
     </tr>
     <tr>
-      <td>ProtonMail Android</td>
-      <td>v7.6.2</td>
-      <td>✖️ N/A</td>
-      <td>-</td>
+      <td><a href="https://github.com/ProtonMail/android-mail">ProtonMail Android</a></td>
+      <td>v7.7.6</td>
+      <td>❌ No</td>
+      <td><a href="history/ProtonMail-Android.md">See details</a></td>
     </tr>
     <tr>
       <td>Session Android</td>
