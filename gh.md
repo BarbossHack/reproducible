@@ -27,7 +27,7 @@ gh run list -w Signal-Desktop --limit 1000 --json databaseId --jq '.[].databaseI
 
 ```bash
 # Run new workflow
-gh workflow run "Molly-Android" -f VERSION=7.72.2-1
+gh workflow run "Molly-Android" -f VERSION=8.2.2-1
 # List workflows
 gh run list -w Molly-Android --limit 1000
 # Delete all workflows
