@@ -29,6 +29,10 @@ inputs:
   REPO:
     required: false
     description: "github repo name."
+  PRE_RELEASE:
+    required: false
+    description: "whether to check for pre-releases on github."
+    default: "false"
 
 runs:
   using: composite
@@ -57,7 +61,11 @@ runs:
       if: ${{ inputs.TYPE == 'github' }}
       shell: bash
       run: |
-        VERSION=$(curl -s --fail https://api.github.com/repos/${{ inputs.REPO }}/releases/latest | jq -r .tag_name | tr -d vV)
+        if [ "${{ inputs.PRE_RELEASE }}" == "true" ]; then
+          VERSION=$(curl -s --fail https://api.github.com/repos/${{ inputs.REPO }}/releases | jq -r 'sort_by(.id) | reverse | .[0].tag_name' | tr -d vV)
+        else
+          VERSION=$(curl -s --fail https://api.github.com/repos/${{ inputs.REPO }}/releases/latest | jq -r .tag_name | tr -d vV)
+        fi
         echo "$VERSION"
         if ! grep -F ">v${VERSION}<" "history/${{ inputs.JOB_NAME }}.md" >/dev/null; then
           echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV

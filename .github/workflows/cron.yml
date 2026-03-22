@@ -105,3 +105,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: mollyim/mollyim-android
           TYPE: github
+          PRE_RELEASE: true
