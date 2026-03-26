@@ -25,10 +25,10 @@ This repository tracks the reproducibility status of open source messengers.
       <td>-</td>
     </tr>
     <tr>
-      <td>ElementX Android</td>
-      <td>v26.01.1</td>
-      <td>✖️ N/A <i>(PlayStore)</i><br>🟡 In progress <i>(FDroid)</i></td>
-      <td>-</td>
+      <td><a href="hhttps://github.com/element-hq/element-x-android/">Element X Android</a></td>
+      <td>v26.03.2</td>
+      <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(F-Droid)</i></td>
+      <td><a href="history/ElementX-Android.md">See details</a></td>
     </tr>
     <tr>
       <td><a href="https://github.com/mollyim/mollyim-android">Molly (Signal)</a></td>
