@@ -14,6 +14,13 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.4.1</td>
+            <td>2026-03-26</td>
+            <td>✅ Yes <i>(Linux)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/23620558020">#23620558020</a></td>
+            <td><code>Libsignal</code> build failed in the workflow, but the issue has been fixed in <a href="https://github.com/signalapp/libsignal/commit/75925e46d77807b9f583b19ad3ab78db6ccc3d92">#75925e4</a> and the reproducibility was verified locally with this fix.</td>
+        </tr>
+        <tr>
             <td>v8.4.0</td>
             <td>2026-03-25</td>
             <td>✅ Yes <i>(Linux)</i></td>
