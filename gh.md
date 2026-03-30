@@ -10,6 +10,7 @@ gh workflow run "cron"
 
 ```bash
 gh workflow run "download" -f PACKAGE_NAME=org.thoughtcrime.securesms
+gh run list -w download --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
 ```
 
 ## Signal-Android
