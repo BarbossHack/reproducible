@@ -6,6 +6,12 @@
 gh workflow run "cron"
 ```
 
+## download
+
+```bash
+gh workflow run "download" -f PACKAGE_NAME=org.thoughtcrime.securesms
+```
+
 ## Signal-Android
 
 ```bash
