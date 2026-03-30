@@ -1,5 +1,11 @@
 # gh
 
+## cron
+
+```bash
+gh workflow run "cron"
+```
+
 ## Signal-Android
 
 ```bash
@@ -38,11 +44,22 @@ gh run list -w Molly-Android --limit 1000 --json databaseId --jq '.[].databaseId
 
 ```bash
 # Run new workflow
-gh workflow run "Simplex-Desktop" -f VERSION=6.4.10
+gh workflow run "Simplex-Desktop" -f VERSION=6.4.11
 # List workflows
 gh run list -w Simplex-Desktop --limit 1000
 # Delete all workflows
 gh run list -w Simplex-Desktop --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
+```
+
+## SimpleX-Server
+
+```bash
+# Run new workflow
+gh workflow run "SimpleX-Server" -f VERSION=6.5.0-beta.6
+# List workflows
+gh run list -w SimpleX-Server --limit 1000
+# Delete all workflows
+gh run list -w SimpleX-Server --limit 1000 --json databaseId --jq '.[].databaseId' | xargs -I {} gh run delete "{}"
 ```
 
 ## Briar-Android

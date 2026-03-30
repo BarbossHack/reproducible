@@ -1,12 +1,13 @@
 name: SimpleX-Server
 
 on:
-  push:
-    paths:
-      - ".github/workflows/SimpleX-Server.yml"
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: "VERSION"
+        required: true
 
-env:
-  VERSION: 6.4.5
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
   build:
@@ -14,13 +15,13 @@ jobs:
     steps:
       - name: Build
         run: |
-          curl -LO "https://raw.githubusercontent.com/simplex-chat/simplexmq/refs/tags/v${{ env.VERSION }}/scripts/simplexmq-reproduce-builds.sh"
+          curl -LO "https://raw.githubusercontent.com/simplex-chat/simplexmq/refs/tags/v${{ inputs.VERSION }}/scripts/simplexmq-reproduce-builds.sh"
           chmod +x simplexmq-reproduce-builds.sh
-          ./simplexmq-reproduce-builds.sh "v${{ env.VERSION }}"
+          ./simplexmq-reproduce-builds.sh "v${{ inputs.VERSION }}"
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
-          path: ./v${{ env.VERSION }}-simplexmq/
+          path: ./v${{ inputs.VERSION }}-simplexmq/
 
   check:
     runs-on: ubuntu-latest
@@ -30,7 +31,7 @@ jobs:
         uses: actions/download-artifact@v7
       - name: Check hashes
         run: |
-          if [ -f "v${{ env.VERSION }}-simplexmq/_sha256sums" ]; then
+          if [ -f "v${{ inputs.VERSION }}-simplexmq/_sha256sums" ]; then
             echo "Reproducible"
             exit 0
           else
@@ -55,11 +56,22 @@ jobs:
           sha256sum ./v${{ env.VERSION }}-simplexmq/prebuilt/*
       - name: .comment section diff
         run: |
-          readelf --wide --decompress --string-dump=.comment ./v${{ env.VERSION }}-simplexmq/from-source/smp-server-ubuntu-24_04-x86-64 > comment_source || true
-          readelf --wide --decompress --string-dump=.comment ./v${{ env.VERSION }}-simplexmq/prebuilt/smp-server-ubuntu-24_04-x86-64 > comment_prebuilt || true
+          readelf --wide --decompress --string-dump=.comment ./v${{ inputs.VERSION }}-simplexmq/from-source/smp-server-ubuntu-24_04-x86-64 > comment_source || true
+          readelf --wide --decompress --string-dump=.comment ./v${{ inputs.VERSION }}-simplexmq/prebuilt/smp-server-ubuntu-24_04-x86-64 > comment_prebuilt || true
           diff -u comment_source comment_prebuilt || true
       - name: full readelf diff
         run: |
-          readelf -a ./v${{ env.VERSION }}-simplexmq/from-source/smp-server-ubuntu-24_04-x86-64 > readelf_source || true
-          readelf -a ./v${{ env.VERSION }}-simplexmq/prebuilt/smp-server-ubuntu-24_04-x86-64 > readelf_prebuilt || true
+          readelf -a ./v${{ inputs.VERSION }}-simplexmq/from-source/smp-server-ubuntu-24_04-x86-64 > readelf_source || true
+          readelf -a ./v${{ inputs.VERSION }}-simplexmq/prebuilt/smp-server-ubuntu-24_04-x86-64 > readelf_prebuilt || true
           diff -u readelf_source readelf_prebuilt || true
+
+  notify:
+    needs: [check]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        with:
+          VERSION: ${{ inputs.VERSION }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          needs: ${{ toJSON(needs) }}
