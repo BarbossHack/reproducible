@@ -106,3 +106,15 @@ jobs:
           REPO: mollyim/mollyim-android
           TYPE: github
           PRE_RELEASE: true
+
+  SimpleX-Desktop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/cron@master
+        with:
+          JOB_NAME: ${{ github.job }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: simplex-chat/simplex-chat
+          TYPE: github
+          PRE_RELEASE: true
