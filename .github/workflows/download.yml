@@ -31,7 +31,7 @@ jobs:
       - name: Download from Playstore
         run: |
           sudo chmod +x /usr/local/bin/gpapi
-          gpapi --email "${{ inputs.GPAPI_EMAIL }}" --aas-token "${{ inputs.AAS_TOKEN }}" --package "${{ inputs.PACKAGE }}" --output ./out/
+          gpapi --email "${{ secrets.GPAPI_EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "${{ inputs.PACKAGE }}" --output ./out/
           VERSION=$(cat ./out/VERSION)
           VERSION_CODE=$(cat ./out/VERSION_CODE)
           echo "$VERSION"
