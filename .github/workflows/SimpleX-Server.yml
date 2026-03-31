@@ -19,7 +19,7 @@ jobs:
           chmod +x simplexmq-reproduce-builds.sh
           ./simplexmq-reproduce-builds.sh "v${{ inputs.VERSION }}"
       - name: Upload artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           path: ./v${{ inputs.VERSION }}-simplexmq/
 
@@ -28,10 +28,11 @@ jobs:
     needs: [build]
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
       - name: Check hashes
         run: |
-          if [ -f "v${{ inputs.VERSION }}-simplexmq/_sha256sums" ]; then
+          ls -lsah
+          if [ -f "_sha256sums" ]; then
             echo "Reproducible"
             exit 0
           else
@@ -45,24 +46,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
       - name: Install dependencies
         run: sudo apt-get install -y binutils
       - name: Print hashes
         run: |
           echo "sha256 from-source"
-          sha256sum ./v${{ env.VERSION }}-simplexmq/from-source/*
+          sha256sum ./from-source/*
           echo "sha256 prebuilt"
-          sha256sum ./v${{ env.VERSION }}-simplexmq/prebuilt/*
+          sha256sum ./prebuilt/*
       - name: .comment section diff
         run: |
-          readelf --wide --decompress --string-dump=.comment ./v${{ inputs.VERSION }}-simplexmq/from-source/smp-server-ubuntu-24_04-x86-64 > comment_source || true
-          readelf --wide --decompress --string-dump=.comment ./v${{ inputs.VERSION }}-simplexmq/prebuilt/smp-server-ubuntu-24_04-x86-64 > comment_prebuilt || true
+          readelf --wide --decompress --string-dump=.comment ./from-source/smp-server-ubuntu-24_04-x86-64 > comment_source || true
+          readelf --wide --decompress --string-dump=.comment ./prebuilt/smp-server-ubuntu-24_04-x86-64 > comment_prebuilt || true
           diff -u comment_source comment_prebuilt || true
       - name: full readelf diff
         run: |
-          readelf -a ./v${{ inputs.VERSION }}-simplexmq/from-source/smp-server-ubuntu-24_04-x86-64 > readelf_source || true
-          readelf -a ./v${{ inputs.VERSION }}-simplexmq/prebuilt/smp-server-ubuntu-24_04-x86-64 > readelf_prebuilt || true
+          readelf -a ./from-source/smp-server-ubuntu-24_04-x86-64 > readelf_source || true
+          readelf -a ./prebuilt/smp-server-ubuntu-24_04-x86-64 > readelf_prebuilt || true
           diff -u readelf_source readelf_prebuilt || true
 
   notify:
