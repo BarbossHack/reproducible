@@ -36,6 +36,11 @@ jobs:
         run: |
           ./threema-android/scripts/build-release.sh -v threemashop_private --no-image-export --i-accept-the-android-sdk-license
           ls -Rlsah threema-android/release
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-website
+          path: threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/threemashop_private/app-store_threema-universal-release-unsigned.apk
       - name: Apkdiff
         run: |
           ./threema-android/scripts/verify-build.sh -n "${{ inputs.VERSION }}-${{ env.VERSION_CODE }}" -v threemashop_private -p Threema.apk
