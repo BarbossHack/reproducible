@@ -14,6 +14,13 @@ Reproducible build instructions: <https://threema.com/en/why-threema/open-source
     </thead>
     <tbody>
         <tr>
+            <td>v6.4.0</td>
+            <td>2026-03-31</td>
+            <td>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24160649989">#24160649989</a></td>
+            <td>Although the reproducibility check fails, the codebase is identical. The only differences lie in <code>baseline.prof</code> and <code>classes3.dex / GetDebugMetaDataUseCase.java</code>, where the Threema developers did not specify the commit SHA used to build the application.</td>
+        </tr>
+        <tr>
             <td>v6.3.2</td>
             <td>2026-03-09</td>
             <td>✅ Yes <i>(Website)</i></td>
