@@ -14,6 +14,13 @@ Reproducible build instructions: <https://github.com/AsamK/signal-cli/pull/1954>
     </thead>
     <tbody>
         <tr>
+            <td>v0.14.2</td>
+            <td>2026-04-04</td>
+            <td>❌ No <i>(Github)</i></td>
+            <td>-</td>
+            <td>The MR for reproducible builds is waiting for review (see <a href="https://github.com/AsamK/signal-cli/pull/1954">#1954</a>)</td>
+        </tr>
+        <tr>
             <td>v0.14.1</td>
             <td>2026-03-08</td>
             <td>❌ No <i>(Github)</i></td>

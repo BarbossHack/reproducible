@@ -32,7 +32,7 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td><a href="https://github.com/mollyim/mollyim-android">Molly (Signal)</a></td>
-      <td>v8.2.2-3</td>
+      <td>v8.7.3-1</td>
       <td>✅ Yes <i>(Github)</i></td>
       <td><a href="history/Molly-Android.md">See details</a></td>
     </tr>
@@ -68,13 +68,13 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td><a href="https://github.com/signalapp/Signal-Android">Signal Android</a></td>
-      <td>v8.4.1</td>
+      <td>v8.7.3</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
       <td><a href="history/Signal-Android.md">See details</a></td>
     </tr>
     <tr>
       <td><a href="https://github.com/signalapp/Signal-Desktop">Signal Desktop</a></td>
-      <td>v8.4.1</td>
+      <td>v8.7.0</td>
       <td>✅ Yes <i>(linux)</i><br>✖️ N/A <i>(windows/macos)</i></td>
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
@@ -86,7 +86,7 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td><a href="https://github.com/AsamK/signal-cli">signal-cli</a></td>
-      <td>v0.14.1</td>
+      <td>v0.14.2</td>
       <td>❌ No <i>(Github)</i></td>
       <td><a href="history/signal-cli.md">See details</a></td>
     </tr>
@@ -98,7 +98,7 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td><a href="https://github.com/simplex-chat/simplex-chat">SimpleX Desktop</a></td>
-      <td>v6.4.10</td>
+      <td>v6.4.11</td>
       <td>✅ Yes <i>(linux)</i><br>✖️ N/A <i>(windows/macos)</i></td>
       <td><a href="history/SimpleX-Desktop.md">See details</a></td>
     </tr>
@@ -110,7 +110,7 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td><a href="https://github.com/DrKLO/Telegram">Telegram Android</a></td>
-      <td>v12.5.1</td>
+      <td>v12.6.4</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Telegram-Android.md">See details</a></td>
     </tr>
@@ -128,7 +128,7 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td><a href="https://github.com/threema-ch/threema-android">Threema Android</a></td>
-      <td>v6.4.0</td>
+      <td>v6.4.1</td>
       <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Threema-Android.md">See details</a></td>
     </tr>

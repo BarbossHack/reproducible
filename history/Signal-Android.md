@@ -14,6 +14,20 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.7.3</td>
+            <td>2026-04-13</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24493675472">#24493675472</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.6.2</td>
+            <td>2026-04-06</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24327384201">#24327384201</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v8.4.1</td>
             <td>2026-03-19</td>
             <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>

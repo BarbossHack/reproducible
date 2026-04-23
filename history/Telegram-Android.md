@@ -14,6 +14,48 @@ Reproducible build instructions: <https://core.telegram.org/reproducible-builds#
     </thead>
     <tbody>
         <tr>
+            <td>v12.6.4</td>
+            <td>2026-04-06</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24855990558">#24855990558</a></td>
+            <td>Reproducible builds script provided by Telegram does not allow verification of the PlayStore and Website APK. The dex files are not in the same order (although they are strictly identical) and the PlayStore APK miss the <code>baseline.prof</code> file. Reported to @BotSupport. The file <code>version-control-info.textproto</code> also differs (see <a href="https://github.com/DrKLO/Telegram/pull/1899">#1899</a>).</td>
+        </tr>
+        <tr>
+            <td>v12.6.3</td>
+            <td>2026-04-03</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24855986604">#24855986604</a></td>
+            <td>Reproducible builds script provided by Telegram does not allow verification of the PlayStore and Website APK. The dex files are not in the same order (although they are strictly identical) and the PlayStore APK miss the <code>baseline.prof</code> file. Reported to @BotSupport. The file <code>version-control-info.textproto</code> also differs (see <a href="https://github.com/DrKLO/Telegram/pull/1899">#1899</a>).</td>
+        </tr>
+        <tr>
+            <td>v12.6.2</td>
+            <td>2026-04-01</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24855983890">#24855983890</a></td>
+            <td>Reproducible builds script provided by Telegram does not allow verification of the PlayStore and Website APK. The dex files are not in the same order (although they are strictly identical) and the PlayStore APK miss the <code>baseline.prof</code> file. Reported to @BotSupport. The file <code>version-control-info.textproto</code> also differs (see <a href="https://github.com/DrKLO/Telegram/pull/1899">#1899</a>).</td>
+        </tr>
+        <tr>
+            <td>v12.6.1</td>
+            <td>2026-04-01</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24855980909">#24855980909</a></td>
+            <td>Reproducible builds script provided by Telegram does not allow verification of the PlayStore and Website APK. The dex files are not in the same order (although they are strictly identical) and the PlayStore APK miss the <code>baseline.prof</code> file. Reported to @BotSupport. The file <code>version-control-info.textproto</code> also differs (see <a href="https://github.com/DrKLO/Telegram/pull/1899">#1899</a>).</td>
+        </tr>
+        <tr>
+            <td>v12.6.0</td>
+            <td>2026-03-31</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24855978156">#24855978156</a></td>
+            <td>Reproducible builds script provided by Telegram does not allow verification of the PlayStore and Website APK. The dex files are not in the same order (although they are strictly identical) and the PlayStore APK miss the <code>baseline.prof</code> file. Reported to @BotSupport. The file <code>version-control-info.textproto</code> also differs (see <a href="https://github.com/DrKLO/Telegram/pull/1899">#1899</a>).</td>
+        </tr>
+        <tr>
+            <td>v12.5.2</td>
+            <td>2026-03-18</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24855967544">#24855967544</a></td>
+            <td>Reproducible builds script provided by Telegram does not allow verification of the PlayStore and Website APK. The dex files are not in the same order (although they are strictly identical) and the PlayStore APK miss the <code>baseline.prof</code> file. Reported to @BotSupport. The file <code>version-control-info.textproto</code> also differs (see <a href="https://github.com/DrKLO/Telegram/pull/1899">#1899</a>).</td>
+        </tr>
+        <tr>
             <td>v12.5.1</td>
             <td>2026-03-04</td>
             <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
