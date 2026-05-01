@@ -29,6 +29,7 @@ jobs:
         run: |
           git clone https://github.com/threema-ch/threema-android --depth 1 -b "${{ inputs.VERSION }}-${{ env.VERSION_CODE }}"
           cd threema-android
+          rm -rf .git
           export RUST_VERSION=$(grep "channel = " "./domain/libthreema/rust-toolchain.toml" | cut -d= -f2 | xargs)
           cd scripts
           docker build --build-arg RUST_VERSION=$RUST_VERSION -t docker.io/threema/android-compile:${{ env.VERSION_CODE }} .
