@@ -1,5 +1,7 @@
 # SimpleX Server - Build History
 
+Repository: <https://github.com/simplex-chat/simplexmq>
+
 Reproducible build instructions: <https://github.com/simplex-chat/simplex-chat/blob/stable/docs/SERVER.md#reproduce-builds>
 
 <table align="center">

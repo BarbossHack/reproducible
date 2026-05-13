@@ -1,5 +1,7 @@
 # ProtonMail Android - Build History
 
+Repository: <https://github.com/ProtonMail/android-mail>
+
 Reproducible build instructions: None
 
 <table align="center">

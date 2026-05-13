@@ -1,5 +1,7 @@
 # Signal Desktop - Build History
 
+Repository: <https://github.com/signalapp/Signal-Desktop>
+
 Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/blob/main/reproducible-builds/README.md>
 
 <table align="center">

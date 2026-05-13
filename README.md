@@ -13,7 +13,7 @@ This repository tracks the reproducibility status of open source messengers.
   </thead>
   <tbody>
     <tr>
-      <td><a href="https://code.briarproject.org/briar/briar">Briar Android</a></td>
+      <td>Briar Android</td>
       <td>v1.5.17</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Briar-Android.md">See details</a></td>
@@ -25,13 +25,13 @@ This repository tracks the reproducibility status of open source messengers.
       <td>-</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/element-hq/element-x-android">Element X Android</a></td>
+      <td>Element X Android</td>
       <td>v26.03.2</td>
       <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(F-Droid)</i></td>
       <td><a href="history/ElementX-Android.md">See details</a></td>
     </tr>
     <tr>
-      <td><a href="https://github.com/mollyim/mollyim-android">Molly (Signal)</a></td>
+      <td>Molly (Signal)</td>
       <td>v8.7.3-2</td>
       <td>✅ Yes <i>(Github)</i></td>
       <td><a href="history/Molly-Android.md">See details</a></td>
@@ -49,7 +49,7 @@ This repository tracks the reproducibility status of open source messengers.
       <td>-</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/ProtonMail/android-mail">ProtonMail Android</a></td>
+      <td>ProtonMail Android</td>
       <td>v7.7.6</td>
       <td>❌ No</td>
       <td><a href="history/ProtonMail-Android.md">See details</a></td>
@@ -67,25 +67,25 @@ This repository tracks the reproducibility status of open source messengers.
       <td>-</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/signalapp/Signal-Android">Signal Android</a></td>
+      <td>Signal Android</td>
       <td>v8.9.1</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
       <td><a href="history/Signal-Android.md">See details</a></td>
     </tr>
     <tr>
-      <td><a href="https://github.com/signalapp/Signal-Desktop">Signal Desktop</a></td>
+      <td>Signal Desktop</td>
       <td>v8.7.0</td>
       <td>✅ Yes <i>(linux)</i><br>✖️ N/A <i>(windows/macos)</i></td>
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
     <tr>
-      <td><a href="https://github.com/signalapp/Signal-iOS">Signal iOS</a></td>
+      <td>Signal iOS</td>
       <td>v8.1</td>
       <td>❌ No</td>
       <td>-</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/AsamK/signal-cli">signal-cli</a></td>
+      <td>signal-cli</td>
       <td>v0.14.2</td>
       <td>❌ No <i>(Github)</i></td>
       <td><a href="history/signal-cli.md">See details</a></td>
@@ -97,19 +97,19 @@ This repository tracks the reproducibility status of open source messengers.
       <td>-</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/simplex-chat/simplex-chat">SimpleX Desktop</a></td>
+      <td>SimpleX Desktop</td>
       <td>v6.5.1</td>
       <td>✅ Yes <i>(linux)</i><br>❌ No <i>(windows/macos)</i></td>
       <td><a href="history/SimpleX-Desktop.md">See details</a></td>
     </tr>
     <tr>
-      <td><a href="https://github.com/simplex-chat/simplexmq">SimpleX Server</a></td>
+      <td>SimpleX Server</td>
       <td>v6.5.0</td>
       <td>✅ Yes</td>
       <td><a href="history/SimpleX-Server.md">See details</a></td>
     </tr>
     <tr>
-      <td><a href="https://github.com/DrKLO/Telegram">Telegram Android</a></td>
+      <td>Telegram Android</td>
       <td>v12.6.4</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Telegram-Android.md">See details</a></td>
@@ -121,13 +121,13 @@ This repository tracks the reproducibility status of open source messengers.
       <td>-</td>
     </tr>
      <tr>
-      <td><a href="https://github.com/TelegramMessenger/Telegram-iOS">Telegram iOS</a></td>
+      <td>Telegram iOS</td>
       <td>v12.5.1</td>
       <td>🟡 In progress</i></td>
       <td>-</td>
     </tr>
     <tr>
-      <td><a href="https://github.com/threema-ch/threema-android">Threema Android</a></td>
+      <td>Threema Android</td>
       <td>v6.4.2</td>
       <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Threema-Android.md">See details</a></td>

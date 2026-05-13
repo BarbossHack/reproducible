@@ -1,5 +1,7 @@
 # SimpleX Desktop - Build History
 
+Repository: <https://github.com/simplex-chat/simplex-chat>
+
 Reproducible build instructions: <https://github.com/simplex-chat/simplex-chat/blob/stable/scripts/simplex-chat-reproduce-builds.sh>
 
 <table align="center">

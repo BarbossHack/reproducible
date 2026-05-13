@@ -1,5 +1,7 @@
 # Signal Android - Build History
 
+Repository: <https://github.com/signalapp/Signal-Android>
+
 Reproducible build instructions: <https://github.com/signalapp/Signal-Android/blob/main/reproducible-builds/README.md>
 
 <table align="center">

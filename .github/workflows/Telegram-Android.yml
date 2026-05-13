@@ -1,7 +1,5 @@
 name: Telegram-Android
 
-# https://web.telegram.org/k/#@TAndroidAPK
-
 on:
   workflow_dispatch:
     inputs:

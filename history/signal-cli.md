@@ -1,5 +1,7 @@
 # signal-cli - Build History
 
+Repository: <https://github.com/AsamK/signal-cli>
+
 Reproducible build instructions: <https://github.com/AsamK/signal-cli/pull/1954>
 
 <table align="center">

@@ -1,6 +1,10 @@
 # Telegram Android - Build History
 
+Repository: <https://github.com/DrKLO/Telegram>
+
 Reproducible build instructions: <https://core.telegram.org/reproducible-builds#reproducible-builds-for-android>
+
+Website donwload: <https://web.telegram.org/k/#@TAndroidAPK>
 
 <table align="center">
     <thead>

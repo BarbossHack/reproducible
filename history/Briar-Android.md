@@ -1,5 +1,7 @@
 # Briar Android - Build History
 
+Repository: <https://code.briarproject.org/briar/briar>
+
 Reproducible build instructions: <https://code.briarproject.org/briar/briar-reproducer>
 
 <table align="center">

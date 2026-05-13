@@ -1,7 +1,5 @@
 name: Threema-Android
 
-# https://shop.threema.ch/fr/download
-
 on:
   workflow_dispatch:
     inputs:

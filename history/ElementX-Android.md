@@ -1,5 +1,7 @@
 # Element X Android - Build History
 
+Repository: <https://github.com/element-hq/element-x-android>
+
 Reproducible build instructions: <https://gitlab.com/fdroid/fdroiddata/-/blob/master/metadata/io.element.android.x.yml?ref_type=heads>
 
 <table align="center">

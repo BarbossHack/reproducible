@@ -1,5 +1,7 @@
 # Molly Android - Build History
 
+Repository: <https://github.com/mollyim/mollyim-android>
+
 Reproducible build instructions: <https://github.com/mollyim/mollyim-android/blob/main/reproducible-builds/README.md>
 
 <table align="center">

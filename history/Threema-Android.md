@@ -1,6 +1,10 @@
 # Threema Android - Build History
 
+Repository: <https://github.com/threema-ch/threema-android>
+
 Reproducible build instructions: <https://threema.com/en/why-threema/open-source>
+
+Website download: <https://shop.threema.ch/fr/download>
 
 <table align="center">
     <thead>
