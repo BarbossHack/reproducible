@@ -5,7 +5,7 @@ on:
     paths:
       - ".github/workflows/cron.yml"
   schedule:
-    - cron: "0 3 * * *" # every day 03:00 am UTC
+    - cron: "0 0 * * *" # every day at midnight
   workflow_dispatch:
 
 run-name: "cron"
