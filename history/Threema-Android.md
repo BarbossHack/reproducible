@@ -14,11 +14,18 @@ Reproducible build instructions: <https://threema.com/en/why-threema/open-source
     </thead>
     <tbody>
         <tr>
+            <td>v6.4.2</td>
+            <td>2026-04-23</td>
+            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25822456465">#25822456465</a></td>
+            <td>.</td>
+        </tr>
+        <tr>
             <td>v6.4.1</td>
             <td>2026-04-13</td>
             <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
-            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24856620077">#24856620077</a></td>
-            <td>Although the reproducibility check fails, the codebase is identical. The only differences lie in <code>baseline.prof</code> and <code>classes3.dex / GetDebugMetaDataUseCase.java</code>, where the Threema developers did not specify the commit SHA used to build the application. The issue has been reported to Threema support.</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25217157862">#25217157862</a></td>
+            <td>The issue has been reported to Threema support. They will fix it in a future release, but a quick workaround is to remove the .git directory before building the app. Thanks to Thorben and Diego for the quick reply!</td>
         </tr>
         <tr>
             <td>v6.4.0</td>

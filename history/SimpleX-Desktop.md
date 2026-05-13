@@ -14,6 +14,20 @@ Reproducible build instructions: <https://github.com/simplex-chat/simplex-chat/b
     </thead>
     <tbody>
         <tr>
+            <td>v6.5.1</td>
+            <td>2026-05-02</td>
+            <td>✅ Yes <i>(Linux)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25278697312">#25278697312</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v6.5.0</td>
+            <td>2026-04-30</td>
+            <td>✅ Yes <i>(Linux)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25204356981">#25204356981</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v6.4.11</td>
             <td>2026-03-30</td>
             <td>✅ Yes <i>(Linux)</i></td>
