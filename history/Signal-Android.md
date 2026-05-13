@@ -44,6 +44,13 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
             <td>-</td>
         </tr>
         <tr>
+            <td>v8.4.2</td>
+            <td>2026-03-30</td>
+            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✖️ N/A <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25826856186">#25826856186</a></td>
+            <td>This release has not been published on the WebSite.</td>
+        </tr>
+        <tr>
             <td>v8.4.1</td>
             <td>2026-03-19</td>
             <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>

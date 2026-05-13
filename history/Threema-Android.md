@@ -22,7 +22,7 @@ Website download: <https://shop.threema.ch/fr/download>
             <td>2026-04-23</td>
             <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25822456465">#25822456465</a></td>
-            <td>.</td>
+            <td>-</td>
         </tr>
         <tr>
             <td>v6.4.1</td>

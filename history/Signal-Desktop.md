@@ -16,6 +16,34 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.10.0</td>
+            <td>2026-05-06</td>
+            <td>❌ No <i>(Linux)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25781980204">#25781980204</a></td>
+            <td>The postinst, postrm, and app.asar files of the Debian package differ. The official build is missing some actions in both postinst and postrm, and there are some differences in "modification date" in the app.asar file (see <a href="https://github.com/signalapp/Signal-Desktop/issues/7876">#7876</a>).</td>
+        </tr>
+        <tr>
+            <td>v8.9.1</td>
+            <td>2026-04-27</td>
+            <td>❌ No <i>(Linux)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25593126543">#25593126543</a></td>
+            <td>The postinst, postrm, and app.asar files of the Debian package differ. The official build is missing some actions in both postinst and postrm, and there are some differences in "modification date" in the app.asar file (see <a href="https://github.com/signalapp/Signal-Desktop/issues/7876">#7876</a>).</td>
+        </tr>
+        <tr>
+            <td>v8.9.0</td>
+            <td>2026-04-22</td>
+            <td>❌ No <i>(Linux)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25538419893">#25538419893</a></td>
+            <td>The postinst, postrm, and app.asar files of the Debian package differ. The official build is missing some actions in both postinst and postrm, and there are some differences in "modification date" in the app.asar file (see <a href="https://github.com/signalapp/Signal-Desktop/issues/7876">#7876</a>).</td>
+        </tr>
+        <tr>
+            <td>v8.8.0</td>
+            <td>2026-04-16</td>
+            <td>❌ No <i>(Linux)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24978602648">#24978602648</a></td>
+            <td>The postinst, postrm, and app.asar files of the Debian package differ. The official build is missing some actions in both postinst and postrm, and there are some differences in "modification date" in the app.asar file (see <a href="https://github.com/signalapp/Signal-Desktop/issues/7876">#7876</a>).</td>
+        </tr>
+        <tr>
             <td>v8.7.0</td>
             <td>2026-04-15</td>
             <td>✅ Yes <i>(Linux)</i></td>

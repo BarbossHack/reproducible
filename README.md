@@ -74,8 +74,8 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td>Signal Desktop</td>
-      <td>v8.7.0</td>
-      <td>✅ Yes <i>(linux)</i><br>✖️ N/A <i>(windows/macos)</i></td>
+      <td>v8.10.0</td>
+      <td>❌ No <i>(linux)</i><br>❌ No <i>(windows/macos)</i></td>
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
     <tr>
