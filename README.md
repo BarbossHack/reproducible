@@ -21,7 +21,7 @@ This repository tracks the reproducibility status of open source messengers.
     <tr>
       <td>Briar Desktop</td>
       <td>v0.6.4</td>
-      <td>✖️ N/A</td>
+      <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
     <tr>
@@ -39,13 +39,13 @@ This repository tracks the reproducibility status of open source messengers.
     <tr>
       <td>Olvid Android</td>
       <td>v4.2</td>
-      <td>✖️ N/A</td>
+      <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
     <tr>
       <td>Olvid Desktop</td>
       <td>v2.7.0</td>
-      <td>✖️ N/A</td>
+      <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
     <tr>
@@ -57,13 +57,13 @@ This repository tracks the reproducibility status of open source messengers.
     <tr>
       <td>Session Android</td>
       <td>v1.30.3</td>
-      <td>✖️ N/A</td>
+      <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
     <tr>
       <td>Session Desktop</td>
       <td>v1.17.7</td>
-      <td>✖️ N/A</td>
+      <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
     <tr>
@@ -93,7 +93,7 @@ This repository tracks the reproducibility status of open source messengers.
     <tr>
       <td>SimpleX Android</td>
       <td>v6.5.0</td>
-      <td>🟡 In progress <i>(PlayStore)</i><br>🟡 In progress <i>(Github)</i></td>
+      <td>⚪ Not verified <i>(PlayStore)</i><br>⚪ Not verified <i>(Github)</i></td>
       <td>-</td>
     </tr>
     <tr>
@@ -117,37 +117,37 @@ This repository tracks the reproducibility status of open source messengers.
     <tr>
       <td>Telegram Desktop</td>
       <td>v6.2.5</td>
-      <td>✖️ N/A</td>
+      <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
      <tr>
       <td>Telegram iOS</td>
       <td>v12.5.1</td>
-      <td>🟡 In progress</i></td>
+      <td>⚪ Not verified</i></td>
       <td>-</td>
     </tr>
     <tr>
       <td>Threema Android</td>
       <td>v6.4.2</td>
-      <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+      <td>⚪ Not verified <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Threema-Android.md">See details</a></td>
     </tr>
     <tr>
       <td>Threema Desktop</td>
       <td>v2.0-beta57</td>
-      <td>✖️ N/A</td>
+      <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
     <tr>
       <td>Wire Android</td>
       <td>v4.16.1</td>
-      <td>✖️ N/A</td>
+      <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
     <tr>
       <td>Wire Desktop</td>
       <td>v3.40.3718</td>
-      <td>✖️ N/A</td>
+      <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
   </tbody>
@@ -159,5 +159,4 @@ Legend:
 
 - ✅ = reproducible build verified
 - ❌ = differences detected (build not reproducible)
-- ✖️ = no reproducible build procedure available
-- 🟡 = verification in progress
+- ⚪ = not verified yet
