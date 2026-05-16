@@ -37,7 +37,7 @@ jobs:
           git clone https://github.com/Turasa/libsignal-service-java -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
           cd libsignal-service-java
           rm gradle/verification-metadata.xml
-          docker run --rm -v $(pwd):/libsignal -w /libsignal docker.io/azul/zulu-openjdk:17-latest ./gradlew jar
+          docker run --rm -v $(pwd):/libsignal -w /libsignal docker.io/azul/zulu-openjdk:17-latest ./gradlew --no-daemon --max-workers=1 -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process jar
       - name: Find
         run: |
           find . -name "*.jar"
