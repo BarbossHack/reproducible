@@ -32,7 +32,7 @@ jobs:
           cd reproducible-builds/
           ./build.sh
           cd ..
-          podman run --rm -v "$(pwd)":/olvid -w /olvid/obv_messenger olvid-android ./gradlew assembleProdZfdroidRelease
+          docker run --rm --pull=never -v "$(pwd)":/olvid -w /olvid/obv_messenger olvid-android ./gradlew assembleProdZfdroidRelease
       - run: find . -name "*.apk"
       - name: Download fdroid apk
         run: |
