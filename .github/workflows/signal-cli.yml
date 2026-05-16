@@ -44,8 +44,17 @@ jobs:
       - name: Hashes
         run: |
           sha256sum ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
+      - name: Recursive diff
+        continue-on-error: true
+        run: |
+          unzip ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar -d build
+          unzip ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar -d official
+          diff -rq build official
       - name: Diffoscope libsignal-android
+        continue-on-error: true
         run: docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
+      - name: Diff
+        run: ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
 
   notify:
     needs: [signal-cli-verify, libsignal-verify]
