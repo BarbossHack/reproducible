@@ -87,7 +87,7 @@ This repository tracks the reproducibility status of open source messengers.
     <tr>
       <td>signal-cli</td>
       <td>v0.14.3</td>
-      <td>❌ No <i>(Jar)</i>❌ No <i>(Native)</i></td>
+      <td>❌ No <i>(Jar)</i><br>❌ No <i>(Native)</i></td>
       <td><a href="history/signal-cli.md">See details</a></td>
     </tr>
     <tr>
