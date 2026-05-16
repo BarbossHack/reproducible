@@ -1,0 +1,59 @@
+name: Olvid-Android
+
+on:
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: "VERSION"
+        required: true
+
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
+
+jobs:
+  fdroid-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: |
+          git clone https://github.com/olvid-io/olvid-android
+          cd olvid-android
+          git checkout $(git log --all --grep="v${{ inputs.VERSION }}" -n 1 --format="%H")
+          tags=$(curl -s --fail https://api.github.com/repos/olvid-io/olvid-android/tags | jq -r .[].name)
+          fdroid_tag=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}" | grep fdroid)
+          if [ -z "$fdroid_tag" ]; then
+            echo "No fdroid tag found for version ${{ inputs.VERSION }}"
+            fdroid_tag=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
+          fi
+          version_code="$(echo "$fdroid_tag" | cut -d- -f1 | cut -d_ -f2)"
+          echo "$fdroid_tag"
+          echo "Version code: $version_code"
+          echo "VERSION_CODE=$version_code" >> $GITHUB_ENV
+          git checkout "$fdroid_tag"
+          cd reproducible-builds/
+          ./build.sh
+          cd ..
+          podman run --rm -v "$(pwd)":/olvid -w /olvid/obv_messenger olvid-android ./gradlew assembleProdZfdroidRelease
+      - run: find . -name "*.apk"
+      - name: Download fdroid apk
+        run: |
+          # the trailing '2' means arm64-v8a for fdroid
+          curl -L "https://f-droid.org/repo/io.olvid.messenger.nogoogle_${{ env.VERSION_CODE }}2.apk" -o fdroid-arm64-v8a.apk
+      - name: Verify
+        run: |
+          zip -d fdroid-arm64-v8a.apk META-INF/FDROID.SF META-INF/FDROID.RSA META-INF/MANIFEST.MF
+          pip install uv
+          git clone https://github.com/signalapp/Signal-Android --depth 1
+          cd Signal-Android/reproducible-builds/apkdiff
+          uv sync
+          uv run apkdiff.py ../../../fdroid-arm64-v8a.apk ../../../olvid-android/obv_messenger/app/build/outputs/apk/prodZfdroid/release/app-prod-zfdroid-arm64-v8a-release-unsigned.apk
+
+  notify:
+    needs: [fdroid-verify]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        with:
+          VERSION: ${{ inputs.VERSION }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          needs: ${{ toJSON(needs) }}
