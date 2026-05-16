@@ -54,7 +54,7 @@ jobs:
         continue-on-error: true
         run: docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
       - name: Diff
-        run: ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
+        run: diff ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
 
   notify:
     needs: [signal-cli-verify, libsignal-verify]
