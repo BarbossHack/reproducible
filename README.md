@@ -38,9 +38,9 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td>Olvid Android</td>
-      <td>v4.2</td>
-      <td>⚪ Not verified</td>
-      <td>-</td>
+      <td>v4.3</td>
+      <td>⚪ Not verified <i>(PlayStore)</i><br>✅ Yes <i>(F-Droid)</i></td>
+      <td><a href="history/Olvid-Android.md">See details</a></td>
     </tr>
     <tr>
       <td>Olvid Desktop</td>
