@@ -43,7 +43,7 @@ jobs:
           find . -name "*.jar"
       - name: Hashes
         run: |
-          sha256sum ./service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ../signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
+          sha256sum ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
       - name: Diffoscope libsignal-android
         run: docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
 
