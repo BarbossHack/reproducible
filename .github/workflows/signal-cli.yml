@@ -47,8 +47,8 @@ jobs:
       - name: Recursive diff
         continue-on-error: true
         run: |
-          unzip ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar -d build
-          unzip ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar -d official
+          unzip -q ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar -d build
+          unzip -q ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar -d official
           diff -rq build official
       - name: Diffoscope libsignal-android
         continue-on-error: true
