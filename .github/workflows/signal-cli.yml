@@ -1,0 +1,59 @@
+name: signal-cli
+
+on:
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: "VERSION"
+        required: true
+
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
+
+jobs:
+  signal-cli-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify
+        run: |
+          git clone https://github.com/AsamK/signal-cli -b v${{ inputs.VERSION }} --depth 1
+          cd signal-cli
+          ./reproducible-builds/verify.sh
+
+  libsignal-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get libsignal version
+        run: |
+          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/AsamK/signal-cli/refs/tags/v${{ inputs.VERSION }}/gradle/libs.versions.toml" | grep "signalservice = " | cut -d: -f3 | tr -d '"')
+          echo "LIBSIGNAL_VERSION=$LIBSIGNAL_VERSION" >> $GITHUB_ENV
+          echo "LIBSIGNAL_VERSION_MAJOR=$(echo $LIBSIGNAL_VERSION | cut -d- -f1)" >> $GITHUB_ENV
+      - name: Download libsignal from maven
+        run: |
+          wget "https://repo1.maven.org/maven2/com/github/turasa/signal-service-java/${{ env.LIBSIGNAL_VERSION }}/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar"
+      - name: Free up disk space
+        uses: BarbossHack/reproducible/.github/actions/free-up-github-action@master
+      - name: Build
+        run: |
+          git clone https://github.com/Turasa/libsignal-service-java -b v${{ env.LIBSIGNAL_VERSION }} --depth 1
+          cd libsignal-service-java
+          rm gradle/verification-metadata.xml
+          docker run --rm -v $(pwd):/libsignal -w /libsignal docker.io/azul/zulu-openjdk:17-latest ./gradlew jar
+      - name: Find
+        run: |
+          find . -name "*.jar"
+      - name: Hashes
+        run: |
+          sha256sum ./service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ../signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
+      - name: Diffoscope libsignal-android
+        run: docker run --rm -w $(pwd) -v $(pwd):$(pwd) registry.salsa.debian.org/reproducible-builds/diffoscope --no-progress ./libsignal-service-java/service/build/libs/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar ./signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar
+
+  notify:
+    needs: [signal-cli-verify, libsignal-verify]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        with:
+          VERSION: ${{ inputs.VERSION }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          needs: ${{ toJSON(needs) }}
