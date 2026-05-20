@@ -284,7 +284,7 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
         <tr>
             <td>v7.53.2</td>
             <td>2025-08-19</td>
-            <td>❌ No <i>(Website)</i></td>
+            <td>✖️ N/A <i>(Website)</i></td>
             <td>-</td>
             <td>Package no longer available in Signal's official repositories (as of 2025-10-05).</td>
         </tr>
@@ -340,7 +340,7 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
         <tr>
             <td>v7.46.0</td>
             <td>2025-06-18</td>
-            <td>❌ No <i>(Website)</i></td>
+            <td>✖️ N/A <i>(Website)</i></td>
             <td>-</td>
             <td>Package no longer available in Signal's official repositories (as of 2025-10-05).</td>
         </tr>

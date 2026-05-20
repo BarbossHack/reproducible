@@ -4,7 +4,7 @@ Repository: <https://github.com/olvid-io/olvid-android>
 
 Reproducible build instructions: <https://github.com/olvid-io/olvid-android/tree/main/reproducible-builds>
 
-<table align="center" style="width: 100%">
+<table align="center">
     <thead>
         <tr>
             <th width="10%">Version</th>
