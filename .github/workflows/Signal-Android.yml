@@ -162,12 +162,13 @@ jobs:
           path: Signal-Android/app/build/outputs/apk/githubProd/release/*universal*.apk
       - name: Apkdiff
         run: |
+          git clone git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
           pip install uv
-          cd Signal-Android/reproducible-builds/apkdiff
+          cd apkdiff/reproducible-builds/apkdiff
           uv sync
-          built_apk="../../app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
+          built_apk="../../../Signal-Android/app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
           if [ ! -f "$built_apk" ]; then
-            built_apk="../../app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned.apk"
+            built_apk="../../../Signal-Android/app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned.apk"
           fi
           uv run apkdiff.py ../../../github.apk "$built_apk"
 
