@@ -130,12 +130,13 @@ jobs:
           path: Signal-Android/app/build/outputs/apk/websiteProd/release/*universal*.apk
       - name: Apkdiff
         run: |
+          git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
           pip install uv
-          cd Signal-Android/reproducible-builds/apkdiff
+          cd apkdiff/reproducible-builds/apkdiff
           uv sync
-          built_apk="../../app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
+          built_apk="../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
           if [ ! -f "$built_apk" ]; then
-            built_apk="../../app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned.apk"
+            built_apk="../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned.apk"
           fi
           uv run apkdiff.py ../../../website.apk "$built_apk"
 
@@ -199,12 +200,13 @@ jobs:
           path: Signal-Android/apks/splits/
       - name: Apkdiff
         run: |
+          git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
           pip install uv
-          cd Signal-Android/reproducible-builds/apkdiff
+          cd apkdiff/reproducible-builds/apkdiff
           uv sync
-          uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk ../../apks/splits/base-master.apk
-          uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.arm64_v8a.apk ../../apks/splits/base-arm64_v8a.apk
-          uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.xxhdpi.apk ../../apks/splits/base-xxhdpi.apk
+          uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk ../../../Signal-Android/apks/splits/base-master.apk
+          uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.arm64_v8a.apk ../../../Signal-Android/apks/splits/base-arm64_v8a.apk
+          uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.xxhdpi.apk ../../../Signal-Android/apks/splits/base-xxhdpi.apk
 
   libsignal-verify:
     needs: [website-download, github-download, playstore-download]
