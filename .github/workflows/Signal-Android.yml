@@ -162,7 +162,7 @@ jobs:
           path: Signal-Android/app/build/outputs/apk/githubProd/release/*universal*.apk
       - name: Apkdiff
         run: |
-          git clone git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
+          git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
