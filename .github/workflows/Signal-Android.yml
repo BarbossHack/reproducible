@@ -48,6 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download github apk
+        continue-on-error: true
         id: download
         run: |
           curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-github-prod-universal-release-${{ inputs.VERSION }}.apk" -o github.apk
@@ -72,16 +73,20 @@ jobs:
       VERSION_CODE: ${{ steps.download.outputs.VERSION_CODE }}
 
   playstore-download:
-    needs: [github-download]
-    if: always() && (needs.github-download.result == 'success' || inputs.VERSION_CODE != '')
+    needs: [github-download, website-download]
+    if: always() && (needs.github-download.result == 'success' || needs.website-download.result == 'success' || inputs.VERSION_CODE != '')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - name: Download playstore apk
+        continue-on-error: true
         id: validate
         run: |
-          VERSION_CODE="${{ needs.github-download.outputs.VERSION_CODE }}"
-          if [ -z "$VERSION_CODE" ]; then
+          if [ ""${{ needs.github-download.outputs.VERSION_CODE }}" != "" ]; then
+            VERSION_CODE="${{ needs.github-download.outputs.VERSION_CODE }}"
+          elif [ ""${{ needs.website-download.outputs.VERSION_CODE }}" != "" ]; then
+            VERSION_CODE="${{ needs.website-download.outputs.VERSION_CODE }}"
+          else
             VERSION_CODE="${{ inputs.VERSION_CODE }}"
           fi
 
