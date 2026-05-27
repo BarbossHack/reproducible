@@ -147,6 +147,7 @@ jobs:
 
   github-verify:
     needs: [github-download]
+    if: always() && needs.website-download.result == 'success' && needs.website-download.outputs.VERSION_CODE != ''
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
