@@ -210,6 +210,8 @@ jobs:
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
+          uv remove androguard
+          uv add git+https://github.com/androguard/androguard --rev 943932d35c08b8ee5102ace398882858d3bd7567
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk ../../../Signal-Android/apks/splits/base-master.apk
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.arm64_v8a.apk ../../../Signal-Android/apks/splits/base-arm64_v8a.apk
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.xxhdpi.apk ../../../Signal-Android/apks/splits/base-xxhdpi.apk
