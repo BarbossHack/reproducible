@@ -139,6 +139,8 @@ jobs:
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
+          uv remove androguard
+          uv add git+https://github.com/androguard/androguard --rev 943932d35c08b8ee5102ace398882858d3bd7567
           built_apk="../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
           if [ ! -f "$built_apk" ]; then
             built_apk="../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned.apk"
@@ -173,6 +175,8 @@ jobs:
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
+          uv remove androguard
+          uv add git+https://github.com/androguard/androguard --rev 943932d35c08b8ee5102ace398882858d3bd7567
           built_apk="../../../Signal-Android/app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
           if [ ! -f "$built_apk" ]; then
             built_apk="../../../Signal-Android/app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned.apk"
