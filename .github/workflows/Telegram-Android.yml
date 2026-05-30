@@ -103,8 +103,8 @@ jobs:
           git clone https://github.com/signalapp/Signal-Android --depth 1
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          zip -d ../../../website-official/Telegram-website.apk "META-INF/*"
-          zip -d ../../../build/Telegram-build-website.apk "META-INF/*"
+          # zip -d ../../../website-official/Telegram-website.apk "META-INF/*"
+          # zip -d ../../../build/Telegram-build-website.apk "META-INF/*"
           uv run apkdiff.py ../../../website-official/Telegram-website.apk ../../../build/Telegram-build-website.apk
       - name: apkdiff
         run: |
@@ -138,8 +138,8 @@ jobs:
           git clone https://github.com/signalapp/Signal-Android --depth 1
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          zip -d ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk "META-INF/*"
-          zip -d ../../../apks/splits/base-master.apk "META-INF/*"
+          # zip -d ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk "META-INF/*"
+          # zip -d ../../../apks/splits/base-master.apk "META-INF/*"
           uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../apks/splits/base-master.apk || true
           uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.arm64_v8a.apk ../../../apks/splits/base-arm64_v8a.apk
           uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.en.apk ../../../apks/splits/base-en.apk
