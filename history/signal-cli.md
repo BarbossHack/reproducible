@@ -16,6 +16,20 @@ Reproducible build instructions: <https://github.com/AsamK/signal-cli/pull/1954>
     </thead>
     <tbody>
         <tr>
+            <td>v0.14.4.1</td>
+            <td>2026-05-24</td>
+            <td>❌ No <i>(Jar)</i><br>❌ No <i>(Native)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26350164074">#26350164074</a></td>
+            <td>signal-cli <quote>Jar</quote> is reproducible, but <quote>libsignal-service-java</quote> is not.</td>
+        </tr>
+        <tr>
+            <td>v0.14.4</td>
+            <td>2026-05-24</td>
+            <td>❌ No <i>(Jar)</i><br>❌ No <i>(Native)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26679544035">#26679544035</a></td>
+            <td>signal-cli <quote>Jar</quote> is reproducible, but <quote>libsignal-service-java</quote> is not.</td>
+        </tr>
+        <tr>
             <td>v0.14.3</td>
             <td>2026-04-22</td>
             <td>❌ No <i>(Jar)</i><br>❌ No <i>(Native)</i></td>
