@@ -16,11 +16,18 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.12.0</td>
+            <td>2026-05-27</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26533883054">#26533883054</a></td>
+            <td>Signal explicitly states: <quote>"Reproducible builds for macOS and Windows are not available yet."</a></td>
+        </tr>
+        <tr>
             <td>v8.11.0</td>
             <td>2026-05-20</td>
             <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26186443564">#26186443564</a></td>
-            <td>Signal explicitly states: <quote>"Reproducible builds for macOS and Windows are not available yet."</a></td>
+            <td>-</td>
         </tr>
         <tr>
             <td>v8.10.0</td>

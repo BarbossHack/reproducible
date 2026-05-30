@@ -69,12 +69,12 @@ This repository tracks the reproducibility status of open source messengers.
     <tr>
       <td>Signal Android</td>
       <td>v8.11.5</td>
-      <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✖️ N/A <i>(Github)</i></td>
+      <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>✖️ N/A <i>(Github)</i></td>
       <td><a href="history/Signal-Android.md">See details</a></td>
     </tr>
     <tr>
       <td>Signal Desktop</td>
-      <td>v8.11.0</td>
+      <td>v8.12.0</td>
       <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
