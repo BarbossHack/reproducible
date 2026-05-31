@@ -5,21 +5,24 @@ use std::path::PathBuf;
 #[command(name = "gpapi")]
 #[command(about = "Google Play API Client", long_about = None)]
 pub struct Args {
-    #[arg(short, long, env)]
+    #[arg(long, env)]
     pub email: String,
 
-    #[arg(short, long, env)]
+    #[arg(long, env)]
     pub aas_token: String,
 
-    #[arg(short, long)]
+    #[arg(long, env)]
+    pub oauth_token: Option<String>,
+
+    #[arg(long)]
     pub package: String,
 
-    #[arg(short, long)]
+    #[arg(long)]
     pub version_code: Option<i64>,
 
-    #[arg(short, long)]
+    #[arg(long)]
     pub output: PathBuf,
 
-    #[arg(short, long, default_value = "false")]
+    #[arg(long, default_value = "false")]
     pub download: bool,
 }
