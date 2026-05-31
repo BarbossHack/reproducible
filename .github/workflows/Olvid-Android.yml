@@ -119,7 +119,7 @@ jobs:
           uv run apkdiff.py ../../../playstore-official/io.olvid.messenger/io.olvid.messenger.config.xxhdpi.apk ../../../olvid-android/apks/splits/base-xxhdpi.apk
 
   notify:
-    needs: [fdroid-verify]
+    needs: [fdroid-verify, playstore-verify]
     if: always()
     runs-on: ubuntu-latest
     steps:
