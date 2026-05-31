@@ -21,7 +21,7 @@ Website download: <https://www.olvid.io/download/fr/>
             <td>v4.3</td>
             <td>2026-05-02</td>
             <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(F-Droid)</i></td>
-            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25968997998">#25968997998</a></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26715257171">#26715257171</a></td>
             <td>PlayStore: not acceptable differences in <code>AndroidManifest.xml</code>, <code>classes.dex</code>, <code>classes2.dex</code>, <code>classes3.dex</code>, and in <code>resources.arsc</code> and in most of XML resources.</td>
         </tr>
     </tbody>
