@@ -16,6 +16,13 @@ Reproducible build instructions: <https://github.com/simplex-chat/simplex-chat/b
     </thead>
     <tbody>
         <tr>
+            <td>v6.5.2</td>
+            <td>2026-04-29</td>
+            <td>❌ No</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/78714313895">#78714313895</a></td>
+            <td>ntf, smp, and xftp differ.</td>
+        </tr>
+        <tr>
             <td>v6.5.0</td>
             <td>2026-04-29</td>
             <td>✅ Yes</td>

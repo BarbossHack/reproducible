@@ -104,8 +104,8 @@ This repository tracks the reproducibility status of open source messengers.
     </tr>
     <tr>
       <td>SimpleX Server</td>
-      <td>v6.5.0</td>
-      <td>✅ Yes</td>
+      <td>v6.5.2</td>
+      <td>❌ No</td>
       <td><a href="history/SimpleX-Server.md">See details</a></td>
     </tr>
     <tr>
