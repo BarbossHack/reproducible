@@ -22,10 +22,9 @@ jobs:
           git clone https://github.com/olvid-io/olvid-android
           cd olvid-android
           tags=$(curl -s --fail https://api.github.com/repos/olvid-io/olvid-android/tags | jq -r .[].name)
-          TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
+          TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}" | grep "fdroid")
           if [ -z "$TAG" ]; then
-            echo "No tag found for version ${{ inputs.VERSION }}"
-            exit 1
+            TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
           fi
           VERSION_CODE="$(echo "$TAG" | cut -d- -f1 | cut -d_ -f2)"
           echo "TAG: $TAG"
@@ -91,10 +90,9 @@ jobs:
           git clone https://github.com/olvid-io/olvid-android
           cd olvid-android
           tags=$(curl -s --fail https://api.github.com/repos/olvid-io/olvid-android/tags | jq -r .[].name)
-          TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
+          TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}" | grep "fdroid")
           if [ -z "$TAG" ]; then
-            echo "No tag found for version ${{ inputs.VERSION }}"
-            exit 1
+            TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
           fi
           git checkout "$TAG"
           docker build -t olvid-android ./reproducible-builds/
