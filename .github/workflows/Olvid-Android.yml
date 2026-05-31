@@ -10,7 +10,7 @@ on:
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 env:
-  SIGNATURE_SHA256: a3eaf4ef655df8f8b9ab94bf06d13775e9fe49ec2cdd464980815f2215d0a494
+  SIGNATURE_SHA256: cc83a47d8ed411468580889fb3e058b0b31e82ef812d473531b5f9cd4a88fd33
 
 jobs:
   fdroid-verify:
