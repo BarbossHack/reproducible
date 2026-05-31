@@ -6,32 +6,41 @@ on:
       VERSION:
         description: "VERSION"
         required: true
+      VERSION_CODE:
+        description: "VERSION_CODE"
+        required: false
 
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
+
+env:
+  SIGNATURE_SHA256: a3eaf4ef655df8f8b9ab94bf06d13775e9fe49ec2cdd464980815f2215d0a494
 
 jobs:
   fdroid-verify:
     runs-on: ubuntu-latest
     steps:
       - name: Build
+        id: build
         run: |
           git clone https://github.com/olvid-io/olvid-android
           cd olvid-android
-          git checkout $(git log --all --grep="v${{ inputs.VERSION }}" -n 1 --format="%H")
           tags=$(curl -s --fail https://api.github.com/repos/olvid-io/olvid-android/tags | jq -r .[].name)
-          fdroid_tag=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}" | grep fdroid)
-          if [ -z "$fdroid_tag" ]; then
+          TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}" | grep fdroid)
+          if [ -z "$TAG" ]; then
             echo "No fdroid tag found for version ${{ inputs.VERSION }}"
-            fdroid_tag=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
+            TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
           fi
-          version_code="$(echo "$fdroid_tag" | cut -d- -f1 | cut -d_ -f2)"
-          echo "$fdroid_tag"
-          echo "Version code: $version_code"
-          echo "VERSION_CODE=$version_code" >> $GITHUB_ENV
-          git checkout "$fdroid_tag"
-          cd reproducible-builds/
-          ./build.sh
-          cd ..
+          VERSION_CODE="$(echo "$TAG" | cut -d- -f1 | cut -d_ -f2)"
+          echo "TAG: $TAG"
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          echo "TAG=$TAG" >> $GITHUB_OUTPUT
+          echo "Version code: $VERSION_CODE"
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
+          echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
+      - name: Build fdroid apk
+        run: |
+          git checkout "${{ env.TAG }}"
+          docker build -t olvid-android ./reproducible-builds/
           docker run --rm --pull=never -v "$(pwd)":/olvid -w /olvid/obv_messenger olvid-android ./gradlew assembleProdZfdroidRelease
       - run: find . -name "*.apk"
       - name: Download fdroid apk
@@ -45,7 +54,69 @@ jobs:
           git clone https://github.com/signalapp/Signal-Android --depth 1
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
+          uv remove androguard
+          uv add git+https://github.com/androguard/androguard --rev 943932d35c08b8ee5102ace398882858d3bd7567
           uv run apkdiff.py ../../../fdroid-arm64-v8a.apk ../../../olvid-android/obv_messenger/app/build/outputs/apk/prodZfdroid/release/app-prod-zfdroid-arm64-v8a-release-unsigned.apk
+    outputs:
+      VERSION_CODE: ${{ steps.build.outputs.VERSION_CODE }}
+      TAG: ${{ steps.build.outputs.TAG }}
+
+  playstore-verify:
+    runs-on: ubuntu-latest
+    needs: [fdroid-verify]
+    if: always() && (needs.fdroid-verify.result == 'success' || inputs.VERSION_CODE != '')
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download playstore apk
+        run: |
+          if [ "${{ needs.fdroid-verify.outputs.VERSION_CODE }}" != "" ]; then
+            VERSION_CODE="${{ needs.fdroid-verify.outputs.VERSION_CODE }}"
+          else
+            VERSION_CODE="${{ inputs.VERSION_CODE }}"
+          fi
+
+          cargo build --manifest-path gpapi/Cargo.toml --release
+          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.thoughtcrime.securesms" --version-code ${VERSION_CODE} --output=./playstore-official/ --download
+
+          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging ./playstore-official/io.olvid.messenger.apk)
+          PLAYSTORE_VERSION=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
+          if [[ "${{ inputs.VERSION }}" == "$PLAYSTORE_VERSION" ]]; then
+            echo "✅ Versions $PLAYSTORE_VERSION match"
+          else
+            echo "❌ Versions differ: expected ${{ inputs.VERSION }} but got $PLAYSTORE_VERSION"
+            exit 1
+          fi
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/io.olvid.messenger.apk | grep $SIGNATURE_SHA256
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: playstore-official
+          path: ./playstore-official/
+      - name: Build playstore apk
+        run: |
+          git clone https://github.com/olvid-io/olvid-android
+          cd olvid-android
+          git checkout "${{ needs.fdroid-verify.outputs.TAG }}"
+          docker build -t olvid-android ./reproducible-builds/
+          docker run --rm --pull=never -v "$(pwd)":/olvid -w /olvid/obv_messenger olvid-android ./gradlew bundleProdFullRelease
+          curl -L https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
+          java -jar bundletool.jar build-apks --bundle=./obv_messenger/app/build/outputs/bundle/prodFullRelease/app-prod-full-release.aab --output-format=DIRECTORY --output=apks
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: playstore-build
+          path: olvid-android/apks/splits/
+      - name: Apkdiff
+        run: |
+          git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
+          pip install uv
+          cd apkdiff/reproducible-builds/apkdiff
+          uv sync
+          uv remove androguard
+          uv add git+https://github.com/androguard/androguard --rev 943932d35c08b8ee5102ace398882858d3bd7567
+          uv run apkdiff.py ../../../playstore-official/io.olvid.messenger/io.olvid.messenger.apk ../../../olvid-android/apks/splits/base-master.apk
+          uv run apkdiff.py ../../../playstore-official/io.olvid.messenger/io.olvid.messenger.config.arm64_v8a.apk ../../../olvid-android/apks/splits/base-arm64_v8a.apk
+          uv run apkdiff.py ../../../playstore-official/io.olvid.messenger/io.olvid.messenger.config.xxhdpi.apk ../../../olvid-android/apks/splits/base-xxhdpi.apk
 
   notify:
     needs: [fdroid-verify]

@@ -82,9 +82,9 @@ jobs:
         continue-on-error: true
         id: validate
         run: |
-          if [ ""${{ needs.github-download.outputs.VERSION_CODE }}" != "" ]; then
+          if [ "${{ needs.github-download.outputs.VERSION_CODE }}" != "" ]; then
             VERSION_CODE="${{ needs.github-download.outputs.VERSION_CODE }}"
-          elif [ ""${{ needs.website-download.outputs.VERSION_CODE }}" != "" ]; then
+          elif [ "${{ needs.website-download.outputs.VERSION_CODE }}" != "" ]; then
             VERSION_CODE="${{ needs.website-download.outputs.VERSION_CODE }}"
           else
             VERSION_CODE="${{ inputs.VERSION_CODE }}"
