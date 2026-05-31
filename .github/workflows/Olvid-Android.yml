@@ -6,9 +6,6 @@ on:
       VERSION:
         description: "VERSION"
         required: true
-      VERSION_CODE:
-        description: "VERSION_CODE"
-        required: false
 
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
@@ -25,23 +22,21 @@ jobs:
           git clone https://github.com/olvid-io/olvid-android
           cd olvid-android
           tags=$(curl -s --fail https://api.github.com/repos/olvid-io/olvid-android/tags | jq -r .[].name)
-          TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}" | grep fdroid)
+          TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
           if [ -z "$TAG" ]; then
-            echo "No fdroid tag found for version ${{ inputs.VERSION }}"
-            TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
+            echo "No tag found for version ${{ inputs.VERSION }}"
+            exit 1
           fi
           VERSION_CODE="$(echo "$TAG" | cut -d- -f1 | cut -d_ -f2)"
           echo "TAG: $TAG"
-          echo "TAG=$TAG" >> $GITHUB_ENV
-          echo "TAG=$TAG" >> $GITHUB_OUTPUT
           echo "Version code: $VERSION_CODE"
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
+          git checkout "$TAG"
       - name: Build fdroid apk
         run: |
-          git checkout "${{ env.TAG }}"
-          docker build -t olvid-android ./reproducible-builds/
-          docker run --rm --pull=never -v "$(pwd)":/olvid -w /olvid/obv_messenger olvid-android ./gradlew assembleProdZfdroidRelease
+          docker build -t olvid-android ./olvid-android/reproducible-builds/
+          docker run --rm --pull=never -v "$(pwd)/olvid-android/":/olvid -w /olvid/obv_messenger olvid-android ./gradlew assembleProdZfdroidRelease
       - run: find . -name "*.apk"
       - name: Download fdroid apk
         run: |
@@ -59,12 +54,11 @@ jobs:
           uv run apkdiff.py ../../../fdroid-arm64-v8a.apk ../../../olvid-android/obv_messenger/app/build/outputs/apk/prodZfdroid/release/app-prod-zfdroid-arm64-v8a-release-unsigned.apk
     outputs:
       VERSION_CODE: ${{ steps.build.outputs.VERSION_CODE }}
-      TAG: ${{ steps.build.outputs.TAG }}
 
   playstore-verify:
     runs-on: ubuntu-latest
     needs: [fdroid-verify]
-    if: always() && (needs.fdroid-verify.result == 'success' || inputs.VERSION_CODE != '')
+    if: always() && needs.fdroid-verify.outputs.VERSION_CODE != ''
     steps:
       - uses: actions/checkout@v6
       - name: Download playstore apk
@@ -96,7 +90,13 @@ jobs:
         run: |
           git clone https://github.com/olvid-io/olvid-android
           cd olvid-android
-          git checkout "${{ needs.fdroid-verify.outputs.TAG }}"
+          tags=$(curl -s --fail https://api.github.com/repos/olvid-io/olvid-android/tags | jq -r .[].name)
+          TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
+          if [ -z "$TAG" ]; then
+            echo "No tag found for version ${{ inputs.VERSION }}"
+            exit 1
+          fi
+          git checkout "$TAG"
           docker build -t olvid-android ./reproducible-builds/
           docker run --rm --pull=never -v "$(pwd)":/olvid -w /olvid/obv_messenger olvid-android ./gradlew bundleProdFullRelease
           curl -L https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar -o bundletool.jar
