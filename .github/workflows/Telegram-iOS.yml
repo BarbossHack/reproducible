@@ -10,12 +10,13 @@ on:
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
-  website-download:
+  build:
     runs-on: macos-26
     steps:
-      - name: Download
-        id: download
+      - name: build
         run: |
-          ls -lsah /Applications/
-          echo DEVELOPER_DIR=/Applications/Xcode_26.2.app >> "$GITHUB_ENV"
+          echo DEVELOPER_DIR=/Applications/Xcode_26.2.app/Contents/Developer >> "$GITHUB_ENV"
           sudo xcode-select -s /Applications/Xcode_26.2.app/Contents/Developer
+          git clone --depth 1 --recursive https://github.com/TelegramMessenger/Telegram-iOS -b release-12.7
+          cd Telegram-iOS
+          python3 -u build-system/Make/Make.py build --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64
