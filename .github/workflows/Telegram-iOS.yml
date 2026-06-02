@@ -11,7 +11,7 @@ run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
   website-download:
-    runs-on: macos-26-xlarge
+    runs-on: macos-26
     steps:
       - name: Download
         id: download
