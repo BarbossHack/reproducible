@@ -1,0 +1,21 @@
+name: Telegram-iOS
+
+on:
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: "VERSION"
+        required: true
+
+run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
+
+jobs:
+  website-download:
+    runs-on: macos-26-xlarge
+    steps:
+      - name: Download
+        id: download
+        run: |
+          ls -lsah /Applications/
+          echo DEVELOPER_DIR=/Applications/Xcode_26.2.app >> "$GITHUB_ENV"
+          sudo xcode-select -s /Applications/Xcode_26.2.app/Contents/Developer
