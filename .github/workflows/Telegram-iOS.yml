@@ -19,4 +19,4 @@ jobs:
           sudo xcode-select -s /Applications/Xcode_26.2.app/Contents/Developer
           git clone --depth 1 --recursive https://github.com/TelegramMessenger/Telegram-iOS -b release-12.7
           cd Telegram-iOS
-          python3 -u build-system/Make/Make.py build --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64
+          python3 -u build-system/Make/Make.py build --buildNumber 1000 --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64
