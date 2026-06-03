@@ -10,21 +10,29 @@ on:
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
-  build:
+  verify-applestore:
     runs-on: macos-26
     steps:
+      - name: Download AppleStore IPA
+        run: curl -sL --fail "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Telegram-iOS/ph.telegra.Telegraph_${{ inputs.VERSION }}.decrypted.ipa" -o Telegram-appstore.ipa
       - name: build
         run: |
-          echo DEVELOPER_DIR=/Applications/Xcode_26.2.app/Contents/Developer >> "$GITHUB_ENV"
-          sudo xcode-select -s /Applications/Xcode_26.2.app/Contents/Developer
-          git clone --depth 1 --recursive https://github.com/TelegramMessenger/Telegram-iOS -b release-12.7
+          git clone --depth 1 --recursive https://github.com/TelegramMessenger/Telegram-iOS -b release-${{ inputs.VERSION }}
           cd Telegram-iOS
+          XCODE_VERSION=$(cat versions.json | jq -r .xcode)
+          VERSION_CODE=$(cat build_number_offset | head -n 1)
+
+          rm -rf /Applications/Xcode.app
+          cp -r /Applications/Xcode_${XCODE_VERSION}.app /Applications/Xcode.app
+          echo DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer >> "$GITHUB_ENV"
+          sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
           python3 build-system/Make/ImportCertificates.py --path build-system/fake-codesigning/certs
-          python3 -u build-system/Make/Make.py build --buildNumber 2720 --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64 --outputBuildArtifactsPath=./build/artifacts
-          mkdir -p ./output_ipa/
-          cp ./build/artifacts/Telegram.ipa ./output_ipa/
+          python3 -u build-system/Make/Make.py build --buildNumber $VERSION_CODE --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64 --outputBuildArtifactsPath=./build/artifacts
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
           name: output_ipa
-          path: ./Telegram-iOS/output_ipa/
+          path: ./Telegram-iOS/build/artifacts/Telegram.ipa
+      - name: Verify reproducibility
+        run: python ./Telegram-iOS/tools/ipadiff.py ./Telegram-iOS/build/artifacts/Telegram.ipa Telegram-appstore.ipa
