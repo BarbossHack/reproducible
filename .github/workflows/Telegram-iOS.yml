@@ -10,7 +10,7 @@ on:
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
-  verify-applestore:
+  applestore-verify:
     runs-on: macos-26
     steps:
       - name: Download AppleStore IPA
@@ -23,7 +23,7 @@ jobs:
           VERSION_CODE=$(cat build_number_offset | head -n 1)
 
           rm -rf /Applications/Xcode.app
-          cp -r /Applications/Xcode_${XCODE_VERSION}.app /Applications/Xcode.app
+          ditto /Applications/Xcode_${XCODE_VERSION}.app /Applications/Xcode.app
           echo DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer >> "$GITHUB_ENV"
           sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 
@@ -36,3 +36,14 @@ jobs:
           path: ./Telegram-iOS/build/artifacts/Telegram.ipa
       - name: Verify reproducibility
         run: python ./Telegram-iOS/tools/ipadiff.py ./Telegram-iOS/build/artifacts/Telegram.ipa Telegram-appstore.ipa
+
+  notify:
+    needs: [applestore-verify]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/discord-webhook@master
+        with:
+          VERSION: ${{ inputs.VERSION }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          needs: ${{ toJSON(needs) }}
