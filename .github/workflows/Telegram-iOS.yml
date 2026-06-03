@@ -19,8 +19,10 @@ jobs:
           sudo xcode-select -s /Applications/Xcode_26.2.app/Contents/Developer
           git clone --depth 1 --recursive https://github.com/TelegramMessenger/Telegram-iOS -b release-12.7
           cd Telegram-iOS
-          python3 -u build-system/Make/Make.py build --buildNumber 2720 --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64
+          python3 build-system/Make/ImportCertificates.py --path build-system/fake-codesigning/certs
+          python3 -u build-system/Make/Make.py build --buildNumber 2720 --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64 --outputBuildArtifactsPath=./build/artifacts
           mkdir -p ./output_ipa/
+          find . -name "*.ipa"
           find . -name "*.ipa" -exec cp {} ./output_ipa/ \;
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
