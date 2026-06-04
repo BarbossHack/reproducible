@@ -26,7 +26,7 @@ jobs:
           rm -rf /Applications/Xcode.app
           ditto /Applications/Xcode_${XCODE_VERSION}.app /Applications/Xcode.app
           echo DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer >> "$GITHUB_ENV"
-          xcode-select -s /Applications/Xcode.app/Contents/Developer
+          sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 
           python3 build-system/Make/ImportCertificates.py --path build-system/fake-codesigning/certs
           python3 -u build-system/Make/Make.py build --buildNumber $VERSION_CODE --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64 --outputBuildArtifactsPath=./build/artifacts
