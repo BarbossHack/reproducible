@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: output_ipa
-          path: ./Users/Shared/telegram-ios/build/artifacts/Telegram.ipa
+          path: /Users/Shared/telegram-ios/build/artifacts/Telegram.ipa
       - name: Verify reproducibility
         run: python /Users/Shared/telegram-ios/tools/ipadiff.py /Users/Shared/telegram-ios/build/artifacts/Telegram.ipa Telegram-appstore.ipa
 
