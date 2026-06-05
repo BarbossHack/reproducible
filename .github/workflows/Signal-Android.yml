@@ -207,7 +207,9 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: playstore-build
-          path: Signal-Android/apks/splits/
+          path: |
+            Signal-Android/apks/splits/
+            Signal-Android/app/build/outputs/bundle/playProdRelease/Signal-Android-play-prod-release.aab
       - name: Apkdiff
         run: |
           git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
