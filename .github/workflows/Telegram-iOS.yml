@@ -24,15 +24,24 @@ jobs:
           XCODE_VERSION=$(cat versions.json | jq -r .xcode)
           VERSION_CODE=$(($(cat build_number_offset)+$(git rev-list --count HEAD)))
 
+          sleep 2
           ls -lsah /Applications/
+          sleep 2
           rm -rf /Applications/Xcode.app
+          sleep 2
           ditto /Applications/Xcode_${XCODE_VERSION}.app /Applications/Xcode.app
+          sleep 2
           rm -rf /Applications/Xcode.app_*
+          sleep 2
           ls -lsah /Applications/
+          sleep 2
           echo DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer >> "$GITHUB_ENV"
+          sleep 2
           sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+          sleep 2
 
           xcrun metal --version
+          sleep 2
           set +x
 
           python3 build-system/Make/ImportCertificates.py --path build-system/fake-codesigning/certs
