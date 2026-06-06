@@ -15,6 +15,13 @@ jobs:
     steps:
       - name: Download AppleStore IPA
         run: curl -sL --fail "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Telegram-iOS/ph.telegra.Telegraph_${{ inputs.VERSION }}.decrypted.ipa" -o Telegram-appstore.ipa
+      - name: darwin-containers ???
+        run: |
+          set -x
+          git clone https://github.com/ali-fareed/darwin-containers.git
+          cd darwin-containers
+          ./darwin-containers fetch
+          ./darwin-containers fetch "macOS 26"
       - name: build
         run: |
           set -x
