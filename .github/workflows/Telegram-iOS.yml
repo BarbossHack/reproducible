@@ -20,6 +20,10 @@ jobs:
           set -x
           git clone https://github.com/ali-fareed/darwin-containers.git
           cd darwin-containers
+          xcodebuild -project DarwinContainers/DarwinContainers.xcodeproj -list
+          xcodebuild -project DarwinContainers/DarwinContainers.xcodeproj -scheme DarwinContainersDaemon -configuration Debug DEVELOPMENT_TEAM="XXXXXXX" CODE_SIGN_STYLE=Automatic -derivedDataPath build build
+          ./build/Build/Products/Debug/DarwinContainersDaemon &
+          sleep 10
           ./darwin-containers fetch
           ./darwin-containers fetch "macOS 26"
       - name: build
