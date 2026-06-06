@@ -26,19 +26,13 @@ jobs:
 
           rm -rf /Applications/Xcode.app
           ditto /Applications/Xcode_${XCODE_VERSION}.app /Applications/Xcode.app
-          # rm -rf /Applications/Xcode_*
+          rm -rf /Applications/Xcode_*
           echo DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer >> "$GITHUB_ENV"
           sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 
           xcrun metal --version || true
           xcodebuild -version || true
           xcode-select -p || true
-
-          sleep 1
-          xcodebuild -showComponent metalToolchain || true
-          sleep 1
-
-          exit 99
 
           python3 build-system/Make/ImportCertificates.py --path build-system/fake-codesigning/certs
           python3 -u build-system/Make/Make.py build --buildNumber $VERSION_CODE --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64 --outputBuildArtifactsPath=./build/artifacts
