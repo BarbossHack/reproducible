@@ -18,9 +18,8 @@ jobs:
       - name: metal check
         run: |
           set -x
-          ls -lsah /private/var/run/com.apple.security.cryptexd/mnt/ || true
-          ls -Rlsah /private/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v*/Metal.xctoolchain/usr/metal/current/bin/ || true
-          /private/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v*/Metal.xctoolchain/usr/metal/current/bin/metal --version || true
+          ls -lsah /private/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.5.188.0.QcHBC1/Metal.xctoolchain/usr/metal/current/bin/ || true
+          /private/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.5.188.0.QcHBC1/Metal.xctoolchain/usr/metal/current/bin/metal --version || true
           xcrun metal --version
       - name: build
         run: |
