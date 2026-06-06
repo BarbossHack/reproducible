@@ -25,13 +25,15 @@ jobs:
           VERSION_CODE=$(($(cat build_number_offset)+$(git rev-list --count HEAD)))
 
           sleep 2
+          df -h
+          sleep 2
           ls -lsah /Applications/
           sleep 2
           rm -rf /Applications/Xcode.app
           sleep 2
           ditto /Applications/Xcode_${XCODE_VERSION}.app /Applications/Xcode.app
           sleep 2
-          rm -rf /Applications/Xcode.app_*
+          rm -rf /Applications/Xcode_*
           sleep 2
           ls -lsah /Applications/
           sleep 2
@@ -39,10 +41,13 @@ jobs:
           sleep 2
           sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
           sleep 2
+          ls -Rlsah /Applications/Xcode.app/Contents/Developer
+          sleep 2
+          df -h
+          sleep 2
 
           xcrun metal --version
           sleep 2
-          set +x
 
           python3 build-system/Make/ImportCertificates.py --path build-system/fake-codesigning/certs
           python3 -u build-system/Make/Make.py build --buildNumber $VERSION_CODE --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64 --outputBuildArtifactsPath=./build/artifacts
