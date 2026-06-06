@@ -34,9 +34,13 @@ jobs:
           xcodebuild -version || true
           xcode-select -p || true
 
-          sudo ls -lsah /private/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.5.188.0.gztzb2/Metal.xctoolchain/usr/metal/current/bin/metal || true
-          sudo find / -name metal -type f 2>/dev/null || true
+          sleep 1
+          xcodebuild -downloadComponent MetalToolchain
+          sleep 1
           /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/metal --version || true
+          sleep 1
+          xcrun metal --version || true
+          sleep 1
 
           exit 99
 
