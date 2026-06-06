@@ -17,16 +17,23 @@ jobs:
         run: curl -sL --fail "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Telegram-iOS/ph.telegra.Telegraph_${{ inputs.VERSION }}.decrypted.ipa" -o Telegram-appstore.ipa
       - name: build
         run: |
+          set -x
           cd /Users/Shared/
           git clone --depth 1 --recursive https://github.com/TelegramMessenger/telegram-ios -b release-${{ inputs.VERSION }}
           cd Telegram-iOS
           XCODE_VERSION=$(cat versions.json | jq -r .xcode)
           VERSION_CODE=$(($(cat build_number_offset)+$(git rev-list --count HEAD)))
 
+          ls -lsah /Applications/
           rm -rf /Applications/Xcode.app
           ditto /Applications/Xcode_${XCODE_VERSION}.app /Applications/Xcode.app
+          rm -rf /Applications/Xcode.app_*
+          ls -lsah /Applications/
           echo DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer >> "$GITHUB_ENV"
           sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+          xcrun metal --version
+          set +x
 
           python3 build-system/Make/ImportCertificates.py --path build-system/fake-codesigning/certs
           python3 -u build-system/Make/Make.py build --buildNumber $VERSION_CODE --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64 --outputBuildArtifactsPath=./build/artifacts
