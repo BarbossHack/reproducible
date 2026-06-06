@@ -15,12 +15,6 @@ jobs:
     steps:
       - name: Download AppleStore IPA
         run: curl -sL --fail "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Telegram-iOS/ph.telegra.Telegraph_${{ inputs.VERSION }}.decrypted.ipa" -o Telegram-appstore.ipa
-      - name: metal check
-        run: |
-          set -x
-          ls -lsah /private/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.5.188.0.QcHBC1/Metal.xctoolchain/usr/metal/current/bin/ || true
-          /private/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.5.188.0.QcHBC1/Metal.xctoolchain/usr/metal/current/bin/metal --version || true
-          xcrun metal --version
       - name: build
         run: |
           set -x
@@ -39,6 +33,9 @@ jobs:
           xcrun metal --version || true
           xcodebuild -version || true
           xcode-select -p || true
+
+          sudo ls -lsah /private/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.5.188.0.gztzb2/Metal.xctoolchain/usr/metal/current/bin/metal || true
+          sudo find / -name metal -type f 2>/dev/null || true
 
           exit 99
 
