@@ -35,13 +35,7 @@ jobs:
           xcode-select -p || true
 
           sleep 1
-          xcodebuild -downloadComponent metalToolchain -exportPath /tmp/MetalExport/ || true
-          sleep 1
-          sudo xcodebuild -importComponent metalToolchain -importPath /tmp/MetalExport/MetalToolchain-*.exportedBundle || true
-          sleep 1
-          cat /tmp/MetalExport/MetalToolchain-*.exportedBundle/ExportMetadata.plist || true
-          sleep 1
-          xcrun metal --version || true
+          xcodebuild -showComponent metalToolchain || true
           sleep 1
 
           exit 99
