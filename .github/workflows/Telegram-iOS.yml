@@ -42,9 +42,10 @@ jobs:
           sed -i '' 's|<string>17C48</string>|<string>17C7003j</string>|g' ./MetalToolchain-17C48.exportedBundle/ExportMetadata.plist
           xcodebuild -importComponent MetalToolchain -importPath ./MetalToolchain-17C48.exportedBundle
 
-          xcrun metal --version || true
-          xcodebuild -version || true
-          xcode-select -p || true
+          xcodebuild -importComponent MetalToolchain && sleep 1 || true
+          xcrun metal --version && sleep 1 || true
+          xcodebuild -version && sleep 1 || true
+          xcode-select -p && sleep 1 || true
 
           python3 build-system/Make/ImportCertificates.py --path build-system/fake-codesigning/certs
           python3 -u build-system/Make/Make.py build --buildNumber $VERSION_CODE --configurationPath="build-system/appstore-configuration.json" --codesigningInformationPath=build-system/fake-codesigning --configuration=release_arm64 --outputBuildArtifactsPath=./build/artifacts
