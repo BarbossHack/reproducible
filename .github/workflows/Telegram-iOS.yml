@@ -47,7 +47,7 @@ jobs:
           sed -i '' 's|<string>17C48</string>|<string>17C7003j</string>|g' ./MetalToolchain-17C48.exportedBundle/ExportMetadata.plist
           xcodebuild -importComponent MetalToolchain -importPath ./MetalToolchain-17C48.exportedBundle
 
-          xcodebuild -importComponent MetalToolchain && sleep 1 || true
+          xcodebuild -showComponent MetalToolchain && sleep 1 || true
           xcrun metal --version && sleep 1 || true
           xcodebuild -version && sleep 1 || true
           xcode-select -p && sleep 1 || true
