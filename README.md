@@ -1,6 +1,6 @@
 # Reproducible Builds
 
-This repository tracks the reproducibility status of open source messengers.  
+This repository verifies the reproducibility status of open-source messengers.
 
 <table>
   <thead>
