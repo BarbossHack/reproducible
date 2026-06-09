@@ -19,7 +19,9 @@ jobs:
         run: |
           set -x
 
+          # Build in canonical path used by Telegram
           cd /Users/Shared/
+
           git clone --depth 1 --recursive https://github.com/TelegramMessenger/telegram-ios -b release-${{ inputs.VERSION }}
           cd Telegram-iOS
           XCODE_VERSION=$(cat versions.json | jq -r .xcode)
@@ -31,6 +33,8 @@ jobs:
           rm -rf /Applications/Xcode_*
           echo DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer >> "$GITHUB_ENV"
           sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+          # Set canonical path for bazel
           echo "startup --output_user_root=/private/var/tmp/_bazel_containerhost" >> ~/.bazelrc
 
           # Replace the MetalToolchain by the one actually used by Telegram (they should upgrade it...)
@@ -39,6 +43,7 @@ jobs:
           sudo rm -rf /private/var/run/com.apple.security.cryptexd/mnt/*
           curl -LO "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Xcode/MetalToolchain-17C48.exportedBundle.zip"
           unzip MetalToolchain-17C48.exportedBundle.zip
+          rm -f MetalToolchain-17C48.exportedBundle.zip
           sed -i '' 's|<string>17C48</string>|<string>17C7003j</string>|g' ./MetalToolchain-17C48.exportedBundle/ExportMetadata.plist
           xcodebuild -importComponent MetalToolchain -importPath ./MetalToolchain-17C48.exportedBundle
 
