@@ -19,13 +19,15 @@ jobs:
   website-download:
     runs-on: ubuntu-latest
     steps:
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Download website apk
         continue-on-error: true
         id: download
         run: |
           curl -f https://updates.signal.org/android/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk -o website.apk || curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-website-prod-universal-release-${{ inputs.VERSION }}.apk" -o website.apk
 
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging website.apk)
+          AAPT_BADGING=$(aapt dump badging website.apk)
           VERSION_NAME=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
           if [[ "${{ inputs.VERSION }}" == "$VERSION_NAME" ]]; then
@@ -34,7 +36,7 @@ jobs:
             echo "❌ Versions (api/apk) differ: expected ${{ inputs.VERSION }} but got $VERSION_NAME"
             exit 1
           fi
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 website.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs --min-sdk-version 24 website.apk | grep $SIGNATURE_SHA256
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
@@ -47,13 +49,15 @@ jobs:
   github-download:
     runs-on: ubuntu-latest
     steps:
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Download github apk
         continue-on-error: true
         id: download
         run: |
           curl -fL "https://github.com/signalapp/Signal-Android/releases/download/v${{ inputs.VERSION }}/Signal-Android-github-prod-universal-release-${{ inputs.VERSION }}.apk" -o github.apk
 
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging github.apk)
+          AAPT_BADGING=$(aapt dump badging github.apk)
           VERSION_NAME=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
@@ -63,7 +67,7 @@ jobs:
             echo "❌ Versions (api/apk) differ: expected ${{ inputs.VERSION }} but got $VERSION_NAME"
             exit 1
           fi
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 github.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs --min-sdk-version 24 github.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -78,6 +82,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Download playstore apk
         continue-on-error: true
         id: validate
@@ -93,7 +99,7 @@ jobs:
           cargo build --manifest-path gpapi/Cargo.toml --release
           ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.thoughtcrime.securesms" --version-code ${VERSION_CODE} --output=./playstore-official/ --download
 
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk)
+          AAPT_BADGING=$(aapt dump badging ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk)
           PLAYSTORE_VERSION=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           if [[ "${{ inputs.VERSION }}" == "$PLAYSTORE_VERSION" ]]; then
             echo "✅ Versions $PLAYSTORE_VERSION match"
@@ -102,7 +108,7 @@ jobs:
             echo "❌ Versions differ: expected ${{ inputs.VERSION }} but got $PLAYSTORE_VERSION"
             echo "valid=false" >> $GITHUB_OUTPUT
           fi
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -120,6 +126,8 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: website-official
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Build
         run: |
           git clone https://github.com/signalapp/Signal-Android -b v${{ inputs.VERSION }} --depth 1
@@ -139,8 +147,6 @@ jobs:
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
-          uv remove androguard
-          uv add git+https://github.com/androguard/androguard --rev 943932d35c08b8ee5102ace398882858d3bd7567
           built_apk="../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
           if [ ! -f "$built_apk" ]; then
             built_apk="../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned.apk"
@@ -156,6 +162,8 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: github-official
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Build
         run: |
           git clone https://github.com/signalapp/Signal-Android -b v${{ inputs.VERSION }} --depth 1
@@ -175,8 +183,6 @@ jobs:
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
-          uv remove androguard
-          uv add git+https://github.com/androguard/androguard --rev 943932d35c08b8ee5102ace398882858d3bd7567
           built_apk="../../../Signal-Android/app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
           if [ ! -f "$built_apk" ]; then
             built_apk="../../../Signal-Android/app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned.apk"
@@ -193,6 +199,8 @@ jobs:
         with:
           name: playstore-official
           path: ./playstore-official/
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Build
         run: |
           git clone https://github.com/signalapp/Signal-Android -b v${{ inputs.VERSION }} --depth 1
@@ -216,8 +224,6 @@ jobs:
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
-          uv remove androguard
-          uv add git+https://github.com/androguard/androguard --rev 943932d35c08b8ee5102ace398882858d3bd7567
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk ../../../Signal-Android/apks/splits/base-master.apk
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.arm64_v8a.apk ../../../Signal-Android/apks/splits/base-arm64_v8a.apk
           uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.xxhdpi.apk ../../../Signal-Android/apks/splits/base-xxhdpi.apk
