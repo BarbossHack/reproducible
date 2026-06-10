@@ -39,10 +39,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Download website APK
         run: |
           curl -sL https://briarproject.org/apk/briar-${{ inputs.VERSION }}.apk -o briar.apk
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging briar.apk)
+          AAPT_BADGING=$(aapt dump badging briar.apk)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
       - name: Download Play Store APK

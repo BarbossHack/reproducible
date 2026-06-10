@@ -16,11 +16,13 @@ jobs:
   website-download:
     runs-on: ubuntu-latest
     steps:
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Download
         id: download
         run: |
           curl -L "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Telegram-Android/${{ inputs.VERSION }}.apk" -o Telegram-website.apk
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Telegram-website.apk)
+          AAPT_BADGING=$(aapt dump badging Telegram-website.apk)
           VERSION_NAME=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
@@ -28,7 +30,7 @@ jobs:
             echo "Version name mismatch: expected ${{ inputs.VERSION }}, got $VERSION_NAME"
             exit 1
           fi
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Telegram-website.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs --min-sdk-version 24 Telegram-website.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -42,6 +44,8 @@ jobs:
     needs: [website-download]
     steps:
       - uses: actions/checkout@v6
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Download
         run: |
           VERSION_CODE="${{ needs.website-download.outputs.VERSION_CODE }}"
@@ -51,7 +55,7 @@ jobs:
           cargo build --manifest-path gpapi/Cargo.toml --release
           gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.telegram.messenger" --version-code ${VERSION_CODE_PLAYSTORE} --output=./playstore-official/ --download
 
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging playstore-official/org.telegram.messenger/org.telegram.messenger.apk)
+          AAPT_BADGING=$(aapt dump badging playstore-official/org.telegram.messenger/org.telegram.messenger.apk)
           PLAYSTORE_VERSION=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           if [[ "${{ inputs.VERSION }}" == "$PLAYSTORE_VERSION" ]]; then
             echo "✅ Versions $PLAYSTORE_VERSION match"
@@ -59,7 +63,7 @@ jobs:
             echo "❌ Versions differ: expected ${{ inputs.VERSION }} but got $PLAYSTORE_VERSION"
             exit 1
           fi
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 playstore-official/org.telegram.messenger/org.telegram.messenger.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs --min-sdk-version 24 playstore-official/org.telegram.messenger/org.telegram.messenger.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -97,6 +101,8 @@ jobs:
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v8
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Exclude some known different (but acceptable) files
         run: |
           zip -d website-official/Telegram-website.apk "META-INF/CERT.RSA" "META-INF/CERT.SF" "META-INF/BNDLTOOL.RSA" "META-INF/BNDLTOOL.SF" "META-INF/version-control-info.textproto"
@@ -121,6 +127,8 @@ jobs:
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v8
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: apkfrombundle
         continue-on-error: true
         run: |

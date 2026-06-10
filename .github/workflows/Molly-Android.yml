@@ -16,6 +16,8 @@ jobs:
   molly-verify:
     runs-on: ubuntu-latest
     steps:
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Official
         run: |
           wget https://github.com/mollyim/mollyim-android/releases/download/v${{ inputs.VERSION }}/Molly-v${{ inputs.VERSION }}.apk
@@ -31,14 +33,16 @@ jobs:
       - name: Molly apkdiff
         run: |
           python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ inputs.VERSION }}.apk Molly-unsigned-v${{ inputs.VERSION }}.apk
+      - name: Exclude some known different (but acceptable) files
+        run: |
+          zip -d Molly-v${{ inputs.VERSION }}.apk "META-INF/KEY0.RSA" "META-INF/KEY0.SF" || true
+          zip -d Molly-unsigned-v${{ inputs.VERSION }}.apk "META-INF/KEY0.RSA" "META-INF/KEY0.SF" || true
       - name: Signal apkdiff
         run: |
           git clone --depth 1 https://github.com/signalapp/Signal-Android
           pip install uv
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          sed -i '/IGNORE_FILES = \[/a "META-INF/KEY0.RSA",' apkdiff.py
-          sed -i '/IGNORE_FILES = \[/a "META-INF/KEY0.SF",' apkdiff.py
           uv run apkdiff.py ../../../Molly-v${{ inputs.VERSION }}.apk ../../../Molly-unsigned-v${{ inputs.VERSION }}.apk
 
   libsignal-verify:

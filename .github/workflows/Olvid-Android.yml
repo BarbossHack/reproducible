@@ -48,8 +48,6 @@ jobs:
           git clone https://github.com/signalapp/Signal-Android --depth 1
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          uv remove androguard
-          uv add git+https://github.com/androguard/androguard --rev 943932d35c08b8ee5102ace398882858d3bd7567
           uv run apkdiff.py ../../../fdroid-arm64-v8a.apk ../../../olvid-android/obv_messenger/app/build/outputs/apk/prodZfdroid/release/app-prod-zfdroid-arm64-v8a-release-unsigned.apk
     outputs:
       VERSION_CODE: ${{ steps.build.outputs.VERSION_CODE }}
@@ -60,6 +58,8 @@ jobs:
     if: always() && needs.fdroid-verify.outputs.VERSION_CODE != ''
     steps:
       - uses: actions/checkout@v6
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Download playstore apk
         run: |
           if [ "${{ needs.fdroid-verify.outputs.VERSION_CODE }}" != "" ]; then
@@ -71,7 +71,7 @@ jobs:
           cargo build --manifest-path gpapi/Cargo.toml --release
           ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "io.olvid.messenger" --version-code ${VERSION_CODE} --output=./playstore-official/ --download
 
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging ./playstore-official/io.olvid.messenger/io.olvid.messenger.apk)
+          AAPT_BADGING=$(aapt dump badging ./playstore-official/io.olvid.messenger/io.olvid.messenger.apk)
           PLAYSTORE_VERSION=$(echo "$AAPT_BADGING" | grep -o "versionName='[^']*'" | cut -d"'" -f2)
           if [[ "${{ inputs.VERSION }}" == "$PLAYSTORE_VERSION" ]]; then
             echo "✅ Versions $PLAYSTORE_VERSION match"
@@ -79,7 +79,7 @@ jobs:
             echo "❌ Versions differ: expected ${{ inputs.VERSION }} but got $PLAYSTORE_VERSION"
             exit 1
           fi
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/io.olvid.messenger/io.olvid.messenger.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/io.olvid.messenger/io.olvid.messenger.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -110,8 +110,6 @@ jobs:
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
-          uv remove androguard
-          uv add git+https://github.com/androguard/androguard --rev 943932d35c08b8ee5102ace398882858d3bd7567
           uv run apkdiff.py ../../../playstore-official/io.olvid.messenger/io.olvid.messenger.apk ../../../olvid-android/apks/splits/base-master.apk
           uv run apkdiff.py ../../../playstore-official/io.olvid.messenger/io.olvid.messenger.config.arm64_v8a.apk ../../../olvid-android/apks/splits/base-arm64_v8a.apk
           uv run apkdiff.py ../../../playstore-official/io.olvid.messenger/io.olvid.messenger.config.xxhdpi.apk ../../../olvid-android/apks/splits/base-xxhdpi.apk

@@ -16,13 +16,15 @@ jobs:
   website-verify:
     runs-on: ubuntu-latest
     steps:
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Official
         run: |
           curl -L "https://github.com/BarbossHack/reproducible-LFS/raw/refs/heads/master/Threema-Android/${{ inputs.VERSION }}.apk" -o Threema.apk
-          AAPT_BADGING=$(/usr/local/lib/android/sdk/build-tools/36.1.0/aapt dump badging Threema.apk)
+          AAPT_BADGING=$(aapt dump badging Threema.apk)
           VERSION_CODE=$(echo "$AAPT_BADGING" | grep -o "versionCode='[^']*'" | cut -d"'" -f2)
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Threema.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs --min-sdk-version 24 Threema.apk | grep $SIGNATURE_SHA256
       - name: Dockerfile
         run: |
           git clone https://github.com/threema-ch/threema-android --depth 1 -b "${{ inputs.VERSION }}-${{ env.VERSION_CODE }}"
