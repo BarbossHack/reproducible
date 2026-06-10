@@ -4,8 +4,6 @@ Repository: <https://github.com/TelegramMessenger/Telegram-iOS>
 
 Reproducible build instructions: <https://core.telegram.org/reproducible-builds#reproducible-builds-for-ios>
 
-<https://codemagic.io/pricing/>
-
 <details>
 <summary>Decrypt IPA</summary>
 
