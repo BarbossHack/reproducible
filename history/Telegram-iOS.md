@@ -6,6 +6,9 @@ Reproducible build instructions: <https://core.telegram.org/reproducible-builds#
 
 <https://codemagic.io/pricing/>
 
+<details>
+<summary>Decrypt IPA</summary>
+
 Jailbreak with Palera1n:
 
 ```bash
@@ -32,6 +35,8 @@ chmod +x ipadecrypt_0.7.1_linux_amd64
 ./ipadecrypt_0.7.0_linux_amd64 decrypt 686449807
 ```
 
+</details>
+
 <table align="center">
     <thead>
         <tr>
@@ -44,11 +49,18 @@ chmod +x ipadecrypt_0.7.1_linux_amd64
     </thead>
     <tbody>
         <tr>
+            <td>v12.8</td>
+            <td>2026-06-09</td>
+            <td>✅ Yes</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27238926725">#27238926725</a></td>
             <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+        </tr>
+        <tr>
+            <td>v12.7</td>
+            <td>2026-06-07</td>
+            <td>❌ No</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27238919659">#27238919659</a></td>
+            <td>There are differences in <code>TelegramUIFramework</code></td>
         </tr>
     </tbody>
 </table>
