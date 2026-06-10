@@ -16,25 +16,53 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.14.3</td>
+            <td>2026-05-09</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/80475414303">#80475414303</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>resources.arsc</code>: hundreds of differences, "<code>Files have differences beyond the allowed .res1 differences</code>" (reported <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
+            <td>v8.13.2</td>
+            <td>2026-06-03</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>✖️ N/A <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27034750018">#27034750018</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>resources.arsc</code>: hundreds of differences, "<code>Files have differences beyond the allowed .res1 differences</code>" (reported <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
+            <td>v8.13.1</td>
+            <td>2026-05-29</td>
+            <td>❌ No <i>(PlayStore)</i><br>✖️ N/A <i>(Website)</i><br>❌ No <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26862427545">#26862427545</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>resources.arsc</code>: hundreds of differences, "<code>Files have differences beyond the allowed .res1 differences</code>" (reported <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
+            <td>v8.12.4</td>
+            <td>2026-05-27</td>
+            <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>❌ No <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26862427545">#26862427545</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>resources.arsc</code>: hundreds of differences, "<code>Files have differences beyond the allowed .res1 differences</code>" (reported <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
             <td>v8.11.5</td>
             <td>2026-05-21</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>✖️ N/A <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26607217536">#26607217536</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>resources.arsc</code>: hundreds of differences, "<code>Files have differences beyond the allowed .res1 differences</code>"</td>
+            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>resources.arsc</code>: hundreds of differences, "<code>Files have differences beyond the allowed .res1 differences</code>" (reported <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.10.3</td>
             <td>2026-05-19</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26265843808">#26265843808</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>resources.arsc</code>: hundreds of differences, "<code>Files have differences beyond the allowed .res1 differences</code>"</td>
+            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>resources.arsc</code>: hundreds of differences, "<code>Files have differences beyond the allowed .res1 differences</code>" (reported <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.10.2</td>
             <td>2026-05-11</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>❌ No <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26249526100">#26249526100</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>resources.arsc</code>: hundreds of differences, "<code>Files have differences beyond the allowed .res1 differences</code>"</td>
+            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>resources.arsc</code>: hundreds of differences, "<code>Files have differences beyond the allowed .res1 differences</code>" (reported <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.9.1</td>
