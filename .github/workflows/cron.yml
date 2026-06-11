@@ -156,3 +156,14 @@ jobs:
           AAS_TOKEN: ${{ secrets.AAS_TOKEN }}
           PACKAGE: io.olvid.messenger
           TYPE: playstore
+
+  Telegram-iOS:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/cron@master
+        with:
+          JOB_NAME: ${{ github.job }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGE: ph.telegra.Telegraph
+          TYPE: applestore

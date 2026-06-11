@@ -25,7 +25,7 @@ inputs:
     description: "gpapi aas token."
   PACKAGE:
     required: false
-    description: "android package name."
+    description: "package name."
   REPO:
     required: false
     description: "github repo name."
@@ -66,6 +66,15 @@ runs:
         else
           VERSION=$(curl -s https://api.github.com/repos/${{ inputs.REPO }}/releases | jq -r 'map(select((.tag_name | contains("beta") or contains("alpha") or contains("rc")) | not)) | sort_by(.created_at) | last | .tag_name | ltrimstr("v")')
         fi
+        echo "$VERSION"
+        if ! grep -F ">v${VERSION}<" "history/${{ inputs.JOB_NAME }}.md" >/dev/null; then
+          echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
+        fi
+    - name: Applestore check
+      if: ${{ inputs.TYPE == 'applestore' }}
+      shell: bash
+      run: |
+        VERSION=$(curl -sfL "https://itunes.apple.com/lookup?bundleId=${{ inputs.PACKAGE }}" | jq -r .results[0].version)
         echo "$VERSION"
         if ! grep -F ">v${VERSION}<" "history/${{ inputs.JOB_NAME }}.md" >/dev/null; then
           echo "NEW_VERSION=${VERSION}" >> $GITHUB_ENV
