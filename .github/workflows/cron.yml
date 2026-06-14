@@ -167,3 +167,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PACKAGE: ph.telegra.Telegraph
           TYPE: applestore
+          TRIGGER_WORKFLOW: false

@@ -23,7 +23,7 @@ jobs:
           cd /Users/Shared/
 
           git clone --depth 1 --recursive https://github.com/TelegramMessenger/telegram-ios -b release-${{ inputs.VERSION }}
-          cd Telegram-iOS
+          cd telegram-ios
           XCODE_VERSION=$(cat versions.json | jq -r .xcode)
           VERSION_CODE=$(($(cat build_number_offset)+$(git rev-list --count HEAD)))
 
@@ -31,7 +31,7 @@ jobs:
           rm -rf /Applications/Xcode.app
           ditto /Applications/Xcode_${XCODE_VERSION}.app /Applications/Xcode.app
           rm -rf /Applications/Xcode_*
-          echo DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer >> "$GITHUB_ENV"
+          echo DEVELOPER_DIR=/Applications/Xcode.app >> "$GITHUB_ENV"
           sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 
           # Set canonical path for bazel

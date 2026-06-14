@@ -27,10 +27,10 @@ sudo ./palera1n-linux-x86_64 -f -Vv
 Decrypt IPA:
 
 ```bash
-curl -sLO https://github.com/londek/ipadecrypt/releases/download/v0.7.1/ipadecrypt_0.7.1_linux_amd64
-chmod +x ipadecrypt_0.7.1_linux_amd64
-./ipadecrypt_0.7.1_linux_amd64 bootstrap
-./ipadecrypt_0.7.1_linux_amd64 decrypt 686449807
+curl -sLO https://github.com/londek/ipadecrypt/releases/download/v0.7.2/ipadecrypt_0.7.2_linux_amd64
+chmod +x ipadecrypt_0.7.2_linux_amd64
+./ipadecrypt_0.7.2_linux_amd64 bootstrap
+./ipadecrypt_0.7.2_linux_amd64 decrypt 686449807
 ```
 
 </details>
