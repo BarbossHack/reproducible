@@ -25,7 +25,7 @@ jobs:
           sudo chown runner:staff /Volumes/workspace
           cd /Volumes/workspace/
 
-          curl -s https://api.github.com/repos/signalapp/Signal-iOS/releases >/dev/null 2>&1
+          curl -s https://api.github.com/repos/signalapp/Signal-iOS/releases
           TAG=$(curl -sL https://api.github.com/repos/signalapp/Signal-iOS/releases | jq -r '.[] | select(.name=="${{ inputs.VERSION }}") | .tag_name')
           git clone --depth 1 --recurse-submodules https://github.com/signalapp/Signal-iOS -b "$TAG" repository
           cd repository
