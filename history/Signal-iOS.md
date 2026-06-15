@@ -16,11 +16,11 @@ Reproducible build instructions: None
     </thead>
     <tbody>
         <tr>
-            <td>v8.11</td>
-            <td>2026-05-14</td>
+            <td>v8.14</td>
+            <td>2026-06-04</td>
             <td>❌ No</td>
-            <td>-</td>
-            <td>Signal for iOS is not reproducible yet because Apple hasn’t enabled it properly (see <a href="https://x.com/mer__edith/status/1980663711502340340">https://x.com/mer__edith/status/1980663711502340340</a>)</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27575045209">#27575045209</a></td>
+            <td>Not acceptable differences in <code>SignalUI</code>, <code>LibMobileCoin</code>, <code>SignalServiceKit</code>, <code>Info.plist</code>, <code>AppIcon60x60@2x.png</code>, <code>AppIcon76x76@2x~ipad.png</code></td>
         </tr>
     </tbody>
 </table>

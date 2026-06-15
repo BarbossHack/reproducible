@@ -80,7 +80,7 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>Signal iOS</td>
-      <td>v8.11</td>
+      <td>v8.14</td>
       <td>❌ No</td>
       <td><a href="history/Signal-iOS.md">See details</a></td>
     </tr>
