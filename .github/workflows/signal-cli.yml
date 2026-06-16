@@ -24,9 +24,8 @@ jobs:
     steps:
       - name: Get libsignal version
         run: |
-          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/AsamK/signal-cli/refs/tags/v${{ inputs.VERSION }}/gradle/libs.versions.toml" | grep "signalservice = " | cut -d: -f3 | tr -d '"')
+          LIBSIGNAL_VERSION=$(curl -s "https://raw.githubusercontent.com/AsamK/signal-cli/refs/tags/v${{ inputs.VERSION }}/gradle/libs.versions.toml" | grep "signal-service =" | cut -d'"' -f2)
           echo "LIBSIGNAL_VERSION=$LIBSIGNAL_VERSION" >> $GITHUB_ENV
-          echo "LIBSIGNAL_VERSION_MAJOR=$(echo $LIBSIGNAL_VERSION | cut -d- -f1)" >> $GITHUB_ENV
       - name: Download libsignal from maven
         run: |
           wget "https://repo1.maven.org/maven2/com/github/turasa/signal-service-java/${{ env.LIBSIGNAL_VERSION }}/signal-service-java-${{ env.LIBSIGNAL_VERSION }}.jar"
