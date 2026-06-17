@@ -68,25 +68,25 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>Signal Android</td>
-      <td>v8.14.3</td>
-      <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+      <td>v8.15.3</td>
+      <td>❌ No <i>(PlayStore)</i><br>✖️ N/A <i>(Website)</i><br>❌ No <i>(Github)</i></td>
       <td><a href="history/Signal-Android.md">See details</a></td>
     </tr>
     <tr>
       <td>Signal Desktop</td>
-      <td>v8.12.0</td>
+      <td>v8.14.0</td>
       <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
     <tr>
       <td>Signal iOS</td>
-      <td>v8.14</td>
+      <td>v8.15</td>
       <td>❌ No</td>
       <td><a href="history/Signal-iOS.md">See details</a></td>
     </tr>
     <tr>
       <td>signal-cli</td>
-      <td>v0.14.4.1</td>
+      <td>v0.14.5</td>
       <td>❌ No <i>(Jar)</i><br>❌ No <i>(Native)</i></td>
       <td><a href="history/signal-cli.md">See details</a></td>
     </tr>
@@ -98,8 +98,8 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>SimpleX Desktop</td>
-      <td>v6.5.2</td>
-      <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+      <td>v6.5.4</td>
+      <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
       <td><a href="history/SimpleX-Desktop.md">See details</a></td>
     </tr>
     <tr>
@@ -110,7 +110,7 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>Telegram Android</td>
-      <td>v12.7.3</td>
+      <td>v12.8.1</td>
       <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
       <td><a href="history/Telegram-Android.md">See details</a></td>
     </tr>
@@ -128,7 +128,7 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>Threema Android</td>
-      <td>v6.4.2</td>
+      <td>v6.4.3</td>
       <td>⚪ Not verified <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Threema-Android.md">See details</a></td>
     </tr>

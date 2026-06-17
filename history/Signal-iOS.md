@@ -16,6 +16,13 @@ Reproducible build instructions: None
     </thead>
     <tbody>
         <tr>
+            <td>v8.15</td>
+            <td>2026-06-16</td>
+            <td>❌ No</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27652244318">#27652244318</a></td>
+            <td>Not acceptable differences in <code>SignalUI</code>, <code>Signal</code>, <code>LibMobileCoin</code>, <code>SignalServiceKit</code>, <code>Info.plist</code>, <code>AppIcon60x60@2x.png</code>, <code>AppIcon76x76@2x~ipad.png</code></td>
+        </tr>
+        <tr>
             <td>v8.14</td>
             <td>2026-06-04</td>
             <td>❌ No</td>

@@ -16,11 +16,25 @@ Reproducible build instructions: <https://github.com/simplex-chat/simplex-chat/b
     </thead>
     <tbody>
         <tr>
+            <td>v6.5.4</td>
+            <td>2026-06-02</td>
+            <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27664278829">#27664278829</a></td>
+            <td>Not accepable differences in th deb and AppImage binaries.</td>
+        </tr>
+        <tr>
+            <td>v6.5.3</td>
+            <td>2026-05-23</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26707635001">#26707635001</a></td>
+            <td>Windows/macOS reproducibility is not a priority for SimpleX, and they don’t sign their released binaries either, even though they are built and deployed via GitHub Actions (see <a href="https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">#6461</a> [<a href="https://web.archive.org/web/20260517091710/https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">archived</a>])</td>
+        </tr>
+        <tr>
             <td>v6.5.2</td>
             <td>2026-05-14</td>
             <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25909445726">#25909445726</a></td>
-            <td>Windows/macOS reproducibility is not a priority for SimpleX, and they don’t sign their released binaries either, even though they are built and deployed via GitHub Actions (see <a href="https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724</a> [<a href="https://web.archive.org/web/20260517091710/https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">archived</a>])</td>
+            <td>-</td>
         </tr>
         <tr>
             <td>v6.5.1</td>

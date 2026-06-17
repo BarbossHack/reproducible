@@ -16,8 +16,15 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.15.3</td>
+            <td>2026-06-16</td>
+            <td>❌ No <i>(PlayStore)</i><br>✖️ N/A <i>(Website)</i><br>❌ No <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27664361531">#27664361531</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
             <td>v8.14.3</td>
-            <td>2026-05-09</td>
+            <td>2026-06-09</td>
             <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27308047568">#27308047568</a></td>
             <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK contains additional <code>meta-data</code> entries: <code>com.android.stamp.source</code>, <code>com.android.stamp.type</code>, <code>com.android.vending.derived.apk.id</code><br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>

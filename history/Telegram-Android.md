@@ -18,6 +18,20 @@ Website donwload: <https://web.telegram.org/k/#@TAndroidAPK>
     </thead>
     <tbody>
         <tr>
+            <td>v12.8.1</td>
+            <td>2026-06-16</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27651604040">#27651604040</a></td>
+            <td>Reproducible builds script provided by Telegram does not allow verification of the PlayStore APK. The dex files are not in the same order (although they are strictly identical) and the PlayStore APK miss the <code>baseline.prof</code> file, the file <code>version-control-info.textproto</code> also differs (see <a href="https://github.com/DrKLO/Telegram/pull/1899">#1899</a>, reported to @BotSupport), and there is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml.<br>Plus, there are some fonts and xml files not present in the official APKs.</td>
+        </tr>
+        <tr>
+            <td>v12.8.0</td>
+            <td>2026-06-16</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27651601426">#27651601426</a></td>
+            <td>Reproducible builds script provided by Telegram does not allow verification of the PlayStore APK. The dex files are not in the same order (although they are strictly identical) and the PlayStore APK miss the <code>baseline.prof</code> file, the file <code>version-control-info.textproto</code> also differs (see <a href="https://github.com/DrKLO/Telegram/pull/1899">#1899</a>, reported to @BotSupport), and there is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml.<br>Plus, there are some fonts and xml files not present in the official APKs.</td>
+        </tr>
+        <tr>
             <td>v12.7.3</td>
             <td>2026-05-15</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
