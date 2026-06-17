@@ -99,7 +99,7 @@ This repository verifies the reproducibility status of open-source messengers.
     <tr>
       <td>SimpleX Desktop</td>
       <td>v6.5.4</td>
-      <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+      <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
       <td><a href="history/SimpleX-Desktop.md">See details</a></td>
     </tr>
     <tr>
