@@ -6,7 +6,7 @@ version = "0.1.0"
 [dependencies]
 clap = { version = "4.6.1", features = ["derive", "env"] }
 env_logger = "0.11.10"
-gpapi = "6.1.0"
+gpapi = { git = "https://github.com/BarbossHack/rs-google-play", branch = "skip-purchase-if-not-needed" }
 tokio = { version = "1.52.1", features = ["full"] }
 
 [[bin]]
