@@ -19,6 +19,7 @@ jobs:
       - name: Build
         id: build
         run: |
+          set -x
           git clone https://github.com/olvid-io/olvid-android
           cd olvid-android
           tags=$(curl -sfL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/olvid-io/olvid-android/tags | jq -r .[].name)
