@@ -4,36 +4,7 @@ Repository: <https://github.com/TelegramMessenger/Telegram-iOS>
 
 Reproducible build instructions: <https://core.telegram.org/reproducible-builds#reproducible-builds-for-ios>
 
-<details>
-<summary>Decrypt IPA</summary>
-
-Jailbreak with Palera1n:
-
-```bash
-# Run usbmuxd from https://github.com/BarbossHack/libimobiledevice-fedora
-make usbmuxd
-
-# Jailbreak
-# (if stuck in restore mode, run `irecovery -n`)
-curl -sLO https://github.com/palera1n/palera1n/releases/latest/download/palera1n-linux-x86_64
-chmod +x palera1n-linux-x86_64
-sudo ./palera1n-linux-x86_64 --dfuhelper
-sudo ./palera1n-linux-x86_64 -f -c -Vv
-sudo ./palera1n-linux-x86_64 -f -Vv
-
-# Install openssh via Sileo (password: alpine)
-```
-
-Decrypt IPA:
-
-```bash
-curl -sLO https://github.com/londek/ipadecrypt/releases/download/v0.7.2/ipadecrypt_0.7.2_linux_amd64
-chmod +x ipadecrypt_0.7.2_linux_amd64
-./ipadecrypt_0.7.2_linux_amd64 bootstrap
-./ipadecrypt_0.7.2_linux_amd64 decrypt 686449807
-```
-
-</details>
+See the [instructions](../iOS.md) with the following APPLE_ID: 686449807
 
 <table align="center">
     <thead>

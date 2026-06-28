@@ -4,6 +4,8 @@ Repository: <https://github.com/signalapp/Signal-iOS>
 
 Reproducible build instructions: None
 
+See the [instructions](../iOS.md) with the following APPLE_ID: 874139669
+
 <table align="center">
     <thead>
         <tr>

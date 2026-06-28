@@ -20,63 +20,63 @@ Website download: <https://shop.threema.ch/fr/download>
         <tr>
             <td>v6.4.3</td>
             <td>2026-06-09</td>
-            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
+            <td>✅ Yes <i>(Website)</td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27651977973">#27651977973</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v6.4.2</td>
             <td>2026-04-23</td>
-            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
+            <td>✅ Yes <i>(Website)</td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25822456465">#25822456465</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v6.4.1</td>
             <td>2026-04-13</td>
-            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
+            <td>✅ Yes <i>(Website)</td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/25217157862">#25217157862</a></td>
             <td>The issue has been reported to Threema support. They will fix it in a future release, but a quick workaround is to remove the .git directory before building the app. Thanks to Thorben and Diego for the quick reply!</td>
         </tr>
         <tr>
             <td>v6.4.0</td>
             <td>2026-03-31</td>
-            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
+            <td>✅ Yes <i>(Website)</td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/24160649989">#24160649989</a></td>
             <td>Although the reproducibility check fails, the codebase is identical. The only differences lie in <code>baseline.prof</code> and <code>classes3.dex / GetDebugMetaDataUseCase.java</code>, where the Threema developers did not specify the commit SHA used to build the application.</td>
         </tr>
         <tr>
             <td>v6.3.2</td>
             <td>2026-03-09</td>
-            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
+            <td>✅ Yes <i>(Website)</td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/22923227408">#22923227408</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v6.3.1</td>
             <td>2026-02-04</td>
-            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
+            <td>✅ Yes <i>(Website)</td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/22645086714">#22645086714</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v6.3.0</td>
             <td>2025-12-09</td>
-            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
+            <td>✅ Yes <i>(Website)</td>
             <td>-</td>
             <td>-</td>
         </tr>
         <tr>
             <td>v6.2.1</td>
             <td>2025-11-13</td>
-            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
+            <td>✅ Yes <i>(Website)</td>
             <td>-</td>
             <td>-</td>
         </tr>
         <tr>
             <td>v6.1.3</td>
             <td>2025-09-24</td>
-            <td>✖️ N/A <i>(PlayStore)</i><br>✅ Yes <i>(Website)</td>
+            <td>✅ Yes <i>(Website)</td>
             <td>-</td>
             <td>-</td>
         </tr>

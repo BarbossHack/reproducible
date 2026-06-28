@@ -51,8 +51,6 @@ jobs:
           git clone https://github.com/signalapp/Signal-Android --depth 1
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
-          zip -d ../../../Threema.apk "META-INF/*"
-          zip -d ../../../threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/threemashop_private/app-store_threema-universal-release-unsigned.apk "META-INF/*"
           uv run apkdiff.py ../../../Threema.apk ../../../threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/threemashop_private/app-store_threema-universal-release-unsigned.apk
 
   notify:
