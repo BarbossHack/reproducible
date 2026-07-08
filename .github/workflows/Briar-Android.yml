@@ -13,6 +13,8 @@ jobs:
   website-verify:
     runs-on: ubuntu-latest
     steps:
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Dockerfile
         run: |
           sudo apt update && sudo apt install -y fuse
@@ -27,11 +29,9 @@ jobs:
       - name: Signal Apkdiff
         run: |
           pip install uv
-          git clone https://github.com/signalapp/Signal-Android --depth 1
-          cd Signal-Android/reproducible-builds/apkdiff
+          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
+          cd apkdiff/reproducible-builds/apkdiff
           uv sync
-          zip -d ../../../official.apk "META-INF/*"
-          zip -d ../../../build.apk "META-INF/*"
           uv run apkdiff.py ../../../official.apk ../../../build.apk
 
   playstore-verify:
@@ -57,8 +57,6 @@ jobs:
           git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
-          zip -d ../../../briar.apk "META-INF/*"
-          zip -d ../../../playstore/org.briarproject.briar.android.apk "META-INF/*"
           uv run apkdiff.py ../../../briar.apk ../../../playstore/org.briarproject.briar.android.apk
 
   notify:
