@@ -45,6 +45,10 @@ jobs:
       - name: Apkdiff
         run: |
           ./threema-android/scripts/verify-build.sh -n "${{ inputs.VERSION }}-${{ env.VERSION_CODE }}" -v threemashop_private -p Threema.apk
+      - name: Exclude some known different (but acceptable) files
+        run: |
+          zip -d Threema.apk "META-INF/ANDROID_.RSA" "META-INF/ANDROID_.SF" || true
+          zip -d threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/threemashop_private/app-store_threema-universal-release-unsigned.apk "META-INF/ANDROID_.RSA" "META-INF/ANDROID_.SF" || true
       - name: Signal Apkdiff
         run: |
           pip install uv
