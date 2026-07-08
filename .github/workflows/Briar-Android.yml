@@ -26,6 +26,10 @@ jobs:
           sudo docker cp reproducer:/opt/briar-reproducer/briar/briar-android/build/outputs/apk/official/release/briar-android-official-release-unsigned.apk build.apk
           sudo docker cp reproducer:/opt/briar-reproducer/briar-${{ inputs.VERSION }}.apk official.apk
           sudo chmod 666 *.apk
+      - name: Exclude some known different (but acceptable) files
+        run: |
+          zip -d official.apk "META-INF/BRIAR.RSA" "META-INF/BRIAR.SF" || true
+          zip -d build.apk "META-INF/BRIAR.RSA" "META-INF/BRIAR.SF" || true
       - name: Signal Apkdiff
         run: |
           pip install uv
@@ -51,6 +55,10 @@ jobs:
         run: |
           cargo build --manifest-path gpapi/Cargo.toml --release
           ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.briarproject.briar.android" --version-code ${{ env.VERSION_CODE }} --output=./playstore/ --download
+      - name: Exclude some known different (but acceptable) files
+        run: |
+          zip -d official.apk "META-INF/BRIAR.RSA" "META-INF/BRIAR.SF" || true
+          zip -d build.apk "META-INF/BRIAR.RSA" "META-INF/BRIAR.SF" || true
       - name: Signal Apkdiff
         run: |
           pip install uv
