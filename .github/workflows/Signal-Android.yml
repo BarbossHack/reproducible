@@ -143,7 +143,7 @@ jobs:
           path: Signal-Android/app/build/outputs/apk/websiteProd/release/*universal*.apk
       - name: Apkdiff
         run: |
-          git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
+          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
@@ -179,7 +179,7 @@ jobs:
           path: Signal-Android/app/build/outputs/apk/githubProd/release/*universal*.apk
       - name: Apkdiff
         run: |
-          git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
+          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync
@@ -220,7 +220,7 @@ jobs:
             Signal-Android/app/build/outputs/bundle/playProdRelease/Signal-Android-play-prod-release.aab
       - name: Apkdiff
         run: |
-          git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
+          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync

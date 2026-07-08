@@ -46,7 +46,7 @@ jobs:
         run: |
           zip -d fdroid-arm64-v8a.apk META-INF/FDROID.SF META-INF/FDROID.RSA META-INF/MANIFEST.MF
           pip install uv
-          git clone https://github.com/signalapp/Signal-Android --depth 1
+          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1
           cd Signal-Android/reproducible-builds/apkdiff
           uv sync
           uv run apkdiff.py ../../../fdroid-arm64-v8a.apk ../../../olvid-android/obv_messenger/app/build/outputs/apk/prodZfdroid/release/app-prod-zfdroid-arm64-v8a-release-unsigned.apk
@@ -109,7 +109,7 @@ jobs:
           path: olvid-android/apks/splits/
       - name: Apkdiff
         run: |
-          git clone https://github.com/signalapp/Signal-Android --depth 1 apkdiff
+          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
           pip install uv
           cd apkdiff/reproducible-builds/apkdiff
           uv sync

@@ -54,8 +54,8 @@ jobs:
       - name: Signal Apkdiff
         run: |
           pip install uv
-          git clone https://github.com/signalapp/Signal-Android --depth 1
-          cd Signal-Android/reproducible-builds/apkdiff
+          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
+          cd apkdiff/reproducible-builds/apkdiff
           uv sync
           zip -d ../../../briar.apk "META-INF/*"
           zip -d ../../../playstore/org.briarproject.briar.android.apk "META-INF/*"
