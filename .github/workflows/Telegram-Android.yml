@@ -110,8 +110,8 @@ jobs:
       - name: Signal Apkdiff
         run: |
           pip install uv
-          git clone https://github.com/signalapp/Signal-Android --depth 1
-          cd Signal-Android/reproducible-builds/apkdiff
+          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
+          cd apkdiff/reproducible-builds/apkdiff
           uv sync
           uv run apkdiff.py ../../../website-official/Telegram-website.apk ../../../build/Telegram-build-website.apk
       - name: apkdiff
@@ -147,8 +147,8 @@ jobs:
       - name: Signal Apkdiff
         run: |
           pip install uv
-          git clone https://github.com/signalapp/Signal-Android --depth 1
-          cd Signal-Android/reproducible-builds/apkdiff
+          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
+          cd apkdiff/reproducible-builds/apkdiff
           uv sync
           base_output=$(uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.apk ../../../apks/splits/base-master.apk 2>&1 || true)
           echo "$base_output"
