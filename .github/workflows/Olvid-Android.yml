@@ -16,6 +16,8 @@ jobs:
   fdroid-verify:
     runs-on: ubuntu-latest
     steps:
+      - name: aapt
+        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Build
         id: build
         run: |
