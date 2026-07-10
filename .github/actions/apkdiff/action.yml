@@ -1,0 +1,36 @@
+name: "apkdiff"
+description: "Signal-Android apkdiff script as a reusable action."
+inputs:
+  APK_1:
+    required: true
+    description: "First APK file to compare."
+  APK_2:
+    required: true
+    description: "Second APK file to compare."
+  IGNORE_FILES:
+    required: false
+    description: "List of files to ignore during comparison."
+
+runs:
+  using: composite
+  steps:
+    - name: Exclude some known different (but acceptable) files
+      shell: bash
+      script: |
+        set -x
+        for file in ${{ inputs.IGNORE_FILES }}; do
+          zip -d "${{ inputs.APK_1 }}" "$file" || true
+          zip -d "${{ inputs.APK_2 }}" "$file" || true
+        done
+    - name: aapt
+      shell: bash
+      run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
+    - name: Verify
+      shell: bash
+      run: |
+        set -x
+        pip install uv
+        git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1
+        cd Signal-Android/reproducible-builds/apkdiff
+        uv sync
+        uv run apkdiff.py "${{ inputs.APK_1 }}" "${{ inputs.APK_2 }}"
