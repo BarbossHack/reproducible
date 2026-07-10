@@ -16,7 +16,7 @@ runs:
   steps:
     - name: Exclude some known different (but acceptable) files
       shell: bash
-      script: |
+      run: |
         set -x
         for file in ${{ inputs.IGNORE_FILES }}; do
           zip -d "${{ inputs.APK_1 }}" "$file" || true
