@@ -43,7 +43,11 @@ jobs:
       - name: Download fdroid apk
         run: |
           # the trailing '02' means arm64-v8a for fdroid
-          curl -isfL "https://f-droid.org/repo/io.olvid.messenger.nogoogle_${{ env.VERSION_CODE }}02.apk" -o fdroid-arm64-v8a.apk
+          curl -sfL "https://f-droid.org/repo/io.olvid.messenger.nogoogle_${{ env.VERSION_CODE }}02.apk" -o fdroid-arm64-v8a.apk
+      - name: Exclude some known different (but acceptable) files
+        run: |
+          zip -d fdroid-arm64-v8a.apk "META-INF/FDROID.RSA" "META-INF/FDROID.SF" || true
+          zip -d olvid-android/obv_messenger/app/build/outputs/apk/prodZfdroid/release/app-prod-zfdroid-arm64-v8a-release-unsigned.apk "META-INF/FDROID.RSA" "META-INF/FDROID.SF" || true
       - name: Verify
         run: |
           pip install uv
