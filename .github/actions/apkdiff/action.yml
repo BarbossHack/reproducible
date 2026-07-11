@@ -1,12 +1,12 @@
 name: "apkdiff"
 description: "Signal-Android apkdiff script as a reusable action."
 inputs:
-  APK_1:
+  APKS_A:
     required: true
-    description: "First APK file to compare."
-  APK_2:
+    description: "First set of APK files to compare."
+  APKS_B:
     required: true
-    description: "Second APK file to compare."
+    description: "Second set of APK files to compare."
   IGNORE_FILES:
     required: false
     description: "List of files to ignore during comparison."
@@ -14,20 +14,21 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: debug
-      shell: bash
-      run: |
-        set -x
-        pwd
-        ls -lsah
     - name: Exclude some known different (but acceptable) files
       shell: bash
       run: |
         set -x
-        while IFS= read -r file; do
-          zip -d "${{ inputs.APK_1 }}" "$file" || true
-          zip -d "${{ inputs.APK_2 }}" "$file" || true
-        done <<< "${{ inputs.IGNORE_FILES }}"
+        mapfile -t IGNORE_FILES <<< "${{ inputs.IGNORE_FILES }}"
+        mapfile -t APKS_A <<< "${{ inputs.APKS_A }}"
+        mapfile -t APKS_B <<< "${{ inputs.APKS_B }}"
+        for file in "${IGNORE_FILES[@]}"; do
+          for apk in "${APKS_A[@]}"; do
+            zip -d "$apk" "$file" || true
+          done
+          for apk in "${APKS_B[@]}"; do
+            zip -d "$apk" "$file" || true
+          done
+        done
     - name: aapt
       shell: bash
       run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
@@ -39,4 +40,9 @@ runs:
         git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1
         cd Signal-Android/reproducible-builds/apkdiff
         uv sync
-        uv run apkdiff.py "${{ inputs.APK_1 }}" "${{ inputs.APK_2 }}"
+
+        mapfile -t APKS_A <<< "${{ inputs.APKS_A }}"
+        mapfile -t APKS_B <<< "${{ inputs.APKS_B }}"
+        for i in "${!APKS_A[@]}"; do
+          uv run apkdiff.py "${APKS_A[$i]}" "${APKS_B[$i]}"
+        done
