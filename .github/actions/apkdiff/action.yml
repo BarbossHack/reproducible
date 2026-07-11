@@ -44,5 +44,5 @@ runs:
         mapfile -t APKS_A <<< "${{ inputs.APKS_A }}"
         mapfile -t APKS_B <<< "${{ inputs.APKS_B }}"
         for i in "${!APKS_A[@]}"; do
-          uv run apkdiff.py "${APKS_A[$i]}" "${APKS_B[$i]}"
+          uv run apkdiff.py "../../../${APKS_A[$i]}" "../../../${APKS_B[$i]}"
         done
