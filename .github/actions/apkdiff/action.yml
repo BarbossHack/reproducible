@@ -17,7 +17,7 @@ runs:
     - name: Exclude some known different (but acceptable) files
       shell: bash
       run: |
-        set -x
+        set -xeuo pipefail
         mapfile -t IGNORE_FILES <<< "${{ inputs.IGNORE_FILES }}"
         mapfile -t APKS_A <<< "${{ inputs.APKS_A }}"
         mapfile -t APKS_B <<< "${{ inputs.APKS_B }}"
@@ -35,7 +35,7 @@ runs:
     - name: Verify
       shell: bash
       run: |
-        set -x
+        set -xeuo pipefail
         pip install uv
         git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1
         cd Signal-Android/reproducible-builds/apkdiff

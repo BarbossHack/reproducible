@@ -106,15 +106,16 @@ jobs:
         with:
           name: playstore-build
           path: olvid-android/apks/splits/
-      - name: Apkdiff
-        run: |
-          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
-          pip install uv
-          cd apkdiff/reproducible-builds/apkdiff
-          uv sync
-          uv run apkdiff.py ../../../playstore-official/io.olvid.messenger/io.olvid.messenger.apk ../../../olvid-android/apks/splits/base-master.apk
-          uv run apkdiff.py ../../../playstore-official/io.olvid.messenger/io.olvid.messenger.config.arm64_v8a.apk ../../../olvid-android/apks/splits/base-arm64_v8a.apk
-          uv run apkdiff.py ../../../playstore-official/io.olvid.messenger/io.olvid.messenger.config.xxhdpi.apk ../../../olvid-android/apks/splits/base-xxhdpi.apk
+      - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
+        with:
+          APKS_A: |-
+            playstore-official/io.olvid.messenger/io.olvid.messenger.apk
+            playstore-official/io.olvid.messenger/io.olvid.messenger.config.arm64_v8a.apk
+            playstore-official/io.olvid.messenger/io.olvid.messenger.config.xxhdpi.apk
+          APKS_B: |-
+            olvid-android/apks/splits/base-master.apk
+            olvid-android/apks/splits/base-arm64_v8a.apk
+            olvid-android/apks/splits/base-xxhdpi.apk
 
   notify:
     needs: [fdroid-verify, playstore-verify]
