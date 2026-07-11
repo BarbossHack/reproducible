@@ -24,10 +24,10 @@ runs:
       shell: bash
       run: |
         set -x
-        for file in ${{ inputs.IGNORE_FILES }}; do
+        while IFS= read -r file; do
           zip -d "${{ inputs.APK_1 }}" "$file" || true
           zip -d "${{ inputs.APK_2 }}" "$file" || true
-        done
+        done <<< "${{ inputs.IGNORE_FILES }}"
     - name: aapt
       shell: bash
       run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
