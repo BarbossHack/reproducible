@@ -14,14 +14,20 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: debug
+      shell: bash
+      run: |
+        set -x
+        pwd
+        ls -lsah
     - name: Exclude some known different (but acceptable) files
       shell: bash
       run: |
         set -x
-        while IFS= read -r file; do
+        for file in ${{ inputs.IGNORE_FILES }}; do
           zip -d "${{ inputs.APK_1 }}" "$file" || true
           zip -d "${{ inputs.APK_2 }}" "$file" || true
-        done <<< "$IGNORE_FILES"
+        done
     - name: aapt
       shell: bash
       run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
