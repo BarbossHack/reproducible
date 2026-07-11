@@ -47,8 +47,8 @@ jobs:
           APK_1: fdroid-arm64-v8a.apk
           APK_2: olvid-android/obv_messenger/app/build/outputs/apk/prodZfdroid/release/app-prod-zfdroid-arm64-v8a-release-unsigned.apk
           IGNORE_FILES: |
-            - META-INF/FDROID.RSA
-            - META-INF/FDROID.SF
+            META-INF/FDROID.RSA
+            META-INF/FDROID.SF
     outputs:
       VERSION_CODE: ${{ steps.build.outputs.VERSION_CODE }}
 
