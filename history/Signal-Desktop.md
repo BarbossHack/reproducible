@@ -16,11 +16,39 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.18.0</td>
+            <td>2026-07-09</td>
+            <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29065131199">#29065131199</a></td>
+            <td>Different sticker-creator index.js file included in app.asar</td>
+        </tr>
+        <tr>
+            <td>v8.17.0</td>
+            <td>2026-07-01</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/28562013505">#28562013505</a></td>
+            <td>Signal explicitly states: <quote>"Reproducible builds for macOS and Windows are not available yet."</a></td>
+        </tr>
+        <tr>
+            <td>v8.16.0</td>
+            <td>2026-06-24</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/28143678972">#28143678972</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.15.0</td>
+            <td>2026-06-18</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27734981916">#27734981916</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v8.14.0</td>
             <td>2026-06-10</td>
             <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27322087679">#27322087679</a></td>
-            <td>Signal explicitly states: <quote>"Reproducible builds for macOS and Windows are not available yet."</a></td>
+            <td>-</td>
         </tr>
         <tr>
             <td>v8.13.0</td>

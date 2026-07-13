@@ -16,60 +16,88 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.18.2</td>
+            <td>2026-07-06</td>
+            <td>❌ No <i>(PlayStore)</i><br>✖️ N/A <i>(Website)</i><br>❌ No <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/28990179553">#28990179553</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
+            <td>v8.17.4</td>
+            <td>2026-07-02</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/28967945413">#28967945413</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
+            <td>v8.17.3</td>
+            <td>2026-06-29</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>❌ No <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/28562095754">#28562095754</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
+            <td>v8.16.1</td>
+            <td>2026-06-18</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>❌ No <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/28214319158">#28214319158</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
             <td>v8.15.3</td>
             <td>2026-06-16</td>
             <td>❌ No <i>(PlayStore)</i><br>✖️ N/A <i>(Website)</i><br>❌ No <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27664361531">#27664361531</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK has been built with minSdk=32, whereas Signal specifies minSdk=23 in its source code<br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.14.3</td>
             <td>2026-06-09</td>
             <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27308047568">#27308047568</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK has been built with minSdk=32, whereas Signal specifies minSdk=23 in its source code<br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.13.2</td>
             <td>2026-06-03</td>
             <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✖️ N/A <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27309557624">#27309557624</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK has been built with minSdk=32, whereas Signal specifies minSdk=23 in its source code<br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.13.1</td>
             <td>2026-05-29</td>
             <td>❌ No <i>(PlayStore)</i><br>✖️ N/A <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27309562075">#27309562075</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK has been built with minSdk=32, whereas Signal specifies minSdk=23 in its source code<br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.12.4</td>
             <td>2026-05-27</td>
             <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27309566887">#27309566887</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK has been built with minSdk=32, whereas Signal specifies minSdk=23 in its source code<br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.11.5</td>
             <td>2026-05-21</td>
             <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✖️ N/A <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27309575325">#27309575325</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK has been built with minSdk=32, whereas Signal specifies minSdk=23 in its source code<br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.10.3</td>
             <td>2026-05-19</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27309580333">#27309580333</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK has been built with minSdk=32, whereas Signal specifies minSdk=23 in its source code<br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.10.2</td>
             <td>2026-05-11</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>❌ No <i>(Github)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27309584727">#27309584727</a></td>
-            <td>There are differences in the following files:<br>⮞ <code>AndroidManifest.xml</code>: The official APK has been built with minSdk=32, whereas Signal specifies minSdk=23 in its source code<br>⮞ <code>assets/dexopt/baseline.prof</code><br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
         </tr>
         <tr>
             <td>v8.9.1</td>

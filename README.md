@@ -38,7 +38,7 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>Olvid Android</td>
-      <td>v4.3</td>
+      <td>v4.4</td>
       <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(F-Droid)</i></td>
       <td><a href="history/Olvid-Android.md">See details</a></td>
     </tr>
@@ -68,14 +68,14 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>Signal Android</td>
-      <td>v8.15.3</td>
+      <td>v8.18.2</td>
       <td>❌ No <i>(PlayStore)</i><br>✖️ N/A <i>(Website)</i><br>❌ No <i>(Github)</i></td>
       <td><a href="history/Signal-Android.md">See details</a></td>
     </tr>
     <tr>
       <td>Signal Desktop</td>
-      <td>v8.14.0</td>
-      <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+      <td>v8.18.0</td>
+      <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
     <tr>
@@ -98,7 +98,7 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>SimpleX Desktop</td>
-      <td>v6.5.4</td>
+      <td>v6.5.6</td>
       <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
       <td><a href="history/SimpleX-Desktop.md">See details</a></td>
     </tr>

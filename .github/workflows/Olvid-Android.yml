@@ -37,11 +37,9 @@ jobs:
         run: |
           docker build -t olvid-android ./olvid-android/reproducible-builds/
           docker run --rm --pull=never -v "$(pwd)/olvid-android/":/olvid -w /olvid/obv_messenger olvid-android ./gradlew assembleProdZfdroidRelease
-      - run: find . -name "*.apk"
       - name: Download fdroid apk
-        run: |
-          # the trailing '02' means arm64-v8a for fdroid
-          curl -sfL "https://f-droid.org/repo/io.olvid.messenger.nogoogle_${{ env.VERSION_CODE }}02.apk" -o fdroid-arm64-v8a.apk
+        # the trailing '02' means arm64-v8a for fdroid
+        run: curl -sfL "https://f-droid.org/repo/io.olvid.messenger.nogoogle_${{ env.VERSION_CODE }}02.apk" -o fdroid-arm64-v8a.apk
       - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
         with:
           APKS_A: fdroid-arm64-v8a.apk
