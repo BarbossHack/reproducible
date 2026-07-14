@@ -10,7 +10,8 @@ on:
 run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 env:
-  SIGNATURE_SHA256: 269d600e1ce7e0a7ffddb18fb92251092938f5be38ea1113e29213564b32cb44
+  SIGNATURE_SHA256: d78daf9601c1b4686f126436b2432b84e7bbc42b3a87381abafac961ac7133ad
+  LIBRE_SIGNATURE_SHA256: 0508b53ff102b538919c834e9e6b6afba046edf67e17ca4d1ce7a4b9c3823741
 
 jobs:
   website-verify:
@@ -65,7 +66,7 @@ jobs:
         run: |
           set -x
           curl -sSfL --retry 5 --retry-all-errors "https://f-droid.org/repo/ch.threema.app.libre_${{ needs.website-verify.outputs.VERSION_CODE }}.apk" -o Threema.apk
-          apksigner verify -v --print-certs Threema.apk | grep $SIGNATURE_SHA256 || true # FIXME: re-enable this shit
+          apksigner verify -v --print-certs Threema.apk | grep $LIBRE_SIGNATURE_SHA256
       - name: Dockerfile
         run: |
           git clone https://github.com/threema-ch/threema-android --depth 1 -b "${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}"
@@ -81,12 +82,12 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: build-fdroid
-          path: threema-android/release/${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}/libre_private/app-store_threema-universal-release-unsigned.apk
+          path: threema-android/release/${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}/libre_private/app-libre-universal-release-unsigned.apk
       - name: Apkdiff
         run: ./threema-android/scripts/verify-build.sh -n "${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}" -v libre_private -p Threema.apk
       - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
         with:
-          APKS_A: threema-android/release/${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}/libre_private/app-store_threema-universal-release-unsigned.apk
+          APKS_A: threema-android/release/${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}/libre_private/app-libre-universal-release-unsigned.apk
           APKS_B: Threema.apk
           IGNORE_FILES: |-
             META-INF/ANDROID_.RSA

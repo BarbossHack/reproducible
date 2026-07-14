@@ -6,6 +6,8 @@ Reproducible build instructions: <https://threema.com/en/why-threema/open-source
 
 Website download: <https://shop.threema.ch/fr/download>
 
+F-Droid download: <https://f-droid.org/en/packages/ch.threema.app.libre/>
+
 <table align="center">
     <thead>
         <tr>
