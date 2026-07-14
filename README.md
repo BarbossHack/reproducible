@@ -129,7 +129,7 @@ This repository verifies the reproducibility status of open-source messengers.
     <tr>
       <td>Threema Android</td>
       <td>v6.4.3</td>
-      <td>⚪ Not verified <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+      <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(F-Droid)</i></td>
       <td><a href="history/Threema-Android.md">See details</a></td>
     </tr>
     <tr>

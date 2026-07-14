@@ -22,8 +22,8 @@ F-Droid download: <https://f-droid.org/en/packages/ch.threema.app.libre/>
         <tr>
             <td>v6.4.3</td>
             <td>2026-06-09</td>
-            <td>✅ Yes <i>(Website)</td>
-            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27651977973">#27651977973</a></td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(F-Droid)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29369638206">#29369638206</a></td>
             <td>-</td>
         </tr>
         <tr>
