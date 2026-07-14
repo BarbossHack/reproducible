@@ -67,10 +67,10 @@ jobs:
         run: |
           # See ./app/build.gradle.kts for the version code calculation
           VERSION_CODE_PLAYSTORE=$(( 3 * 1000000 + ${{ needs.website-verify.outputs.VERSION_CODE }} ))
-          echo "VERSION_CODE_PLAYSTORE=$VERSION_CODE_PLAYSTORE" >> $GITHUB_ENV
+          echo "Using version code $VERSION_CODE_PLAYSTORE for playstore download, expected to be 3 * 1000000 + $VERSION_CODE"
 
           cargo build --manifest-path gpapi/Cargo.toml --release
-          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "ch.threema.app" --version-code ${{ env.VERSION_CODE_PLAYSTORE }} --output=./playstore/ --download
+          ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "ch.threema.app" --version-code ${VERSION_CODE_PLAYSTORE} --output=./playstore/ --download
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
