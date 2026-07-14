@@ -31,7 +31,7 @@ runs:
         done
     - name: aapt
       shell: bash
-      run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
+      run: echo "PATH=/usr/local/lib/android/sdk/build-tools/37.0.0:$PATH" >> $GITHUB_ENV
     - name: Verify
       shell: bash
       run: |

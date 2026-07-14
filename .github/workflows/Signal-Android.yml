@@ -126,8 +126,6 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: website-official
-      - name: aapt
-        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Build
         run: |
           git clone https://github.com/signalapp/Signal-Android -b v${{ inputs.VERSION }} --depth 1
@@ -141,17 +139,10 @@ jobs:
         with:
           name: website-build
           path: Signal-Android/app/build/outputs/apk/websiteProd/release/*universal*.apk
-      - name: Apkdiff
-        run: |
-          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
-          pip install uv
-          cd apkdiff/reproducible-builds/apkdiff
-          uv sync
-          built_apk="../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
-          if [ ! -f "$built_apk" ]; then
-            built_apk="../../../Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned.apk"
-          fi
-          uv run apkdiff.py ../../../website.apk "$built_apk"
+      - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
+        with:
+          APKS_A: Signal-Android/app/build/outputs/apk/websiteProd/release/Signal-Android-website-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk
+          APKS_B: website.apk
 
   github-verify:
     needs: [github-download]
@@ -162,8 +153,6 @@ jobs:
         uses: actions/download-artifact@v7
         with:
           name: github-official
-      - name: aapt
-        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
       - name: Build
         run: |
           git clone https://github.com/signalapp/Signal-Android -b v${{ inputs.VERSION }} --depth 1
@@ -177,17 +166,10 @@ jobs:
         with:
           name: github-build
           path: Signal-Android/app/build/outputs/apk/githubProd/release/*universal*.apk
-      - name: Apkdiff
-        run: |
-          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
-          pip install uv
-          cd apkdiff/reproducible-builds/apkdiff
-          uv sync
-          built_apk="../../../Signal-Android/app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk"
-          if [ ! -f "$built_apk" ]; then
-            built_apk="../../../Signal-Android/app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned.apk"
-          fi
-          uv run apkdiff.py ../../../github.apk "$built_apk"
+      - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
+        with:
+          APKS_A: Signal-Android/app/build/outputs/apk/githubProd/release/Signal-Android-github-prod-universal-release-unsigned-${{ inputs.VERSION }}.apk
+          APKS_B: github.apk
 
   playstore-verify:
     needs: [playstore-download]
@@ -218,15 +200,16 @@ jobs:
           path: |
             Signal-Android/apks/splits/
             Signal-Android/app/build/outputs/bundle/playProdRelease/Signal-Android-play-prod-release.aab
-      - name: Apkdiff
-        run: |
-          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
-          pip install uv
-          cd apkdiff/reproducible-builds/apkdiff
-          uv sync
-          uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk ../../../Signal-Android/apks/splits/base-master.apk
-          uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.arm64_v8a.apk ../../../Signal-Android/apks/splits/base-arm64_v8a.apk
-          uv run apkdiff.py ../../../playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.xxhdpi.apk ../../../Signal-Android/apks/splits/base-xxhdpi.apk
+      - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
+        with:
+          APKS_A: |-
+            Signal-Android/apks/splits/base-master.apk
+            Signal-Android/apks/splits/base-arm64_v8a.apk
+            Signal-Android/apks/splits/base-xxhdpi.apk
+          APKS_B: |-
+            playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk
+            playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.arm64_v8a.apk
+            playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.config.xxhdpi.apk
 
   libsignal-verify:
     needs: [website-download, github-download, playstore-download]

@@ -101,19 +101,16 @@ jobs:
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v8
-      - name: aapt
-        run: echo "PATH=$PATH:/usr/local/lib/android/sdk/build-tools/37.0.0" >> $GITHUB_ENV
-      - name: Exclude some known different (but acceptable) files
-        run: |
-          zip -d website-official/Telegram-website.apk "META-INF/CERT.RSA" "META-INF/CERT.SF" "META-INF/BNDLTOOL.RSA" "META-INF/BNDLTOOL.SF" "META-INF/version-control-info.textproto"
-          zip -d build/Telegram-build-website.apk "META-INF/CERT.RSA" "META-INF/CERT.SF" "META-INF/BNDLTOOL.RSA" "META-INF/BNDLTOOL.SF" "META-INF/version-control-info.textproto"
-      - name: Signal Apkdiff
-        run: |
-          pip install uv
-          git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1 apkdiff
-          cd apkdiff/reproducible-builds/apkdiff
-          uv sync
-          uv run apkdiff.py ../../../website-official/Telegram-website.apk ../../../build/Telegram-build-website.apk
+      - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
+        with:
+          APKS_A: build/Telegram-build-website.apk
+          APKS_B: website-official/Telegram-website.apk
+          IGNORE_FILES: |-
+            META-INF/CERT.RSA
+            META-INF/CERT.SF
+            META-INF/BNDLTOOL.RSA
+            META-INF/BNDLTOOL.SF
+            META-INF/version-control-info.textproto
       - name: apkdiff
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
