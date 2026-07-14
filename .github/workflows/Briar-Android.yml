@@ -26,7 +26,7 @@ jobs:
           sudo chmod 666 *.apk
       - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
         with:
-          APKS_A: briar.apk
+          APKS_A: build.apk
           APKS_B: official.apk
           IGNORE_FILES: |-
             META-INF/BRIAR.RSA
@@ -49,6 +49,7 @@ jobs:
         run: |
           cargo build --manifest-path gpapi/Cargo.toml --release
           ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "org.briarproject.briar.android" --version-code ${{ env.VERSION_CODE }} --output=./playstore/ --download
+      # We already verified the website APK, so we can skip the reproducibility check for it and just compare it with the Play Store APK
       - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
         with:
           APKS_A: briar.apk
