@@ -63,7 +63,8 @@ jobs:
         run: echo "PATH=/usr/local/lib/android/sdk/build-tools/37.0.0:$PATH" >> $GITHUB_ENV
       - name: Official
         run: |
-          curl -sfL "https://f-droid.org/repo/ch.threema.app.libre_${{ needs.website-verify.outputs.VERSION_CODE }}.apk" -o Threema.apk
+          curl -vvv "https://f-droid.org/repo/ch.threema.app.libre_${{ needs.website-verify.outputs.VERSION_CODE }}.apk"
+          curl -sfL --retry 5 "https://f-droid.org/repo/ch.threema.app.libre_${{ needs.website-verify.outputs.VERSION_CODE }}.apk" -o Threema.apk
           apksigner verify -v --print-certs --min-sdk-version 24 Threema.apk | grep $SIGNATURE_SHA256
       - name: Dockerfile
         run: |
