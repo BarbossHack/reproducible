@@ -36,9 +36,7 @@ jobs:
           cd scripts
           docker build --build-arg RUST_VERSION=$RUST_VERSION -t docker.io/threema/android-compile:${{ env.VERSION_CODE }} .
       - name: Build
-        run: |
-          ./threema-android/scripts/build-release.sh -v threemashop_private --no-image-export --i-accept-the-android-sdk-license
-          ls -Rlsah threema-android/release
+        run: ./threema-android/scripts/build-release.sh -v threemashop_private --no-image-export --i-accept-the-android-sdk-license
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
@@ -55,6 +53,41 @@ jobs:
             META-INF/ANDROID_.SF
     outputs:
       VERSION_CODE: ${{ steps.download.outputs.VERSION_CODE }}
+
+  fdroid-verify:
+    needs: website-verify
+    if: always() && needs.website-verify.outputs.VERSION_CODE != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Official
+        run: |
+          curl -L "https://f-droid.org/repo/ch.threema.app.libre_${{ needs.website-verify.outputs.VERSION_CODE }}.apk.apk" -o Threema.apk
+          apksigner verify -v --print-certs --min-sdk-version 24 Threema.apk | grep $SIGNATURE_SHA256
+      - name: Dockerfile
+        run: |
+          git clone https://github.com/threema-ch/threema-android --depth 1 -b "${{ inputs.VERSION }}-${{ env.VERSION_CODE }}"
+          cd threema-android
+          rm -rf .git
+          export RUST_VERSION=$(grep "channel = " "./domain/libthreema/rust-toolchain.toml" | cut -d= -f2 | xargs)
+          cd scripts
+          docker build --build-arg RUST_VERSION=$RUST_VERSION -t docker.io/threema/android-compile:${{ env.VERSION_CODE }} .
+      - name: Build
+        run: ./threema-android/scripts/build-release.sh -v libre_private --no-image-export --i-accept-the-android-sdk-license
+      - run: find . -name "*.apk"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-fdroid
+          path: threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/libre_private/app-store_threema-universal-release-unsigned.apk
+      - name: Apkdiff
+        run: ./threema-android/scripts/verify-build.sh -n "${{ inputs.VERSION }}-${{ env.VERSION_CODE }}" -v libre_private -p Threema.apk
+      - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
+        with:
+          APKS_A: threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/libre_private/app-store_threema-universal-release-unsigned.apk
+          APKS_B: Threema.apk
+          IGNORE_FILES: |-
+            META-INF/ANDROID_.RSA
+            META-INF/ANDROID_.SF
 
   playstore-verify:
     needs: website-verify
@@ -85,7 +118,6 @@ jobs:
           docker build --build-arg RUST_VERSION=$RUST_VERSION -t docker.io/threema/android-compile:${{ needs.website-verify.outputs.VERSION_CODE }} .
       - name: Build
         run: ./threema-android/scripts/build-release.sh -v googleplay_private --no-image-export --i-accept-the-android-sdk-license
-      - run: find . -name "*.apk"
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
