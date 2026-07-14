@@ -97,6 +97,9 @@ jobs:
         with:
           APKS_A: threema-android/release/${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}/googleplay_private/app-store_google-arm64-v8a-release-unsigned.apk
           APKS_B: playstore/ch.threema.app.apk
+          IGNORE_FILES: |-
+            META-INF/ANDROID_.RSA
+            META-INF/ANDROID_.SF
 
   notify:
     needs: [website-verify, playstore-verify]
