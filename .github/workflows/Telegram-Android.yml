@@ -30,7 +30,7 @@ jobs:
             echo "Version name mismatch: expected ${{ inputs.VERSION }}, got $VERSION_NAME"
             exit 1
           fi
-          apksigner verify -v --print-certs --min-sdk-version 24 Telegram-website.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs Telegram-website.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -63,7 +63,7 @@ jobs:
             echo "❌ Versions differ: expected ${{ inputs.VERSION }} but got $PLAYSTORE_VERSION"
             exit 1
           fi
-          apksigner verify -v --print-certs --min-sdk-version 24 playstore-official/org.telegram.messenger/org.telegram.messenger.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs playstore-official/org.telegram.messenger/org.telegram.messenger.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:

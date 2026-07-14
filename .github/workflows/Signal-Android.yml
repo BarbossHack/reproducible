@@ -36,7 +36,7 @@ jobs:
             echo "❌ Versions (api/apk) differ: expected ${{ inputs.VERSION }} but got $VERSION_NAME"
             exit 1
           fi
-          apksigner verify -v --print-certs --min-sdk-version 24 website.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs website.apk | grep $SIGNATURE_SHA256
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
@@ -67,7 +67,7 @@ jobs:
             echo "❌ Versions (api/apk) differ: expected ${{ inputs.VERSION }} but got $VERSION_NAME"
             exit 1
           fi
-          apksigner verify -v --print-certs --min-sdk-version 24 github.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs github.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -108,7 +108,7 @@ jobs:
             echo "❌ Versions differ: expected ${{ inputs.VERSION }} but got $PLAYSTORE_VERSION"
             echo "valid=false" >> $GITHUB_OUTPUT
           fi
-          apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs ./playstore-official/org.thoughtcrime.securesms/org.thoughtcrime.securesms.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:

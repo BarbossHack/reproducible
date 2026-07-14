@@ -78,7 +78,7 @@ jobs:
             echo "❌ Versions differ: expected ${{ inputs.VERSION }} but got $PLAYSTORE_VERSION"
             exit 1
           fi
-          apksigner verify -v --print-certs --min-sdk-version 24 ./playstore-official/io.olvid.messenger/io.olvid.messenger.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs ./playstore-official/io.olvid.messenger/io.olvid.messenger.apk | grep $SIGNATURE_SHA256
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:

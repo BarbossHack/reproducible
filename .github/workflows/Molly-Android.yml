@@ -19,7 +19,7 @@ jobs:
       - name: Official
         run: |
           wget https://github.com/mollyim/mollyim-android/releases/download/v${{ inputs.VERSION }}/Molly-v${{ inputs.VERSION }}.apk
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs --min-sdk-version 24 Molly-v${{ inputs.VERSION }}.apk | grep $SIGNATURE_SHA256
+          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs Molly-v${{ inputs.VERSION }}.apk | grep $SIGNATURE_SHA256
       - name: Build
         run: |
           git clone https://github.com/mollyim/mollyim-android.git -b v${{ inputs.VERSION }} --depth 1
