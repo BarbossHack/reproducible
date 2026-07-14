@@ -45,8 +45,7 @@ jobs:
           name: build-website
           path: threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/threemashop_private/app-store_threema-universal-release-unsigned.apk
       - name: Apkdiff
-        run: |
-          ./threema-android/scripts/verify-build.sh -n "${{ inputs.VERSION }}-${{ env.VERSION_CODE }}" -v threemashop_private -p Threema.apk
+        run: ./threema-android/scripts/verify-build.sh -n "${{ inputs.VERSION }}-${{ env.VERSION_CODE }}" -v threemashop_private -p Threema.apk
       - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
         with:
           APKS_A: threema-android/release/${{ inputs.VERSION }}-${{ env.VERSION_CODE }}/threemashop_private/app-store_threema-universal-release-unsigned.apk
@@ -67,7 +66,7 @@ jobs:
         run: |
           # See ./app/build.gradle.kts for the version code calculation
           VERSION_CODE_PLAYSTORE=$(( 3 * 1000000 + ${{ needs.website-verify.outputs.VERSION_CODE }} ))
-          echo "Using version code $VERSION_CODE_PLAYSTORE for playstore download, expected to be 3 * 1000000 + $VERSION_CODE"
+          echo "Using version code $VERSION_CODE_PLAYSTORE for playstore download, expected to be 3 * 1000000 + ${{ needs.website-verify.outputs.VERSION_CODE }}"
 
           cargo build --manifest-path gpapi/Cargo.toml --release
           ./gpapi/target/release/gpapi --email "${{ secrets.EMAIL }}" --aas-token "${{ secrets.AAS_TOKEN }}" --package "ch.threema.app" --version-code ${VERSION_CODE_PLAYSTORE} --output=./playstore/ --download
@@ -91,14 +90,13 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: playstore-build
-          path: threema-android/release/${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}/googleplay_private/app-store_threema-universal-release-unsigned.apk
+          path: threema-android/release/${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}/googleplay_private/app-store_google-arm64-v8a-release-unsigned.apk
       - name: Threema Verify Build
-        run: |
-          ./threema-android/scripts/verify-build.sh -n "${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}" -v googleplay_private -p Threema.apk
+        run: ./threema-android/scripts/verify-build.sh -n "${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}" -v googleplay_private -p playstore/ch.threema.app.apk
       - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
         with:
-          APKS_A: playstore/ch.threema.app.apk
-          APKS_B: threema-android/release/${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}/googleplay_private/app-store_threema-universal-release-unsigned.apk
+          APKS_A: threema-android/release/${{ inputs.VERSION }}-${{ needs.website-verify.outputs.VERSION_CODE }}/googleplay_private/app-store_google-arm64-v8a-release-unsigned.apk
+          APKS_B: playstore/ch.threema.app.apk
 
   notify:
     needs: [website-verify, playstore-verify]
