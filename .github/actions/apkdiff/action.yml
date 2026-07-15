@@ -37,8 +37,8 @@ runs:
       run: |
         set -xeuo pipefail
         pip install uv
-        git clone https://github.com/BarbossHack/Signal-Android -b reproducible-refactor-axml-diff --depth 1
-        cd Signal-Android/reproducible-builds/apkdiff
+        git clone https://github.com/BarbossHack/Signal-Android --depth 1 actions_apkdiff
+        cd actions_apkdiff/reproducible-builds/apkdiff
         uv sync
 
         mapfile -t APKS_A <<< "${{ inputs.APKS_A }}"
