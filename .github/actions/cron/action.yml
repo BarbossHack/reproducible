@@ -85,8 +85,9 @@ runs:
       run: |
         title="${{ inputs.JOB_NAME }}: check v${{ env.NEW_VERSION }} (${{ inputs.TYPE }})"
         if ! gh issue list --search "${title}" --state open | grep -q "${title}"; then
-          gh issue create --title "${title}" --body "-"
+          issue_id=$(gh issue create --title "${title}" --body "-" | grep -oP '(?<=/issues/)\d+$')
           echo "ISSUE_CREATED=true" >> $GITHUB_ENV
+          echo "ISSUE_ID=${issue_id}" >> $GITHUB_ENV
         fi
       env:
         GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
@@ -100,6 +101,16 @@ runs:
     - name: Trigger workflow if new version
       if: ${{ env.ISSUE_CREATED == 'true' && inputs.TRIGGER_WORKFLOW == 'true' }}
       shell: bash
-      run: gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }} -f VERSION_CODE=${{ env.NEW_VERSION_CODE }} || gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }}
+      run: |
+        output=$(gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }} -f VERSION_CODE=${{ env.NEW_VERSION_CODE }} || gh workflow run "${{ inputs.JOB_NAME }}" -f VERSION=${{ env.NEW_VERSION }})
+        workflow_url=$(echo "$output" | grep -F "https://github.com/BarbossHack/reproducible/actions/runs/")
+        echo "WORKFLOW_URL=${workflow_url}" >> $GITHUB_ENV
+      env:
+        GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+    - name: Update issue with workflow url
+      if: ${{ env.ISSUE_CREATED == 'true' && inputs.TRIGGER_WORKFLOW == 'true' }}
+      shell: bash
+      run: |
+        gh issue comment "${{ env.ISSUE_ID }}" --body "Workflow triggered: ${{ env.WORKFLOW_URL }}"
       env:
         GH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
