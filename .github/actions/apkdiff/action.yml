@@ -37,7 +37,7 @@ runs:
       run: |
         set -xeuo pipefail
         pip install uv
-        git clone https://github.com/signalapp/Signal-Android --depth 1 actions_apkdiff
+        git clone https://github.com/BarbossHack/Signal-Android -b reproducible-linters --depth 1 actions_apkdiff
         cd actions_apkdiff/reproducible-builds/apkdiff
         uv sync
 
