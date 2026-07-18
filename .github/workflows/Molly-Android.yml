@@ -32,10 +32,10 @@ jobs:
       - run: find . -name "*.apk"
       - name: Molly apkdiff
         run: |
-          python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ inputs.VERSION }}.apk outputs/apk/prodWebsite/release/app-prod-website-release-unsigned.apk
+          python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ inputs.VERSION }}.apk mollyim-android/reproducible-builds/outputs/apk/prodWebsite/release/app-prod-website-release-unsigned.apk
       - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
         with:
-          APKS_A: outputs/apk/prodWebsite/release/app-prod-website-release-unsigned.apk
+          APKS_A: mollyim-android/reproducible-builds/outputs/apk/prodWebsite/release/app-prod-website-release-unsigned.apk
           APKS_B: Molly-v${{ inputs.VERSION }}.apk
           IGNORE_FILES: |-
             META-INF/KEY0.RSA
