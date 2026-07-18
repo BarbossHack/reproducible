@@ -32,8 +32,8 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>Molly (Signal)</td>
-      <td>v8.7.3-2</td>
-      <td>✅ Yes <i>(Github)</i></td>
+      <td>v8.19.2-2</td>
+      <td>❌ No <i>(Github)</i></td>
       <td><a href="history/Molly-Android.md">See details</a></td>
     </tr>
     <tr>
@@ -74,8 +74,8 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>Signal Desktop</td>
-      <td>v8.18.0</td>
-      <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+      <td>v8.19.0</td>
+      <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
     <tr>

@@ -16,6 +16,13 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.19.0</td>
+            <td>2026-07-16</td>
+            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29466048846">#29466048846</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v8.18.0</td>
             <td>2026-07-09</td>
             <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>

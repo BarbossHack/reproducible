@@ -158,6 +158,7 @@ jobs:
           not_in_second=$(awk 'NR==FNR{h[$1]++;next} !($1 in h){print}' <(find "mismatches/second/" -type f -exec sha256sum {} + | sort -k1) <(find "mismatches/first/" -type f -exec sha256sum {} + | sort -k1))
           not_in_first=$(awk 'NR==FNR{h[$1]++;next} !($1 in h){print}' <(find "mismatches/first/" -type f -exec sha256sum {} + | sort -k1) <(find "mismatches/second/" -type f -exec sha256sum {} + | sort -k1))
 
+          echo "Result:"
           echo "Files in playstore but not in build:"
           echo "$not_in_second"
           echo "Files in build but not in playstore:"

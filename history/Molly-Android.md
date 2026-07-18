@@ -16,6 +16,13 @@ Reproducible build instructions: <https://github.com/mollyim/mollyim-android/blo
     </thead>
     <tbody>
         <tr>
+            <td>v8.19.2-2</td>
+            <td>2026-07-16</td>
+            <td>❌ No</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29643368147">#29643368147</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
             <td>v8.7.3-2</td>
             <td>2026-04-29</td>
             <td>✅ Yes</td>
