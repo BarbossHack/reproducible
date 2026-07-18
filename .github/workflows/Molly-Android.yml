@@ -16,10 +16,12 @@ jobs:
   molly-verify:
     runs-on: ubuntu-latest
     steps:
+      - name: build-tools
+        run: echo "PATH=/usr/local/lib/android/sdk/build-tools/37.0.0:$PATH" >> $GITHUB_ENV
       - name: Official
         run: |
           wget https://github.com/mollyim/mollyim-android/releases/download/v${{ inputs.VERSION }}/Molly-v${{ inputs.VERSION }}.apk
-          /usr/local/lib/android/sdk/build-tools/36.1.0/apksigner verify -v --print-certs Molly-v${{ inputs.VERSION }}.apk | grep $SIGNATURE_SHA256
+          apksigner verify -v --print-certs Molly-v${{ inputs.VERSION }}.apk | grep $SIGNATURE_SHA256
       - name: Build
         run: |
           git clone https://github.com/mollyim/mollyim-android.git -b v${{ inputs.VERSION }} --depth 1
@@ -27,14 +29,13 @@ jobs:
           docker build -t reproducible-molly -f ../Dockerfile ..
           docker run --rm -v ./certs:/molly/app/certs:ro -v ./outputs:/molly/app/build/outputs --entrypoint="./gradlew" reproducible-molly:latest :app:assembleProdWebsiteRelease
           sudo chown -R $(id -u):$(id -g) .
-          find . -name "*.apk"
-          find . -name "Molly-unsigned-v${{ inputs.VERSION }}.apk" -exec mv {} ../../ \;
+      - run: find . -name "*.apk"
       - name: Molly apkdiff
         run: |
-          python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ inputs.VERSION }}.apk Molly-unsigned-v${{ inputs.VERSION }}.apk
+          python mollyim-android/reproducible-builds/apkdiff/apkdiff.py Molly-v${{ inputs.VERSION }}.apk outputs/apk/prodWebsite/release/app-prod-website-release-unsigned.apk
       - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
         with:
-          APKS_A: Molly-unsigned-v${{ inputs.VERSION }}.apk
+          APKS_A: outputs/apk/prodWebsite/release/app-prod-website-release-unsigned.apk
           APKS_B: Molly-v${{ inputs.VERSION }}.apk
           IGNORE_FILES: |-
             META-INF/KEY0.RSA
@@ -59,7 +60,7 @@ jobs:
           cd libsignal
           docker build -f Dockerfile.android -t libsignal-builder .
           docker run --memory=12g --rm -v $(pwd):/libsignal --entrypoint="" libsignal-builder:latest ./java/gradlew -p java --no-daemon --max-workers=1 -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=512m" -Dkotlin.incremental=true -Dkotlin.compiler.execution.strategy=in-process build
-      - name: Find
+      - name: find aar and jar
         run: |
           find . -name "*.aar"
           find . -name "*.jar"
