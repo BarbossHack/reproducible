@@ -18,6 +18,27 @@ Website donwload: <https://web.telegram.org/k/#@TAndroidAPK>
     </thead>
     <tbody>
         <tr>
+            <td>v12.9.0</td>
+            <td>2026-07-14</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29640655048">#29640655048</a></td>
+            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+        </tr>
+        <tr>
+            <td>v12.8.3</td>
+            <td>2026-06-20</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29640652982">#29640652982</a></td>
+            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+        </tr>
+        <tr>
+            <td>v12.8.2</td>
+            <td>2026-06-17</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29640651003">#29640651003</a></td>
+            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+        </tr>
+        <tr>
             <td>v12.8.1</td>
             <td>2026-06-16</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
