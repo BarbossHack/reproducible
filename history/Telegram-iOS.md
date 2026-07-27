@@ -18,6 +18,34 @@ See the [instructions](../iOS.md) with the following APPLE_ID: 686449807
     </thead>
     <tbody>
         <tr>
+            <td>v12.9.2</td>
+            <td>2026-07-21</td>
+            <td>❌ No</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/30257657829">#30257657829</a></td>
+            <td>Not acceptable differences in <code>TelegramUIFramework.framework/TelegramUIFramework</code></td>
+        </tr>
+        <tr>
+            <td>v12.9.1</td>
+            <td>2026-07-16</td>
+            <td>✅ Yes</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/30257653933">#30257653933</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v12.9</td>
+            <td>2026-07-15</td>
+            <td>❌ No</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/30257646794">#30257646794</a></td>
+            <td>Not acceptable differences in <code>TelegramUIFramework.framework/TelegramUIFramework</code></td>
+        </tr>
+        <tr>
+            <td>v12.8.1</td>
+            <td>2026-06-23</td>
+            <td>❌ No</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/30257640996">#30257640996</a></td>
+            <td>Source code not available</td>
+        </tr>
+        <tr>
             <td>v12.8</td>
             <td>2026-06-09</td>
             <td>✅ Yes</td>

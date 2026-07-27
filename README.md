@@ -122,8 +122,8 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
      <tr>
       <td>Telegram iOS</td>
-      <td>v12.8</td>
-      <td>✅ Yes</i></td>
+      <td>v12.9.2</td>
+      <td>❌ No</i></td>
       <td><a href="history/Telegram-iOS.md">See details</a></td>
     </tr>
     <tr>

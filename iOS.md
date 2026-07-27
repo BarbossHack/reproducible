@@ -28,7 +28,7 @@ sudo ./palera1n -S -f -Vv
 5. Then decrypt IPA using:
 
 ```bash
-curl -sfL https://github.com/londek/ipadecrypt/releases/latest/download/ipadecrypt_0.7.2_linux_amd64 -o ipadecrypt
+curl -sfL https://github.com/londek/ipadecrypt/releases/download/v0.7.3/ipadecrypt_0.7.3_linux_amd64 -o ipadecrypt
 chmod +x ipadecrypt
 ./ipadecrypt bootstrap
 ./ipadecrypt decrypt <APPLE_ID>
