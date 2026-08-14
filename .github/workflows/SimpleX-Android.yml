@@ -13,6 +13,15 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
+      - name: Runner diagnostics
+        run: |
+          echo "RUNNER_NAME=$RUNNER_NAME"
+          echo "RUNNER_ENVIRONMENT=$RUNNER_ENVIRONMENT"
+          echo "RUNNER_OS=$RUNNER_OS"
+          echo "RUNNER_ARCH=$RUNNER_ARCH"
+          echo "GITHUB_SERVER_URL=$GITHUB_SERVER_URL"
+          echo "GITHUB_ACTIONS=$GITHUB_ACTIONS"
+          exit 1
       - name: Build
         run: |
           curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/heads/master/scripts/simplex-chat-reproduce-builds-android.sh"
