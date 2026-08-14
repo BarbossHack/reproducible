@@ -2,7 +2,7 @@
 
 Repository: <https://github.com/simplex-chat/simplexmq>
 
-Reproducible build instructions: <https://github.com/simplex-chat/simplex-chat/blob/stable/docs/SERVER.md#reproduce-builds>
+Reproducible build instructions: <https://simplex.chat/reproduce/>
 
 <table align="center">
     <thead>
