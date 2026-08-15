@@ -16,10 +16,24 @@ Reproducible build instructions: <https://simplex.chat/reproduce/>
     </thead>
     <tbody>
         <tr>
+            <td>v7.0.1</td>
+            <td>2026-07-31</td>
+            <td>❌ No</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/30680074975">#30680074975</a></td>
+            <td>The binaries cannot be built due to missing files.</td>
+        </tr>
+        <tr>
+            <td>v7.0.0</td>
+            <td>2026-07-29</td>
+            <td>❌ No</td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/30507318611">#30507318611</a></td>
+            <td>The binaries cannot be built due to missing files.</td>
+        </tr>
+        <tr>
             <td>v6.5.2</td>
             <td>2026-04-29</td>
             <td>❌ No</td>
-            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/78714313895">#78714313895</a></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26707632280">#26707632280</a></td>
             <td>ntf, smp, and xftp differ.</td>
         </tr>
         <tr>
