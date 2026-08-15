@@ -92,9 +92,9 @@ This repository verifies the reproducibility status of open-source messengers.
     </tr>
     <tr>
       <td>SimpleX Android</td>
-      <td>v6.5.2</td>
-      <td>⚪ Not verified <i>(PlayStore)</i><br>⚪ Not verified <i>(Github)</i></td>
-      <td>-</td>
+      <td>v7.0.0</td>
+      <td>⚪ Not verified <i>(PlayStore)</i><br>✅ Yes <i>(Github)</i></td>
+      <td><a href="history/SimpleX-Android.md">See details</a></td>
     </tr>
     <tr>
       <td>SimpleX Desktop</td>
