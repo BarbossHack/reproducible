@@ -5,6 +5,7 @@ This repository verifies the reproducibility of open-source messengers.
 <table>
   <thead>
     <tr>
+      <th>Logo</th>
       <th>Name</th>
       <th>Variant</th>
       <th>Version</th>
@@ -15,6 +16,7 @@ This repository verifies the reproducibility of open-source messengers.
   <tbody>
     <!-- Briar -->
     <tr>
+      <td rowspan="2"><img width="50px" src="./icons/briar.png"/></td>
       <td rowspan="2"><strong>Briar</strong></td>
       <td>Android</td>
       <td>v1.5.17</td>
@@ -29,6 +31,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- Element X -->
     <tr>
+      <td><img width="50px" src="./icons/element.png"/></td>
       <td><strong>Element X</strong></td>
       <td>Android</td>
       <td>v26.03.2</td>
@@ -37,6 +40,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- Molly -->
     <tr>
+      <td><img width="50px" src="./icons/molly.png"/></td>
       <td><strong>Molly</strong></td>
       <td>Android</td>
       <td>v8.19.2-2</td>
@@ -45,6 +49,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- Olvid -->
     <tr>
+      <td rowspan="2"><img width="50px" src="./icons/olvid.png"/></td>
       <td rowspan="2"><strong>Olvid</strong></td>
       <td>Android</td>
       <td>v4.4</td>
@@ -59,6 +64,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- ProtonMail -->
     <tr>
+      <td><img width="50px" src="./icons/protonmail.png"/></td>
       <td><strong>ProtonMail</strong></td>
       <td>Android</td>
       <td>v7.7.6</td>
@@ -67,6 +73,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- Session -->
     <tr>
+      <td rowspan="2"><img width="50px" src="./icons/session.png"/></td>
       <td rowspan="2"><strong>Session</strong></td>
       <td>Android</td>
       <td>v1.30.3</td>
@@ -81,7 +88,8 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- Signal -->
     <tr>
-      <td rowspan="4"><strong>Signal</strong></td>
+      <td rowspan="3"><img width="50px" src="./icons/signal.png"/></td>
+      <td rowspan="3"><strong>Signal</strong></td>
       <td>Android</td>
       <td>v8.19.2</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
@@ -99,14 +107,18 @@ This repository verifies the reproducibility of open-source messengers.
       <td>❌ No</td>
       <td><a href="history/Signal-iOS.md">See details</a></td>
     </tr>
+    <!-- signal-cli -->
     <tr>
-      <td>signal-cli</td>
+      <td rowspan="1"><img width="50px" src="./icons/signal-cli.png"/></td>
+      <td rowspan="1"><strong>signal-cli</strong></td>
+      <td>CLI</td>
       <td>v0.14.6</td>
       <td>❌ No <i>(Jar)</i><br>❌ No <i>(Native)</i></td>
       <td><a href="history/signal-cli.md">See details</a></td>
     </tr>
     <!-- SimpleX -->
     <tr>
+      <td rowspan="3"><img width="50px" src="./icons/simplex.png"/></td>
       <td rowspan="3"><strong>SimpleX</strong></td>
       <td>Android</td>
       <td>v7.0.0</td>
@@ -127,6 +139,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- Telegram -->
     <tr>
+      <td rowspan="3"><img width="50px" src="./icons/telegram.png"/></td>
       <td rowspan="3"><strong>Telegram</strong></td>
       <td>Android</td>
       <td>v12.9.0</td>
@@ -147,6 +160,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- Threema -->
     <tr>
+      <td rowspan="2"><img width="50px" src="./icons/threema.png"/></td>
       <td rowspan="2"><strong>Threema</strong></td>
       <td>Android</td>
       <td>v6.4.3</td>
@@ -161,6 +175,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- Wire -->
     <tr>
+      <td rowspan="2"><img width="50px" src="./icons/wire.png"/></td>
       <td rowspan="2"><strong>Wire</strong></td>
       <td>Android</td>
       <td>v4.16.1</td>
