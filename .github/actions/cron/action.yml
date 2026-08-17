@@ -83,7 +83,7 @@ runs:
       if: ${{ env.NEW_VERSION }}
       shell: bash
       run: |
-        title="${{ inputs.JOB_NAME }}: check v${{ env.NEW_VERSION }} (${{ inputs.TYPE }})"
+        title="${{ inputs.JOB_NAME }}: check v${{ env.NEW_VERSION }}"
         if ! gh issue list --search "${title}" --state open | grep -q "${title}"; then
           issue_id=$(gh issue create --title "${title}" --body "-" | grep -oP '(?<=/issues/)\d+$')
           echo "ISSUE_CREATED=true" >> $GITHUB_ENV
@@ -97,7 +97,7 @@ runs:
       with:
         DISCORD_WEBHOOK: ${{ inputs.DISCORD_WEBHOOK }}
         mode: "cron"
-        MESSAGE: "⚠️  ${{ inputs.JOB_NAME }} v${NEW_VERSION} (${{ inputs.TYPE }}) not already checked"
+        MESSAGE: "⚠️  ${{ inputs.JOB_NAME }} v${NEW_VERSION} not already checked"
     - name: Trigger workflow if new version
       if: ${{ env.ISSUE_CREATED == 'true' && inputs.TRIGGER_WORKFLOW == 'true' }}
       shell: bash

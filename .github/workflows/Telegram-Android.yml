@@ -81,6 +81,7 @@ jobs:
           git clone https://github.com/DrKLO/Telegram
           cd Telegram
           git checkout $(git log --all --grep="${{ inputs.VERSION }}" -n 1 --format="%H")
+          git submodule update --init --recursive --depth=1
           docker build -t telegram-build .
           docker run --rm -v "$PWD":/home/gradle:Z -w /home/gradle telegram-build gradle -Dorg.gradle.jvmargs="-Xmx8g" :TMessagesProj_AppStandalone:assembleAfatStandalone :TMessagesProj_App:bundleBundleAfatRelease
 

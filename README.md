@@ -43,8 +43,8 @@ This repository verifies the reproducibility of open-source messengers.
       <td><img width="50px" src="./icons/molly.png"/></td>
       <td><strong>Molly</strong></td>
       <td>Android</td>
-      <td>v8.19.2-2</td>
-      <td>❌ No <i>(Github)</i></td>
+      <td>v8.19.2-4</td>
+      <td>✅ Yes <i>(Github)</i></td>
       <td><a href="history/Molly-Android.md">See details</a></td>
     </tr>
     <!-- Olvid -->
@@ -91,13 +91,13 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="3"><img width="50px" src="./icons/signal.png"/></td>
       <td rowspan="3"><strong>Signal</strong></td>
       <td>Android</td>
-      <td>v8.19.2</td>
+      <td>v8.22.2</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
       <td><a href="history/Signal-Android.md">See details</a></td>
     </tr>
     <tr>
       <td>Desktop</td>
-      <td>v8.19.0</td>
+      <td>v8.23.0</td>
       <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
@@ -112,7 +112,7 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="1"><img width="50px" src="./icons/signal-cli.png"/></td>
       <td rowspan="1"><strong>signal-cli</strong></td>
       <td>CLI</td>
-      <td>v0.14.6</td>
+      <td>v0.14.7</td>
       <td>❌ No <i>(Jar)</i><br>❌ No <i>(Native)</i></td>
       <td><a href="history/signal-cli.md">See details</a></td>
     </tr>
@@ -142,7 +142,7 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="3"><img width="50px" src="./icons/telegram.png"/></td>
       <td rowspan="3"><strong>Telegram</strong></td>
       <td>Android</td>
-      <td>v12.9.0</td>
+      <td>v12.9.1</td>
       <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
       <td><a href="history/Telegram-Android.md">See details</a></td>
     </tr>
@@ -163,7 +163,7 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="2"><img width="50px" src="./icons/threema.png"/></td>
       <td rowspan="2"><strong>Threema</strong></td>
       <td>Android</td>
-      <td>v6.4.3</td>
+      <td>v6.5.1</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(F-Droid)</i></td>
       <td><a href="history/Threema-Android.md">See details</a></td>
     </tr>

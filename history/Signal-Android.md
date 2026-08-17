@@ -16,6 +16,41 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.22.2</td>
+            <td>2026-07-10</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/31761328762">#31761328762</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.21.6</td>
+            <td>2026-07-10</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/31554357213">#31554357213</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.21.5</td>
+            <td>2026-07-10</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✖️ N/A <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/31141452990">#31141452990</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.20.5</td>
+            <td>2026-07-10</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/30680145186">#30680145186</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.20.4</td>
+            <td>2026-07-10</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/30416334756">#30416334756</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v8.19.2</td>
             <td>2026-07-10</td>
             <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>

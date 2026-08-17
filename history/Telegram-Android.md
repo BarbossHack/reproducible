@@ -18,6 +18,13 @@ Website donwload: <https://web.telegram.org/k/#@TAndroidAPK>
     </thead>
     <tbody>
         <tr>
+            <td>v12.9.1</td>
+            <td>2026-08-01</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/32010598322">#32010598322</a></td>
+            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+        </tr>
+        <tr>
             <td>v12.9.0</td>
             <td>2026-07-14</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
