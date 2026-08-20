@@ -25,7 +25,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <tr>
       <td>Desktop</td>
-      <td>v0.6.4</td>
+      <td>v0.6.5-beta</td>
       <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
@@ -49,8 +49,8 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- Olvid -->
     <tr>
-      <td rowspan="2"><img width="50px" src="./icons/olvid.png"/></td>
-      <td rowspan="2"><strong>Olvid</strong></td>
+      <td rowspan="3"><img width="50px" src="./icons/olvid.png"/></td>
+      <td rowspan="3"><strong>Olvid</strong></td>
       <td>Android</td>
       <td>v4.4</td>
       <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(F-Droid)</i></td>
@@ -58,7 +58,13 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <tr>
       <td>Desktop</td>
-      <td>v2.7.0</td>
+      <td>v3.1.1</td>
+      <td>⚪ Not verified</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>iOS</td>
+      <td>v4.3.1</td>
       <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
@@ -73,16 +79,10 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- Session -->
     <tr>
-      <td rowspan="2"><img width="50px" src="./icons/session.png"/></td>
-      <td rowspan="2"><strong>Session</strong></td>
+      <td rowspan="1"><img width="50px" src="./icons/session.png"/></td>
+      <td rowspan="1"><strong>Session</strong></td>
       <td>Android</td>
-      <td>v1.30.3</td>
-      <td>⚪ Not verified</td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>Desktop</td>
-      <td>v1.17.7</td>
+      <td>v1.33.5</td>
       <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
@@ -118,8 +118,8 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <!-- SimpleX -->
     <tr>
-      <td rowspan="3"><img width="50px" src="./icons/simplex.png"/></td>
-      <td rowspan="3"><strong>SimpleX</strong></td>
+      <td rowspan="4"><img width="50px" src="./icons/simplex.png"/></td>
+      <td rowspan="4"><strong>SimpleX</strong></td>
       <td>Android</td>
       <td>v7.0.0</td>
       <td>⚪ Not verified <i>(PlayStore)</i><br>✅ Yes <i>(Github)</i></td>
@@ -130,6 +130,12 @@ This repository verifies the reproducibility of open-source messengers.
       <td>v7.0.0</td>
       <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
       <td><a href="history/SimpleX-Desktop.md">See details</a></td>
+    </tr>
+    <tr>
+      <td>iOS</td>
+      <td>v7.0.1</td>
+      <td>⚪ Not verified</td>
+      <td>-</td>
     </tr>
     <tr>
       <td>Server</td>
@@ -148,7 +154,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <tr>
       <td>Desktop</td>
-      <td>v6.2.5</td>
+      <td>v7.0.9</td>
       <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
@@ -169,22 +175,16 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <tr>
       <td>Desktop</td>
-      <td>v2.0-beta57</td>
+      <td>v2.0</td>
       <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
     <!-- Wire -->
     <tr>
-      <td rowspan="2"><img width="50px" src="./icons/wire.png"/></td>
-      <td rowspan="2"><strong>Wire</strong></td>
+      <td rowspan="1"><img width="50px" src="./icons/wire.png"/></td>
+      <td rowspan="1"><strong>Wire</strong></td>
       <td>Android</td>
-      <td>v4.16.1</td>
-      <td>⚪ Not verified</td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>Desktop</td>
-      <td>v3.40.3718</td>
+      <td>v4.31.1</td>
       <td>⚪ Not verified</td>
       <td>-</td>
     </tr>
