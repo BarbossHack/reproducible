@@ -165,7 +165,7 @@ jobs:
           echo "Files in build but not in playstore:"
           echo "$not_in_first"
 
-          if [[ $(echo "$not_in_second" | grep -v "AndroidManifest.xml" | wc -l) -gt 0 ]] || [[ $(echo "$not_in_first" | grep -v "AndroidManifest.xml" | wc -l) -gt 0 ]] || [[ "$base_output" == *"Manifest lengths differ"* ]];
+          if [[ $(echo "$not_in_second" | wc -l) -gt 0 ]] || [[ $(echo "$not_in_first" | wc -l) -gt 0 ]] || [[ "$base_output" == *"Manifest lengths differ"* ]];
           then
             exit 1
           fi

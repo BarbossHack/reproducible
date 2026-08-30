@@ -91,13 +91,13 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="3"><img width="50px" src="./icons/signal.png"/></td>
       <td rowspan="3"><strong>Signal</strong></td>
       <td>Android</td>
-      <td>v8.22.2</td>
+      <td>v8.24.2</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
       <td><a href="history/Signal-Android.md">See details</a></td>
     </tr>
     <tr>
       <td>Desktop</td>
-      <td>v8.23.0</td>
+      <td>v8.25.0</td>
       <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
@@ -148,7 +148,7 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="3"><img width="50px" src="./icons/telegram.png"/></td>
       <td rowspan="3"><strong>Telegram</strong></td>
       <td>Android</td>
-      <td>v12.9.1</td>
+      <td>v12.10.1</td>
       <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
       <td><a href="history/Telegram-Android.md">See details</a></td>
     </tr>

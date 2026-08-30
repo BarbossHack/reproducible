@@ -18,74 +18,95 @@ Website donwload: <https://web.telegram.org/k/#@TAndroidAPK>
     </thead>
     <tbody>
         <tr>
+            <td>v12.10.1</td>
+            <td>2026-08-25</td>
+            <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/33311109528">#33311109528</a></td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match.</td>
+        </tr>
+        <tr>
+            <td>v12.10.0</td>
+            <td>2026-08-22</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/33311105170">#33311105170</a></td>
+            <td>The <code>jlatexmath</code> dependency cannot be built because the required Gradle version is not met.</td>
+        </tr>
+        <tr>
+            <td>v12.9.2</td>
+            <td>2026-08-02</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/33311097715">#33311097715</a></td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
+        </tr>
+        <tr>
             <td>v12.9.1</td>
             <td>2026-08-01</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/32010598322">#32010598322</a></td>
-            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
         </tr>
         <tr>
             <td>v12.9.0</td>
             <td>2026-07-14</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29640655048">#29640655048</a></td>
-            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
         </tr>
         <tr>
             <td>v12.8.3</td>
             <td>2026-06-20</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29640652982">#29640652982</a></td>
-            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
         </tr>
         <tr>
             <td>v12.8.2</td>
             <td>2026-06-17</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29640651003">#29640651003</a></td>
-            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
         </tr>
         <tr>
             <td>v12.8.1</td>
             <td>2026-06-16</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27651604040">#27651604040</a></td>
-            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
         </tr>
         <tr>
             <td>v12.8.0</td>
             <td>2026-06-16</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/27651601426">#27651601426</a></td>
-            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
         </tr>
         <tr>
             <td>v12.7.3</td>
             <td>2026-05-15</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26697909594">#26697909594</a></td>
-            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
         </tr>
         <tr>
             <td>v12.7.2</td>
             <td>2026-05-08</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26697904626">#26697904626</a></td>
-            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
         </tr>
         <tr>
             <td>v12.7.1</td>
             <td>2026-05-07</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26697901132">#26697901132</a></td>
-            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
         </tr>
         <tr>
             <td>v12.7.0</td>
             <td>2026-05-06</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/26684421940">#26684421940</a></td>
-            <td>There is a difference in the <code>extractNativeLibs</code> directive in AndroidManifest.xml, and some fonts and xml files are not present in the official APKs.</td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match, and some fonts and xml files are not present in the official APKs.</td>
         </tr>
         <tr>
             <td>v12.6.4</td>
