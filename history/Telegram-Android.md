@@ -18,6 +18,34 @@ Website donwload: <https://web.telegram.org/k/#@TAndroidAPK>
     </thead>
     <tbody>
         <tr>
+            <td>v12.10.5</td>
+            <td>2026-09-25</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/36238471169">#36238471169</a></td>
+            <td>Too many non acceptable differences in <code>classes.dex</code>/<code>classes3.dex</code>/<code>classes4.dex</code>. The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match.</td>
+        </tr>
+        <tr>
+            <td>v12.10.4</td>
+            <td>2026-09-23</td>
+            <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/36238467598">#36238467598</a></td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match.</td>
+        </tr>
+        <tr>
+            <td>v12.10.3</td>
+            <td>2026-09-17</td>
+            <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/36238463746">#36238463746</a></td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match.</td>
+        </tr>
+        <tr>
+            <td>v12.10.2</td>
+            <td>2026-09-16</td>
+            <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/36238459177">#36238459177</a></td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match.</td>
+        </tr>
+        <tr>
             <td>v12.10.1</td>
             <td>2026-08-25</td>
             <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>

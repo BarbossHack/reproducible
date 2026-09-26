@@ -148,8 +148,8 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="3"><img width="50px" src="./icons/telegram.png"/></td>
       <td rowspan="3"><strong>Telegram</strong></td>
       <td>Android</td>
-      <td>v12.10.1</td>
-      <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+      <td>v12.10.5</td>
+      <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
       <td><a href="history/Telegram-Android.md">See details</a></td>
     </tr>
     <tr>
