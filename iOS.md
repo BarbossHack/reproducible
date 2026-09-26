@@ -12,8 +12,8 @@ make usbmuxd
 curl -sfL https://github.com/palera1n/palera1n/releases/latest/download/palera1n-linux-x86_64 -o palera1n
 chmod +x palera1n
 sudo ./palera1n -S --dfuhelper
-sudo ./palera1n -S -f -c -Vv
-sudo ./palera1n -S -f -Vv
+sudo ./palera1n -S -f -c
+sudo ./palera1n -S -f
 ```
 
 ## Decrypt IPA
@@ -28,7 +28,7 @@ sudo ./palera1n -S -f -Vv
 5. Then decrypt IPA using:
 
 ```bash
-curl -sfL https://github.com/londek/ipadecrypt/releases/download/v0.7.3/ipadecrypt_0.7.3_linux_amd64 -o ipadecrypt
+curl -sfL https://github.com/londek/ipadecrypt/releases/download/v0.8.0-rc.1/ipadecrypt_0.8.0-rc.1_linux_amd64 -o ipadecrypt
 chmod +x ipadecrypt
 ./ipadecrypt bootstrap
 ./ipadecrypt decrypt <APPLE_ID>

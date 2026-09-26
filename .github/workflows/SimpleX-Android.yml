@@ -11,7 +11,7 @@ run-name: "Check ${{ github.workflow }} v${{ inputs.VERSION }} reproducibility"
 
 jobs:
   github-verify:
-    runs-on: self-hosted
+    runs-on: simplex-local
     timeout-minutes: 2880
     steps:
       - name: Build

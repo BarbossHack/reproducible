@@ -111,7 +111,6 @@ jobs:
             META-INF/CERT.SF
             META-INF/BNDLTOOL.RSA
             META-INF/BNDLTOOL.SF
-            META-INF/version-control-info.textproto
       - name: apkdiff
         run: |
           curl https://raw.githubusercontent.com/DrKLO/Telegram/refs/heads/master/apkdiff.py -o apkdiff.py
@@ -140,8 +139,8 @@ jobs:
           java -jar bundletool.jar build-apks --bundle=./build/Telegram-build-bundle.aab --output-format=DIRECTORY --output=apks
       - name: Exclude some known different (but acceptable) files
         run: |
-          zip -d playstore-official/org.telegram.messenger/org.telegram.messenger.apk "META-INF/CERT.RSA" "META-INF/CERT.SF" "META-INF/BNDLTOOL.RSA" "META-INF/BNDLTOOL.SF" "META-INF/version-control-info.textproto"
-          zip -d apks/splits/base-master.apk "META-INF/CERT.RSA" "META-INF/CERT.SF" "META-INF/BNDLTOOL.RSA" "META-INF/BNDLTOOL.SF" "META-INF/version-control-info.textproto"
+          zip -d playstore-official/org.telegram.messenger/org.telegram.messenger.apk "META-INF/CERT.RSA" "META-INF/CERT.SF" "META-INF/BNDLTOOL.RSA" "META-INF/BNDLTOOL.SF"
+          zip -d apks/splits/base-master.apk "META-INF/CERT.RSA" "META-INF/CERT.SF" "META-INF/BNDLTOOL.RSA" "META-INF/BNDLTOOL.SF"
       - name: Signal Apkdiff
         run: |
           pip install uv
