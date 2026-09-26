@@ -16,6 +16,27 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.27.1</td>
+            <td>2026-09-10</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/35301641276">#35301641276</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.26.4</td>
+            <td>2026-09-09</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/34556177082">#34556177082</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.25.2</td>
+            <td>2026-08-31</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>❌ No <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/33708999091">#33708999091</a></td>
+            <td>There are differences in the following files:<br>⮞ <code>classes3.dex</code>: annotations differences in <code>com.airbnb.lottie.compose.LottieDynamicProperties.java</code><br>⮞ <code>assets/dexopt/baseline.prof</code>: consequence of the differences in classes3.dex<br>(reported here <a href="https://github.com/signalapp/Signal-Android/issues/14809">#14809</a>)</td>
+        </tr>
+        <tr>
             <td>v8.24.2</td>
             <td>2026-08-21</td>
             <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>

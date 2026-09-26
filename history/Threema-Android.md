@@ -20,6 +20,20 @@ F-Droid download: <https://f-droid.org/en/packages/ch.threema.app.libre/>
     </thead>
     <tbody>
         <tr>
+            <td>v6.5.3</td>
+            <td>2026-09-23</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(F-Droid)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/36231454505">#36231454505</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v6.5.2</td>
+            <td>2026-09-01</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i><br>❌ No <i>(F-Droid)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/36231438954">#36231438954</a></td>
+            <td>Reproducible Dockerfile cannot be built due to sdkmanager error.</td>
+        </tr>
+        <tr>
             <td>v6.5.1</td>
             <td>2026-08-05</td>
             <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(F-Droid)</i></td>

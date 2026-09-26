@@ -16,11 +16,25 @@ Reproducible build instructions: <https://simplex.chat/reproduce/>
     </thead>
     <tbody>
         <tr>
+            <td>v7.0.2</td>
+            <td>2026-09-02</td>
+            <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/33708886330">#33708886330</a></td>
+            <td>nanohttpd sources are missing.</td>
+        </tr>
+        <tr>
+            <td>v7.0.1</td>
+            <td>2026-08-18</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/32139700558">#32139700558</a></td>
+            <td>Windows/macOS reproducibility is not a priority for SimpleX, and they don’t sign their released binaries either, even though they are built and deployed via GitHub Actions (see <a href="https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">#6461</a> [<a href="https://web.archive.org/web/20260517091710/https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">archived</a>])</td>
+        </tr>
+        <tr>
             <td>v7.0.0</td>
             <td>2026-07-28</td>
             <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/30493339272">#30493339272</a></td>
-            <td>Windows/macOS reproducibility is not a priority for SimpleX, and they don’t sign their released binaries either, even though they are built and deployed via GitHub Actions (see <a href="https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">#6461</a> [<a href="https://web.archive.org/web/20260517091710/https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">archived</a>])</td>
+            <td>-</td>
         </tr>
         <tr>
             <td>v6.5.6</td>
