@@ -64,6 +64,8 @@ jobs:
             exit 1
           fi
           apksigner verify -v --print-certs playstore-official/org.telegram.messenger/org.telegram.messenger.apk | grep $SIGNATURE_SHA256
+
+          tree -h playstore-official/
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
