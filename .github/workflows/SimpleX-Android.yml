@@ -18,8 +18,17 @@ jobs:
         run: |
           curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/heads/master/scripts/simplex-chat-reproduce-builds-android.sh"
           chmod +x simplex-chat-reproduce-builds-android.sh
-          yes | ./simplex-chat-reproduce-builds-android.sh "v${{ inputs.VERSION }}"
+          yes | ./simplex-chat-reproduce-builds-android.sh "v${{ inputs.VERSION }}" || touch failure
+          set -x
+          ls -lsah
+          ls -lsah ./v${{ inputs.VERSION }}-simplex-chat/
       - name: Upload artifacts
         uses: actions/upload-artifact@v6
         with:
           path: ./v${{ inputs.VERSION }}-simplex-chat/
+      - name: Check reproducibility
+        run: |
+          if [ -f failure ]; then
+            echo "Reproducibility check failed"
+            exit 1
+          fi
