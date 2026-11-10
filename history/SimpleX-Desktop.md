@@ -16,6 +16,34 @@ Reproducible build instructions: <https://simplex.chat/reproduce/>
     </thead>
     <tbody>
         <tr>
+            <td>v7.1.2</td>
+            <td>2026-11-08</td>
+            <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42445827485">#42445827485</a></td>
+            <td>AppImage extraction crashes. The binary and DEB packages are not reproducible.</td>
+        </tr>
+        <tr>
+            <td>v7.1.0</td>
+            <td>2026-11-05</td>
+            <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/41970816511">#41970816511</a></td>
+            <td>AppImage extraction crashes. The binary and DEB packages are not reproducible.</td>
+        </tr>
+        <tr>
+            <td>v7.0.4</td>
+            <td>2026-10-04</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/37176081138">#37176081138</a></td>
+            <td>Windows/macOS reproducibility is not a priority for SimpleX, and they don’t sign their released binaries either, even though they are built and deployed via GitHub Actions (see <a href="https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">#6461</a> [<a href="https://web.archive.org/web/20260517091710/https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">archived</a>])</td>
+        </tr>
+        <tr>
+            <td>v7.0.3</td>
+            <td>2026-09-26</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/36252548333">#36252548333</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v7.0.2</td>
             <td>2026-09-02</td>
             <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
@@ -27,7 +55,7 @@ Reproducible build instructions: <https://simplex.chat/reproduce/>
             <td>2026-08-18</td>
             <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/32139700558">#32139700558</a></td>
-            <td>Windows/macOS reproducibility is not a priority for SimpleX, and they don’t sign their released binaries either, even though they are built and deployed via GitHub Actions (see <a href="https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">#6461</a> [<a href="https://web.archive.org/web/20260517091710/https://github.com/simplex-chat/simplex-chat/issues/6461#issuecomment-3636871724">archived</a>])</td>
+            <td>-</td>
         </tr>
         <tr>
             <td>v7.0.0</td>

@@ -16,79 +16,121 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.34.0</td>
+            <td>2026-09-23</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42165352732">#42165352732</a></td>
+            <td>Signal explicitly states: <quote>"Reproducible builds for macOS and Windows are not available yet."</quote></td>
+        </tr>
+        <tr>
+            <td>v8.33.0</td>
+            <td>2026-10-29</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/40816333161">#40816333161</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.32.0</td>
+            <td>2026-10-21</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/39536971514">#39536971514</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.31.0</td>
+            <td>2026-10-16</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/38843145649">#38843145649</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.30.0</td>
+            <td>2026-10-08</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/37726854535">#37726854535</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.29.0</td>
+            <td>2026-10-02</td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/36962091456">#36962091456</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v8.28.0</td>
             <td>2026-09-23</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/35949477582">#35949477582</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v8.27.0</td>
             <td>2026-09-10</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/34556047076">#34556047076</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v8.26.0</td>
             <td>2026-09-03</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/33830618416">#33830618416</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v8.25.0</td>
             <td>2026-08-26</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/33048185301">#33048185301</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v8.24.1</td>
             <td>2026-08-20</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/32434959934">#32434959934</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v8.24.0</td>
             <td>2026-08-20</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/32319413175">#32319413175</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v8.23.0</td>
             <td>2026-08-13</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/31761254971">#31761254971</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v8.22.0</td>
             <td>2026-08-05</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/31064896863">#31064896863</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v8.21.0</td>
             <td>2026-07-30</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/30599044611">#30599044611</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v8.20.0</td>
             <td>2026-07-23</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29974379899">#29974379899</a></td>
             <td>-</td>
         </tr>
         <tr>
             <td>v8.19.0</td>
             <td>2026-07-16</td>
-            <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+            <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/29466048846">#29466048846</a></td>
             <td>-</td>
         </tr>
@@ -104,7 +146,7 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Desktop/bl
             <td>2026-07-01</td>
             <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
             <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/28562013505">#28562013505</a></td>
-            <td>Signal explicitly states: <quote>"Reproducible builds for macOS and Windows are not available yet."</a></td>
+            <td>-</td>
         </tr>
         <tr>
             <td>v8.16.0</td>

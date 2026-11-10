@@ -16,6 +16,34 @@ Reproducible build instructions: <https://code.briarproject.org/briar/briar-repr
     </thead>
     <tbody>
         <tr>
+            <td>v1.5.24</td>
+            <td>2026-10-31</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/41166413362">#41166413362</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v1.5.23</td>
+            <td>2026-10-28</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/40628963558">#40628963558</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v1.5.22</td>
+            <td>2026-10-14</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/38506085602">#38506085602</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v1.5.21</td>
+            <td>2026-10-01</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42848002231">#42848002231</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v1.5.20</td>
             <td>2026-09-10</td>
             <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>

@@ -18,6 +18,69 @@ Website donwload: <https://web.telegram.org/k/#@TAndroidAPK>
     </thead>
     <tbody>
         <tr>
+            <td>v13.2.1</td>
+            <td>2026-11-08</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42861294352">#42861294352</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v13.2.0</td>
+            <td>2026-11-06</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42870981059">#42870981059</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v13.1.1</td>
+            <td>2026-10-24</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42861314393">#42861314393</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v13.1.0</td>
+            <td>2026-10-21</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42868085141">#42868085141</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v13.0.3</td>
+            <td>2026-10-17</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42867984744">#42867984744</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v13.0.2</td>
+            <td>2026-10-13</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42867833409">#42867833409</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v13.0.1</td>
+            <td>2026-10-11</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42862084819">#42862084819</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v13.0.0</td>
+            <td>2026-10-10</td>
+            <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42867621757">#42867621757</a></td>
+            <td>This is weird, the published v13.0.0 release actually seems to be v13.0.3.</td>
+        </tr>
+        <tr>
+            <td>v12.10.6</td>
+            <td>2026-10-01</td>
+            <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42851830266">#42851830266</a></td>
+            <td>The <code>extractNativeLibs</code> directive in AndroidManifest.xml does not match.</td>
+        </tr>
+        <tr>
             <td>v12.10.5</td>
             <td>2026-09-25</td>
             <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>

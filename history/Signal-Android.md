@@ -16,6 +16,69 @@ Reproducible build instructions: <https://github.com/signalapp/Signal-Android/bl
     </thead>
     <tbody>
         <tr>
+            <td>v8.34.2</td>
+            <td>2026-11-05</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/41971020022">#41971020022</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.33.2</td>
+            <td>2026-10-28</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/40628957635">#40628957635</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.32.3</td>
+            <td>2026-10-23</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/39893955920">#39893955920</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.32.2</td>
+            <td>2026-10-22</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/39715307334">#39715307334</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.31.2</td>
+            <td>2026-10-17</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/38996577754">#38996577754</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.30.3</td>
+            <td>2026-10-09</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42843301001">#42843301001</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.29.4</td>
+            <td>2026-10-07</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✖️ N/A <i>(Website)</i><br>✖️ N/A <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/37569934001">#37569934001</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.29.3</td>
+            <td>2026-10-03</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✖️ N/A <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/37093917652">#37093917652</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>v8.28.4</td>
+            <td>2026-09-29</td>
+            <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/36519864659">#36519864659</a></td>
+            <td>-</td>
+        </tr>
+        <tr>
             <td>v8.27.1</td>
             <td>2026-09-10</td>
             <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>

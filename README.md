@@ -19,7 +19,7 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="2"><img width="50px" src="./icons/briar.png"/></td>
       <td rowspan="2"><strong>Briar</strong></td>
       <td>Android</td>
-      <td>v1.5.20</td>
+      <td>v1.5.24</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Briar-Android.md">See details</a></td>
     </tr>
@@ -52,7 +52,7 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="3"><img width="50px" src="./icons/olvid.png"/></td>
       <td rowspan="3"><strong>Olvid</strong></td>
       <td>Android</td>
-      <td>v4.5.1</td>
+      <td>v4.6</td>
       <td>❌ No <i>(PlayStore)</i><br>✅ Yes <i>(F-Droid)</i></td>
       <td><a href="history/Olvid-Android.md">See details</a></td>
     </tr>
@@ -91,14 +91,14 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="3"><img width="50px" src="./icons/signal.png"/></td>
       <td rowspan="3"><strong>Signal</strong></td>
       <td>Android</td>
-      <td>v8.27.1</td>
+      <td>v8.34.2</td>
       <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(Github)</i></td>
       <td><a href="history/Signal-Android.md">See details</a></td>
     </tr>
     <tr>
       <td>Desktop</td>
-      <td>v8.28.0</td>
-      <td>✅ Yes <i>(Linux)</i><br>✅ Yes <i>(Windows/macOS)</i></td>
+      <td>v8.34.0</td>
+      <td>✅ Yes <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
       <td><a href="history/Signal-Desktop.md">See details</a></td>
     </tr>
     <tr>
@@ -112,7 +112,7 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="1"><img width="50px" src="./icons/signal-cli.png"/></td>
       <td rowspan="1"><strong>signal-cli</strong></td>
       <td>CLI</td>
-      <td>v0.14.8</td>
+      <td>v0.14.10</td>
       <td>❌ No <i>(Jar)</i><br>❌ No <i>(Native)</i></td>
       <td><a href="history/signal-cli.md">See details</a></td>
     </tr>
@@ -127,7 +127,7 @@ This repository verifies the reproducibility of open-source messengers.
     </tr>
     <tr>
       <td>Desktop</td>
-      <td>v7.0.2</td>
+      <td>v7.1.2</td>
       <td>❌ No <i>(Linux)</i><br>❌ No <i>(Windows/macOS)</i></td>
       <td><a href="history/SimpleX-Desktop.md">See details</a></td>
     </tr>
@@ -148,8 +148,8 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="3"><img width="50px" src="./icons/telegram.png"/></td>
       <td rowspan="3"><strong>Telegram</strong></td>
       <td>Android</td>
-      <td>v12.10.5</td>
-      <td>❌ No <i>(PlayStore)</i><br>❌ No <i>(Website)</i></td>
+      <td>v13.2.1</td>
+      <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i></td>
       <td><a href="history/Telegram-Android.md">See details</a></td>
     </tr>
     <tr>
@@ -169,8 +169,8 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="2"><img width="50px" src="./icons/threema.png"/></td>
       <td rowspan="2"><strong>Threema</strong></td>
       <td>Android</td>
-      <td>v6.5.3</td>
-      <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✅ Yes <i>(F-Droid)</i></td>
+      <td>v6.6.0</td>
+      <td>✅ Yes <i>(PlayStore)</i><br>✅ Yes <i>(Website)</i><br>✖️ N/A <i>(F-Droid)</i></td>
       <td><a href="history/Threema-Android.md">See details</a></td>
     </tr>
     <tr>
