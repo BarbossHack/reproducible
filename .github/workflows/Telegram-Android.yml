@@ -155,20 +155,23 @@ jobs:
           uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.arm64_v8a.apk ../../../apks/splits/base-arm64_v8a.apk
           uv run apkdiff.py ../../../playstore-official/org.telegram.messenger/org.telegram.messenger.config.xxhdpi.apk ../../../apks/splits/base-xxhdpi.apk
 
-          find mismatches/ -type f -exec sha256sum {} \;
+          if [ -d "mismatches" ]; then
+            echo "Mismatches found:"
+            find mismatches/ -type f -exec sha256sum {} \;
 
-          not_in_second=$(awk 'NR==FNR{h[$1]++;next} !($1 in h){print}' <(find "mismatches/second/" -type f -exec sha256sum {} + | sort -k1) <(find "mismatches/first/" -type f -exec sha256sum {} + | sort -k1))
-          not_in_first=$(awk 'NR==FNR{h[$1]++;next} !($1 in h){print}' <(find "mismatches/first/" -type f -exec sha256sum {} + | sort -k1) <(find "mismatches/second/" -type f -exec sha256sum {} + | sort -k1))
+            not_in_second=$(awk 'NR==FNR{h[$1]++;next} !($1 in h){print}' <(find "mismatches/second/" -type f -exec sha256sum {} + | sort -k1) <(find "mismatches/first/" -type f -exec sha256sum {} + | sort -k1))
+            not_in_first=$(awk 'NR==FNR{h[$1]++;next} !($1 in h){print}' <(find "mismatches/first/" -type f -exec sha256sum {} + | sort -k1) <(find "mismatches/second/" -type f -exec sha256sum {} + | sort -k1))
 
-          echo "Result:"
-          echo "Files in playstore but not in build:"
-          echo "$not_in_second"
-          echo "Files in build but not in playstore:"
-          echo "$not_in_first"
+            echo "Result:"
+            echo "Files in playstore but not in build:"
+            echo "$not_in_second"
+            echo "Files in build but not in playstore:"
+            echo "$not_in_first"
 
-          if [[ $(echo "$not_in_second" | wc -l) -gt 0 ]] || [[ $(echo "$not_in_first" | wc -l) -gt 0 ]] || [[ "$base_output" == *"Manifest lengths differ"* ]];
-          then
-            exit 1
+            if [[ $(echo "$not_in_second" | wc -l) -gt 0 ]] || [[ $(echo "$not_in_first" | wc -l) -gt 0 ]] || [[ "$base_output" == *"Manifest lengths differ"* ]];
+            then
+              exit 1
+            fi
           fi
 
   notify:
