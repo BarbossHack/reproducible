@@ -23,9 +23,9 @@ jobs:
           git clone https://github.com/olvid-io/olvid-android
           cd olvid-android
           tags=$(curl -sfL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/olvid-io/olvid-android/tags | jq -r .[].name)
-          TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}" | grep "fdroid" || true)
+          TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}_" | grep "fdroid" || true)
           if [ -z "$TAG" ]; then
-            TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}")
+            TAG=$(echo "$tags" | grep -F "v${{ inputs.VERSION }}_")
           fi
           VERSION_CODE="$(echo "$TAG" | cut -d- -f1 | cut -d_ -f2)"
           echo "TAG: $TAG"
