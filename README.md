@@ -121,8 +121,8 @@ This repository verifies the reproducibility of open-source messengers.
       <td rowspan="4"><img width="50px" src="./icons/simplex.png"/></td>
       <td rowspan="4"><strong>SimpleX</strong></td>
       <td>Android</td>
-      <td>v7.0.0</td>
-      <td>⚪ Not verified <i>(PlayStore)</i><br>✅ Yes <i>(Github)</i></td>
+      <td>v7.1.2</td>
+      <td>⚪ Not verified <i>(PlayStore)</i><br>❌ No <i>(Github)</i></td>
       <td><a href="history/SimpleX-Android.md">See details</a></td>
     </tr>
     <tr>

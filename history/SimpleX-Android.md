@@ -16,6 +16,13 @@ Reproducible build instructions: <https://simplex.chat/reproduce/>
     </thead>
     <tbody>
         <tr>
+            <td>v7.1.2</td>
+            <td>2026-07-28</td>
+            <td>⚪ Not verified <i>(PlayStore)</i><br>❌ No <i>(Github)</i></td>
+            <td><a href="https://github.com/BarbossHack/reproducible/actions/runs/42847207192">#42847207192</a></td>
+            <td>The GitHub APK is not bit-for-bit identical according to simplex-chat's script, but it is reproducible according to Signal-Android's `apkdiff` script.</td>
+        </tr>
+        <tr>
             <td>v7.0.0</td>
             <td>2026-07-28</td>
             <td>⚪ Not verified <i>(PlayStore)</i><br>✅ Yes <i>(Github)</i></td>

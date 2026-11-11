@@ -33,6 +33,10 @@ inputs:
     required: false
     description: "whether to check for pre-releases on github."
     default: "false"
+  NOTIFY:
+    required: false
+    description: "whether to notify on new versions."
+    default: "false"
 
 runs:
   using: composite
