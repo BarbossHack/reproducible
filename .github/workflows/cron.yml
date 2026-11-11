@@ -69,6 +69,7 @@ jobs:
           TRIGGER_WORKFLOW: false
           PACKAGE: ch.threema.app
           TYPE: playstore
+          NOTIFY: true
 
   Briar-Android:
     needs: build-gpapi
@@ -106,6 +107,21 @@ jobs:
           REPO: mollyim/mollyim-android
           TYPE: github
           PRE_RELEASE: true
+
+  SimpleX-Android:
+    needs: build-gpapi
+    runs-on: ubuntu-latest
+    steps:
+      - uses: BarbossHack/reproducible/.github/actions/cron@master
+        with:
+          JOB_NAME: ${{ github.job }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPAPI_EMAIL: ${{ secrets.EMAIL }}
+          AAS_TOKEN: ${{ secrets.AAS_TOKEN }}
+          PACKAGE: chat.simplex.app
+          TYPE: playstore
+          NOTIFY: true
 
   SimpleX-Desktop:
     runs-on: ubuntu-latest
