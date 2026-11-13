@@ -36,6 +36,8 @@ runs:
       shell: bash
       run: |
         set -xeuo pipefail
+        python -m venv .venv
+        source .venv/bin/activate
         pip install uv
         git clone https://github.com/BarbossHack/Signal-Android -b reproducible-linters --depth 1 actions_apkdiff
         cd actions_apkdiff/reproducible-builds/apkdiff
