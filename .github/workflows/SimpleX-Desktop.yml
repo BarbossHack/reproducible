@@ -18,6 +18,7 @@ jobs:
       - name: Build
         run: |
           curl -LO "https://raw.githubusercontent.com/simplex-chat/simplex-chat/refs/tags/v${{ inputs.VERSION }}/scripts/simplex-chat-reproduce-builds.sh"
+          sed -i 's|./scripts/desktop/make-appimage-linux.sh|export APPIMAGE_EXTRACT_AND_RUN=1 \&\& ./scripts/desktop/make-appimage-linux.sh|' simplex-chat-reproduce-builds.sh
           chmod +x simplex-chat-reproduce-builds.sh
           ./simplex-chat-reproduce-builds.sh "v${{ inputs.VERSION }}"
       - name: Check sha256sums
