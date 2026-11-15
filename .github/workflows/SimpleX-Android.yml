@@ -21,8 +21,9 @@ jobs:
           chmod +x simplex-chat-reproduce-builds-android.sh
           yes | ./simplex-chat-reproduce-builds-android.sh "v${{ inputs.VERSION }}" || touch ./v${{ inputs.VERSION }}-simplex-chat/failure
           ls -lsah
+          ls -Rlsah ./v${{ inputs.VERSION }}-simplex-chat/
       - name: Upload artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           path: ./v${{ inputs.VERSION }}-simplex-chat/
 
@@ -30,9 +31,7 @@ jobs:
     needs: [github-build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v7
-        with:
-          name: v${{ inputs.VERSION }}-simplex-chat
+      - uses: actions/download-artifact@v8
       - run: ls -lsahR
       - uses: BarbossHack/reproducible/.github/actions/apkdiff@master
         with:
